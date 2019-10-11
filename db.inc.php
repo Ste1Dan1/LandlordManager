@@ -1,6 +1,6 @@
 <?php
-$benutzer="root";
-$passwort="root";
+$benutzer="sebrina";
+$passwort="sebrina123";
 $dbname="landlordmanager";
 ?>
 

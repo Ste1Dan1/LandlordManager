@@ -5,17 +5,17 @@ Mieterseite mit Tabellenübersicht der Mieter
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>LLM: Mieterübersicht</title>
+        <title>LLM: Häuserübersicht</title>
     </head>
     <body>
-        <h1>Ihre erfassten Mieter </h1>
+        <h1>Ihre erfassten Häuser </h1>
         <?php
         include 'db.inc.php';
         
         $link=mysqli_connect("localhost", $benutzer, $passwort) or die("Keine Verbindung zur Datenbank!");
         mysqli_select_db($link, $dbname) or die("DB nicht gefunden");
         
-        $abfrage="SELECT * from `mieter`";
+        $abfrage="SELECT * from `haus`";
         
         mysqli_query($link,"SET NAMES 'utf8'");
         $res=mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
@@ -44,7 +44,7 @@ Mieterseite mit Tabellenübersicht der Mieter
         mysqli_close($link); 
         ?> 
         
-        <a href="mieter_erfassen.php">Neuen Mieter erfassen</a>
-        <a href="index.php">Startseite</a>
+        <a href="haus_erfassen.php">Neues Haus erfassen</a><br/>
+        <a href="index.php">Startseite</a><br/>
     </body>
 </html>
