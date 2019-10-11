@@ -21,7 +21,7 @@
             Fläche in qm<br/><input type="text" name="flaeche" value="" /><br/>
             
             <p>
-            Haus <br/><select>
+            Haus <br/><select name="haus">
                 
             <?php
             $res=mysqli_query($link, "SELECT * FROM haus");

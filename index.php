@@ -24,7 +24,8 @@ Startseite mit Menüleiste und klickbaren Icons
         <a href="haus_ausgabe.php">Erfasste Häuser darstellen</a>
         <a href="haus_erfassen.php">Neues Haus erfassen</a>
         </p>
-        
+        <a href="mietvertrag_ausgabe.php">Erfasste Mietverträge darstellen</a>
+        <a href="mietvertrag_erfassen.php">Neuen Mietvertrag erfassen</a>
         
     </body>
 </html>
