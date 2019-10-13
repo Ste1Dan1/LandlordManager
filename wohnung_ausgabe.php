@@ -15,7 +15,12 @@ Mieterseite mit Tabellenübersicht der Mieter
         $link=mysqli_connect("localhost", $benutzer, $passwort) or die("Keine Verbindung zur Datenbank!");
         mysqli_select_db($link, $dbname) or die("DB nicht gefunden");
         
-        $abfrage="SELECT * FROM `wohnung` ORDER BY haus ASC, zimmer ASC";
+        $abfrage="
+        SELECT `wohnung`.*, `haus`.*
+        FROM `wohnung` 
+	LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID`
+        ORDER BY hausID ASC, zimmer ASC";
+        
         
         mysqli_query($link,"SET NAMES 'utf8'");
         $res=mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
