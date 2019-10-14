@@ -38,6 +38,11 @@ Mieterseite mit Tabellenübersicht der Mieter
            {
              echo "<td>".$value."</td>";  
            }        
+           
+           ?>
+    <td><button class="changedata">Ändern</button></td>       
+    <td><button class="deletedata">Löschen</button></td>
+           <?php
            echo "</tr>";
         }
         echo "</table>";       
