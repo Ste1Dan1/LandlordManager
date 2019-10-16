@@ -11,7 +11,10 @@ Startseite mit Menüleiste und klickbaren Icons
         <h1>Herzlich Willkommen bei Landlord Manager</h1>
         <h2>Hier finden Sie alles was Sie für Ihre Tätigkeit als Vermieter brauchen!</h2>
         <?php
-        // nichts
+        
+        session_start();
+        include 'loginCheck.inc.php';
+         
         ?>
         <a href="mieter_ausgabe.php">Erfasste Mieter anzeigen</a>
         <a href="mieter_erfassen.php">Neuen Mieter erfassen</a>
@@ -26,6 +29,8 @@ Startseite mit Menüleiste und klickbaren Icons
         </p>
         <a href="mietvertrag_ausgabe.php">Erfasste Mietverträge darstellen</a>
         <a href="mietvertrag_erfassen.php">Neuen Mietvertrag erfassen</a>
+        
+        <a href="logout.php">Logout</a>
         
     </body>
 </html>
