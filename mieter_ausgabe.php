@@ -8,6 +8,7 @@ Mieterseite mit Tabellenübersicht der Mieter
         <title>LLM: Mieterübersicht</title>
     </head>
     <body>
+        
         <h1>Ihre erfassten Mieter </h1>
         <?php
         include 'db.inc.php';

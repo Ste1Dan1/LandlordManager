@@ -51,5 +51,6 @@ Mieterseite mit Tabellenübersicht der Mieter
         
         <a href="haus_erfassen.php">Neues Haus erfassen</a><br/>
         <a href="index.php">Startseite</a><br/>
+        
     </body>
 </html>

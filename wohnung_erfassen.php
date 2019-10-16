@@ -37,7 +37,6 @@
         <a href="wohnung_ausgabe.php">Erfasste Wohnungen darstellen</a><br/>
         <a href="index.php">Startseite</a><br/>
         
-        
     </body>
 </html>
 
