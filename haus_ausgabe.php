@@ -10,6 +10,12 @@ Mieterseite mit Tabellenübersicht der Mieter
     <body>
         <h1>Ihre erfassten Häuser </h1>
         <?php
+        
+        //Session übernehmen und prüfen ob logged in
+        session_start();
+        include 'loginCheck.inc.php';
+        
+        
         include 'db.inc.php';
         
         $link=mysqli_connect("localhost", $benutzer, $passwort) or die("Keine Verbindung zur Datenbank!");
