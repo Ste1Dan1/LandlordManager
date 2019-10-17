@@ -11,7 +11,6 @@
         $name = $_GET['name'];
         $geburtsdatum = $_GET['geburtsdatum'];
   
-      
         // Datenbankangaben sollten in ein db.inc.php geschrieben werden
         include 'db.inc.php';
 
@@ -31,5 +30,6 @@
         <a href="mieter_ausgabe.php">Erfasste Mieter darstellen</a><br/>
         <a href="mieter_erfassen.php">Neuen Mieter erfassen</a><br/>
         <a href="index.php">Startseite</a>
+        
     </body>
 </html>

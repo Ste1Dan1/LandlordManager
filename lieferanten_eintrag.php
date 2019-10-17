@@ -6,12 +6,10 @@
     <body>
        
         <?php
-        $bezeichnung = $_GET['bezeichnung'];
+        $name = $_GET['name'];
         $strasse_nr = $_GET['strasse_nr'];
         $plz = $_GET['plz'];
         $ort = $_GET['ort'];
-        $anz_whg = $_GET['anz_whg'];
-        $baujahr = $_GET['baujahr'];
 
         // Datenbankangaben sollten in ein db.inc.php geschrieben werden
         include 'db.inc.php';
@@ -19,19 +17,18 @@
         $link=mysqli_connect("localhost", $benutzer, $passwort) or die("Keine Verbindung zur Datenbank!");
         mysqli_select_db($link, $dbname) or die("DB nicht gefunden");
         
-        $insert="INSERT INTO `haus` (`hausID`, `bezeichnung`, `strasse_nr`, `plz`, `ort`, `anz_whg`, `baujahr`) "
-                . "VALUES (NULL, '$bezeichnung', '$strasse_nr', '$plz', '$ort', '$anz_whg', '$baujahr');";
+        $insert="INSERT INTO `lieferanten` (`lieferantID`, `name`, `strasse_nr`, `plz`, `ort`) "
+                . "VALUES (NULL, '$name', '$strasse_nr', '$plz', '$ort');";
         
         mysqli_query($link,"SET NAMES 'utf8'");
         mysqli_query($link, $insert) or die("Eintrag hat nicht geklappt");
         
         mysqli_close($link);
-        echo "Das neue Haus wurde erfasst!";
+        echo "Der neue Lieferant wurde erfasst!";
         ?>
         
-        <a href="haus_ausgabe.php">Erfasste Häuser darstellen</a><br/>
-        <a href="haus_erfassen.php">Neue Häuser erfassen</a><br/>
+        <a href="lieferanten_ausgabe.php">Erfasste Lieferanten darstellen</a><br/>
+        <a href="lieferanten_erfassen.php">Neuen Lieferanten erfassen</a><br/>
         <a href="index.php">Startseite</a><br/>
-        
     </body>
 </html>

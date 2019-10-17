@@ -44,6 +44,11 @@ Mieterseite mit Tabellenübersicht der Mieter
            {
              echo "<td>".$value."</td>";  
            }        
+           
+           ?>
+    <td><button class="changedata">Ändern</button></td>       
+    <td><button class="deletedata">Löschen</button></td>
+           <?php
            echo "</tr>";
         }
         echo "</table>";       
@@ -52,5 +57,6 @@ Mieterseite mit Tabellenübersicht der Mieter
         
         <a href="haus_erfassen.php">Neues Haus erfassen</a><br/>
         <a href="index.php">Startseite</a><br/>
+        
     </body>
 </html>

@@ -12,7 +12,6 @@
         $mietende = $_GET['mietende'];
         $mietzins_mtl = $_GET['mietzins_mtl'];
 
-
         // Datenbankangaben sollten in ein db.inc.php geschrieben werden
         include 'db.inc.php';
         

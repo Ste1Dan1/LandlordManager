@@ -29,6 +29,22 @@ Startseite mit Menüleiste und klickbaren Icons
         </p>
         <a href="mietvertrag_ausgabe.php">Erfasste Mietverträge darstellen</a>
         <a href="mietvertrag_erfassen.php">Neuen Mietvertrag erfassen</a>
+        <p>
+        <a href="lieferanten_ausgabe.php">Erfasste Lieferanten darstellen</a>
+        <a href="lieferanten_erfassen.php">Neuen Lieferanten erfassen</a>
+        </p>
+        <a href="kostenkategorien_ausgabe.php">Erfasste Kostenkategorien darstellen</a>
+        <p>
+        <a href="mietzahlung_ausgabe.php">Erfasste Mietzahlungen darstellen</a>
+        <a href="mietzahlung_erfassen.php">Neue Mietzahlung erfassen</a>
+        </p>
+        <a href="nkrechnungen_ausgabe.php">Erfasste Nebenkostenrechnungen darstellen</a>
+        <a href="nkrechnungen_erfassen.php">Neue Nebenkostenrechnung erfassen</a>
+        </p>
+        <a href="perioden_ausgabe.php">Erfasste Zahlungsperioden darstellen</a>
+        </p>
+        <a href="user_ausgabe.php">Erfasste User darstellen</a>
+        
         
         <a href="logout.php">Logout</a>
         

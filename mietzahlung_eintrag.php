@@ -6,12 +6,11 @@
     <body>
        
         <?php
-        $bezeichnung = $_GET['bezeichnung'];
-        $strasse_nr = $_GET['strasse_nr'];
-        $plz = $_GET['plz'];
-        $ort = $_GET['ort'];
-        $anz_whg = $_GET['anz_whg'];
-        $baujahr = $_GET['baujahr'];
+        $datum = $_GET['datum'];
+        $mietBetrag = $_GET['mietBetrag'];
+        $nkBetrag = $_GET['nkBetrag'];
+        $FK_periode = $_GET['FK_periode'];
+        $FK_mietVertragID = $_GET['FK_mietvertragID'];
 
         // Datenbankangaben sollten in ein db.inc.php geschrieben werden
         include 'db.inc.php';
@@ -19,19 +18,18 @@
         $link=mysqli_connect("localhost", $benutzer, $passwort) or die("Keine Verbindung zur Datenbank!");
         mysqli_select_db($link, $dbname) or die("DB nicht gefunden");
         
-        $insert="INSERT INTO `haus` (`hausID`, `bezeichnung`, `strasse_nr`, `plz`, `ort`, `anz_whg`, `baujahr`) "
-                . "VALUES (NULL, '$bezeichnung', '$strasse_nr', '$plz', '$ort', '$anz_whg', '$baujahr');";
+        $insert="INSERT INTO `mietEingang` (`mietEingangID`, `datum`, `mietBetrag`, `nkBetrag`, `FK_periode`, `FK_mietVertragID`) "
+                . "VALUES (NULL, '$datum', '$mietBetrag', '$nkBetrag', NULL, NULL);";
         
         mysqli_query($link,"SET NAMES 'utf8'");
         mysqli_query($link, $insert) or die("Eintrag hat nicht geklappt");
         
         mysqli_close($link);
-        echo "Das neue Haus wurde erfasst!";
+        echo "Die neue Mietzinszahlung wurde erfasst!";
         ?>
         
-        <a href="haus_ausgabe.php">Erfasste Häuser darstellen</a><br/>
-        <a href="haus_erfassen.php">Neue Häuser erfassen</a><br/>
+        <a href="mietzahlung_ausgabe.php">Erfasste Mietzahlungen darstellen</a><br/>
+        <a href="mietzahlung_erfassen.php">Neue Mietzahlung erfassen</a><br/>
         <a href="index.php">Startseite</a><br/>
-        
     </body>
 </html>

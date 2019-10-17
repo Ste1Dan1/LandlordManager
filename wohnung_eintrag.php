@@ -6,12 +6,9 @@
     <body>
        
         <?php
-        $strasse_nr = $_GET['strasse_nr'];
-        $plz = $_GET['plz'];
-        $ort = $_GET['ort'];
         $zimmer= $_GET['zimmer'];
         $flaeche = $_GET['flaeche'];
-        $haus = $_GET['haus'];
+        $haus = $_GET['hausID'];
 
 
         // Datenbankangaben sollten in ein db.inc.php geschrieben werden
@@ -20,8 +17,8 @@
         $link=mysqli_connect("localhost", $benutzer, $passwort) or die("Keine Verbindung zur Datenbank!");
         mysqli_select_db($link, $dbname) or die("DB nicht gefunden");
         
-        $insert="INSERT INTO `wohnung` (`ID`, `strasse_nr`, `plz`, `ort`, `zimmer`, `flaeche`, `haus`) "
-                . "VALUES (NULL, '$strasse_nr', '$plz', '$ort', '$zimmer', '$flaeche', '$haus')";
+        $insert="INSERT INTO `wohnung` (`wohnungID`, `wohnungs_Nummer`, `zimmer`, `flaeche`, `FK_hausID`) "
+                . "VALUES (NULL, NULL, '$zimmer', '$flaeche', '$haus')";
         
         mysqli_query($link,"SET NAMES 'utf8'");
         mysqli_query($link, $insert) or die("Eintrag hat nicht geklappt");

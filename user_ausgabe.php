@@ -1,27 +1,21 @@
 <!DOCTYPE html>
 <!--
-Mieterseite mit Tabellenübersicht der Mieter
+Seite mit Tabellenübersicht der User
 -->
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>LLM: Wohnungsübersicht</title>
+        <title>LLM: Userübersicht</title>
     </head>
     <body>
-        
-        <h1>Ihre erfassten Wohnungen </h1>
+        <h1>Ihre erfassten User </h1>
         <?php
         include 'db.inc.php';
         
         $link=mysqli_connect("localhost", $benutzer, $passwort) or die("Keine Verbindung zur Datenbank!");
         mysqli_select_db($link, $dbname) or die("DB nicht gefunden");
         
-        $abfrage="
-        SELECT `wohnung`.*, `haus`.*
-        FROM `wohnung` 
-	LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID`
-        ORDER BY hausID ASC, zimmer ASC";
-        
+        $abfrage="SELECT * from `users` ORDER BY userID ASC";
         
         mysqli_query($link,"SET NAMES 'utf8'");
         $res=mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
@@ -44,13 +38,18 @@ Mieterseite mit Tabellenübersicht der Mieter
            {
              echo "<td>".$value."</td>";  
            }        
+           
+           ?>
+    <td><button class="changedata">Ändern</button></td>       
+    <td><button class="deletedata">Löschen</button></td>
+           <?php
            echo "</tr>";
         }
         echo "</table>";       
         mysqli_close($link); 
         ?> 
         
-        <a href="wohnung_erfassen.php">Neue Wohnung erfassen</a><br/>
         <a href="index.php">Startseite</a><br/>
+        
     </body>
 </html>

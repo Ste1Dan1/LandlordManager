@@ -21,8 +21,6 @@ FROM `mietvertrag`
 	LEFT JOIN `mieter` ON `mietvertrag`.`FK_mieterID` = `mieter`.`mieterID` 
 	LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID`;";
 
-
-
         mysqli_query($link, "SET NAMES 'utf8'");
         $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
 
