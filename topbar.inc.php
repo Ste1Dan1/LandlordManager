@@ -59,7 +59,7 @@
     <a href="logout.php">Logout</a>
     
     <div class="navbar-right">
-        <a href=""><img src="Images/Logo_Landlord_Manager.png" height="43px"></a>
+        <a href=""><img src="Images/Logo_Landlord_Manager.png" height="40px"></a>
     </div>
     
 </div>
