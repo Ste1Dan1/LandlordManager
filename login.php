@@ -9,7 +9,7 @@
     <body>
         <div class="login">
 
-            <img src="Logo_Landlord_Manager.png" alt="LogoLLM">
+            <img src="images/Logo_Landlord_Manager.png" alt="LogoLLM">
             <h1>Login</h1>
             <form action="authenticate.php" method="post">
                 <label for="username">

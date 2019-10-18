@@ -4,6 +4,11 @@
         <title>LLM: Neue Mietzahlung erfassen</title>
     </head>
     <body>
+        
+        <?php
+        include 'topbar.inc.php';   
+        ?>
+        
         <h3>Bitte tragen Sie die Angaben zum Mietzinszahlung ein:</h3>
         <form action="mietzahlung_eintrag.php" method="GET">
             Datum <br/><input type="date" name="datum" value="" /><br/>

@@ -9,6 +9,10 @@ Mieterseite mit Tabellenübersicht der Mieter
     </head>
     <body>
         
+        <?php
+        include 'topbar.inc.php';   
+        ?>
+        
         <h1>Ihre erfassten Wohnungen </h1>
         <?php
         include 'db.inc.php';

@@ -8,6 +8,10 @@ Seite mit Tabellenübersicht der Lieferanten
         <title>LLM: Lieferantenübersicht</title>
     </head>
     <body>
+        <?php
+        include 'topbar.inc.php';   
+        ?>
+        
         <h1>Ihre erfassten Lieferanten </h1>
         <?php
         include 'db.inc.php';

@@ -12,6 +12,10 @@
     </head>
     <body>
         
+        <?php
+        include 'topbar.inc.php';   
+        ?>
+        
         <h3>Bitte tragen Sie die Angaben zum Mietvertrag ein:</h3>
         <form action="mietvertrag_eintrag.php" method="GET">
             

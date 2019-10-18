@@ -8,6 +8,11 @@ Seite mit Tabellenübersicht der Perioden
         <title>LLM: Zahlungs-Periodenübersicht</title>
     </head>
     <body>
+        
+        <?php
+        include 'topbar.inc.php';   
+        ?>
+        
         <h1>Ihre erfassten Zahlungs-Perioden </h1>
         <?php
         include 'db.inc.php';

@@ -8,6 +8,11 @@ Seite mit Tabellenübersicht der Mietzahlungen
         <title>LLM: Mietzahlungsübersicht</title>
     </head>
     <body>
+        
+        <?php
+        include 'topbar.inc.php';   
+        ?>
+        
         <h1>Ihre erfassten Mietzahlungen </h1>
         <?php
         include 'db.inc.php';
