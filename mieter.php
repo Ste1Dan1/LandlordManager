@@ -4,7 +4,7 @@
         <link href="./CSS/style.css" rel="stylesheet" type="text/css">
         <title></title>
     </head>
-    <<body>
+    <body>
         <?php
         include('mieterDB.php');
 
@@ -82,9 +82,9 @@
 
                 <?php if ($update == true): ?>
                     <button class="btn" type="submit" name="update" style="background: #556B2F;" >update</button>
-                    <button class="btn" type="cancel" name="cancel" style="background: #556B2F;" >cancel</button>
+                    <button class="btn" type="submit" name="cancel" formnovalidate style="background: #556B2F;" >cancel</button>
                 <?php else: ?>
-                    <button class="btn" type="submit" name="save" >Save</button>
+                    <button class="btn" type="exit" name="save" >Save</button>
                 <?php endif ?>
 
             </div>
