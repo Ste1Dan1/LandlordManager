@@ -9,6 +9,13 @@
 </head>
 <body>
 
+    <?php
+    session_start();
+    include 'loginCheck.inc.php';
+    include 'db.inc.php';
+    ?>
+    
+    
 <div class="navbar">
   <a href="index.php">Startseite</a>
 
@@ -18,8 +25,8 @@
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <a href="mieter_ausgabe.php">Erfasste Mieter anzeigen</a>
-      <a href="mieter_erfassen.php">Neuen Mieter erfassen</a>
+      <a href="mieter.php">Mieter Verwalten</a>
+      
     </div>
   </div> 
   
