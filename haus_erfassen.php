@@ -4,6 +4,10 @@
         <title>LLM: Neues Haus erfassen</title>
     </head>
     <body>
+        <?php
+        include 'topbar.inc.php';   
+        ?>
+        
         <h3>Bitte tragen Sie die Angaben zum Haus ein:</h3>
         <form action="haus_eintrag.php" method="GET">
             Bezeichnung <br/><input type="text" name="bezeichnung" value="" /><br/>

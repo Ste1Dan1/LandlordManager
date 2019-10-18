@@ -8,6 +8,11 @@ Seite mit Tabellenübersicht der User
         <title>LLM: Userübersicht</title>
     </head>
     <body>
+        
+        <?php
+        include 'topbar.inc.php';   
+        ?>
+        
         <h1>Ihre erfassten User </h1>
         <?php
         include 'db.inc.php';

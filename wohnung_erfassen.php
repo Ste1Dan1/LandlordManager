@@ -11,6 +11,11 @@
     </head>
     
     <body>
+        
+        <?php
+        include 'topbar.inc.php';   
+        ?>
+        
         <h3>Bitte tragen Sie die Angaben zur Wohnung ein:</h3>
         <form action="wohnung_eintrag.php" method="GET">
             Anzahl Zimmer<br/> <input type="text" name="zimmer" value="" /><br/>

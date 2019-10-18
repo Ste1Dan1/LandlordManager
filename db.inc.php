@@ -1,6 +1,6 @@
 <?php
 $benutzer="landlord_DB_user";
-$passwort=""       ;
+$passwort="";
 $dbname="landlordmanager";
 ?>
 

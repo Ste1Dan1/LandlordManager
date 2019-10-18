@@ -4,6 +4,10 @@
         <title>LLM: Neue Nebenkostenrechnung erfassen</title>
     </head>
     <body>
+        <?php
+        include 'topbar.inc.php';   
+        ?>
+        
         <h3>Bitte tragen Sie die Angaben zur Nebenkostenrechnung ein:</h3>
         <form action="nkrechnungen_eintrag.php" method="GET">
             Datum <br/><input type="date" name="rgdatum" value="" /><br/>

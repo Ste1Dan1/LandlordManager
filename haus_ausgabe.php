@@ -8,6 +8,12 @@ Mieterseite mit Tabellenübersicht der Mieter
         <title>LLM: Häuserübersicht</title>
     </head>
     <body>
+        
+        <?php
+        include 'topbar.inc.php';
+        
+        ?>
+        
         <h1>Ihre erfassten Häuser </h1>
         <?php
         

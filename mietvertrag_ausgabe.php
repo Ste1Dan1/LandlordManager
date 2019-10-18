@@ -8,6 +8,10 @@ Mieterseite mit Tabellenübersicht der Mieter
         <title>LLM: Mietvertragsübersicht</title>
     </head>
     <body>
+        <?php
+        include 'topbar.inc.php';   
+        ?>
+        
         <h1>Ihre erfassten Mietverträge </h1>
         <?php
         include 'db.inc.php';

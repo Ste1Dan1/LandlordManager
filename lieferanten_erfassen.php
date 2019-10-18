@@ -4,6 +4,10 @@
         <title>LLM: Neuen Lieferanten erfassen</title>
     </head>
     <body>
+        <?php
+        include 'topbar.inc.php';   
+        ?>
+        
         <h3>Bitte tragen Sie die Angaben zum Lieferanten ein:</h3>
         <form action="lieferanten_eintrag.php" method="GET">
             Bezeichnung <br/><input type="text" name="name" value="" /><br/>

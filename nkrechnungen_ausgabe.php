@@ -8,6 +8,11 @@ Seite mit Tabellenübersicht der NK-Rechnungen
         <title>LLM: Nebenkostenrechnungs-Übersicht</title>
     </head>
     <body>
+        
+        <?php
+        include 'topbar.inc.php';   
+        ?>
+        
         <h1>Ihre erfassten Nebenkostenrechnungen </h1>
         <?php
         include 'db.inc.php';

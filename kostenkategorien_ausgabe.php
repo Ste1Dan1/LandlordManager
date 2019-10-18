@@ -8,6 +8,10 @@ Seite mit Tabellenübersicht der Kostenkategorien
         <title>LLM: Kategorienübersicht</title>
     </head>
     <body>
+        <?php
+        include 'topbar.inc.php';   
+        ?>
+        
         <h1>Ihre erfassten Kategorien </h1>
         <?php
         include 'db.inc.php';
