@@ -36,6 +36,10 @@ body {
   background-color: red;
 }
 
+.navbar-right {
+    float: right;
+}
+
 .dropdown-content {
   display: none;
   position: absolute;

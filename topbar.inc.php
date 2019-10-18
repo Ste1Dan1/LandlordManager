@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<!-- source: https://www.w3schools.com/howto/howto_css_dropdown_navbar.asp -->
 
-<html>
-<head>
-<meta name="Topbar Styling" content="width=device-width, initial-scale=1">
 <link href="./CSS/topbar.css" rel="stylesheet" type="text/css">
 
-</head>
-<body>
 
 <div class="navbar">
   <a href="index.php">Startseite</a>
@@ -64,8 +57,10 @@
   
     <a href="user_ausgabe.php">User</a>
     <a href="logout.php">Logout</a>
-
+    
+    <div class="navbar-right">
+        <a href=""><img src="Images/Logo_Landlord_Manager.png" height="43px"></a>
+    </div>
+    
 </div>
 
-</body>
-</html>
