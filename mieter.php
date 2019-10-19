@@ -19,6 +19,7 @@
         <?php endif ?>
 
         <?php
+               
         $abfrage = "SELECT * from mieter";
         mysqli_query($link, "SET NAMES 'utf8'");
         $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
@@ -34,7 +35,7 @@
                     <th colspan="2">Action</th>
                 </tr>
             </thead>
-
+            
             <?php while ($row = mysqli_fetch_array($res)) { ?>
                 <tr>
                     <td><?php echo $row['anrede']; ?></td>
@@ -62,10 +63,11 @@
             
             <div class="input-radio">
                 <label>Anrede</label>
-                <input type="radio" name="anrede" value="Herr" required<?php echo $anrede == "Herr" ? 'checked' : ""; ?>>Herr
-                <input type="radio" name="anrede" value="Frau" required<?php echo $anrede == "Frau" ? 'checked' : ""; ?>>Frau
-                <input type="radio" name="anrede" value="Neutral"required <?php echo $anrede == "Neutral" ? 'checked' : ""; ?>>Neutral
+                <input type="radio" name="anrede" value="Herr" required <?php echo $anrede == "Herr" ? 'checked' : ""; ?>>Herr
+                <input type="radio" name="anrede" value="Frau" <?php echo $anrede == "Frau" ? 'checked' : ""; ?>>Frau
+                <input type="radio" name="anrede" value="Neutral" <?php echo $anrede == "Neutral" ? 'checked' : ""; ?>>Neutral
             </div>
+
             <div class="input-group">
                 <label>Vorname</label>
                 <input type="text" name="vorname" required value="<?php echo $vorname; ?>">
