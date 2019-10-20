@@ -19,7 +19,7 @@ Startseite mit Menüleiste und klickbaren Icons
 
         
         <a href="mieter.php"><img src="images/Mieter.png" alt="Mieter-Icon" height="200" width="200"</a>
-        <a href="wohnung_ausgabe.php"><img src="images/immobilien.png" alt="Immobilien-Icon" height="200" width="200"</a>
+        <a href="wohnung.php"><img src="images/immobilien.png" alt="Immobilien-Icon" height="200" width="200"</a>
         <a href="nkrechnungen_ausgabe.php"><img src="images/Nebenkosten.png" alt="Nebenkosten-Icon" height="200" width="200"</a>
         <a href=#reporting><img src="images/Reporting.png" alt="Reporting-Icon" height="200" width="200"</a>
 
