@@ -40,6 +40,10 @@ body {
   background-color: #3274d6;
 }
 
+.navbar-right {
+    float: right;
+}
+
 .dropdown-content {
   display: none;
   position: absolute;
