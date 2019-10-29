@@ -49,8 +49,7 @@
     <div class="dropdown-content">
       <a href="wohnung_ausgabe.php">Erfasste Wohnungen anzeigen</a>
         <a href="wohnung_erfassen.php">Neue Wohnung erfassen</a>
-        <a href="haus_ausgabe.php">Erfasste Häuser darstellen</a>
-        <a href="haus_erfassen.php">Neues Haus erfassen</a>
+        <a href="haus.php">Häuser</a>
     </div>
   </div>
   
@@ -61,11 +60,10 @@
     </button>
     <div class="dropdown-content">
         <a href="perioden_ausgabe.php">Erfasste Zahlungsperioden darstellen</a>
-        <a href="kostenkategorien_ausgabe.php">Erfasste Kostenkategorien darstellen</a>
+        <a href="kostenkategorien.php">Kostenkategorien</a>
         <a href="lieferanten_ausgabe.php">Erfasste Lieferanten darstellen</a>
         <a href="lieferanten_erfassen.php">Neuen Lieferanten erfassen</a>
-        <a href="nkrechnungen_ausgabe.php">Erfasste Nebenkostenrechnungen darstellen</a>
-        <a href="nkrechnungen_erfassen.php">Neue Nebenkostenrechnung erfassen</a>
+        <a href="nkrechnungen.php">Nebenkostenrechnungen</a>
     </div>
   </div>
   
