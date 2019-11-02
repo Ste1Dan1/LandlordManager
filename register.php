@@ -15,7 +15,7 @@ and open the template in the editor.
     <body>
 
         <?php
-        include 'topbar.inc.php';   
+        db.inc.php; 
         ?>
 
         <div class="register">
