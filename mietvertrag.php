@@ -2,8 +2,25 @@
     <head>
         <meta charset="UTF-8">
         <link href="./CSS/style.css" rel="stylesheet" type="text/css">
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
         <title></title>
     </head>
+    
+    <script>
+function getWohnung(val) {
+    
+	$.ajax({
+	type: "POST",
+	url: "get_wohnung.php",
+	data:'hausID='+val,
+	success: function(data){
+		$("#wohnung-list").html(data);
+	}
+	});
+}
+
+</script>
+    
     <body>
         <?php
         include('mietvertragDB.php');
@@ -110,7 +127,7 @@
 
             <div class="input-group">
                 <label>Haus</label>
-                <select name="haus" required>
+                <select name="haus"  onChange="getWohnung(this.value)" required>
                     <?php
                     $sql = mysqli_query($link, "SELECT hausID, bezeichnung ,strasse_nr, ort FROM haus");
 
@@ -136,6 +153,8 @@
 
                 </select>
             </div>    
+           
+            <!--
             <div class="input-group">
                 <label>Wohnung</label>
                 <select name="wohnung" required>
@@ -161,8 +180,45 @@
                         }
                     }
                     ?>
+                    
                 </select>
             </div> 
+            -->
+            
+            <select id="wohnung-list" name="wohnung"  >
+		<option value="">Select State</option>
+		</select>
+            
+            
+            <div class="input-group">
+                <label>Haus / Wohnung</label>
+                <select name="wohnung" required>
+                    <?php
+                    $sql = mysqli_query($link, "SELECT wohnungID, wohnungsNummer, bezeichnung, ort FROM wohnung LEFT JOIN haus on FK_hausID = hausID ORDER BY bezeichnung, wohnungsNummer ASC;");
+
+                    //Default Value anzeigen falls nichts ausgewählt
+                    if ($mieter == NULL) {
+                        echo '<option value="" disabled selected>Select your option</option>';
+                    } else {
+                        echo '<option value="" disabled>Select your option</option>';
+                    }
+
+                    while ($row = $sql->fetch_assoc()) {
+
+                        $select_attribute = "";
+
+                        if ($row['wohnungID'] == $wohnung) {
+                            $select_attribute = 'selected';
+                            echo "<option value='" . $row['wohnungID'] . "' selected = " . $select_attribute . ">" . $row['bezeichnung'] . ", " . $row['ort'] ." / " . $row['wohnungsNummer'] .  "</option>";
+                        } else {
+                            echo "<option value='" . $row['wohnungID'] . "'>" . $row['bezeichnung'] . ", " . $row['ort']. " / " .$row['wohnungsNummer'] .  "</option>";
+                        }
+                    }
+                    ?>
+
+                </select>
+            </div>    
+            
             <div class="input-group">
                 <label>Mietbeginn</label>
                 <input type="date" name="mietbeginn" required value="<?php echo $mietbeginn; ?>">
