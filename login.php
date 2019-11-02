@@ -23,7 +23,7 @@
                 
                 <input type="submit" value="Login">
 
-                <a href="Register.php">Registrieren</a>
+                <a href="register.php">Registrieren</a>
                 
                 
             </form>
