@@ -5,7 +5,6 @@ include 'db.inc.php';
 
 // initialize variables
 $mieter = "";
-$haus = "";
 $wohnung = "";
 $mietbeginn = "";
 $mietende = "";
@@ -22,7 +21,6 @@ if (isset($_GET['edit'])) {
     if (@count($record) == 1) {
         $n = mysqli_fetch_array($record);
         $mieter = $n['FK_mieterID'];
-        $haus = 1; // überlegen wo haus ID daherkommt
         $wohnung = $n['FK_wohnungID'];
         $mietbeginn = $n['mietbeginn'];
         $mietende = $n['mietende'];
@@ -33,7 +31,6 @@ if (isset($_GET['edit'])) {
 
 if (isset($_POST['save'])) {
     $mieter = $_POST['mieter'];
-    $haus = $_POST['haus'];
     $wohnung = $_POST['wohnung'];
     $mietbeginn = $_POST['mietbeginn'];
     $mietende = $_POST['mietende'];
@@ -59,8 +56,7 @@ if (isset($_POST['update'])) {
 
     mysqli_query($link, "UPDATE mietvertrag SET FK_mieterID ='$mieter', FK_wohnungID ='$wohnung', mietbeginn='$mietbeginn', mietende = " . ($mietende == NULL ? "NULL" : "'$mietende'") . ", mietzins_mtl='$mietzins' , nebenkosten_mtl='$nebenkosten'  WHERE mietVertragID=$id");
 
-
-    $_SESSION['message'] = "Mietvertrag geändert!".  mysqli_error($link);
+    $_SESSION['message'] = "Mietvertrag geändert!" . mysqli_error($link);
     header('location: mietvertrag.php');
 }
 
@@ -70,8 +66,10 @@ if (isset($_POST['cancel'])) {
 
 if (isset($_GET['del'])) {
     $id = $_GET['del'];
+
     mysqli_query($link, "DELETE FROM mietvertrag WHERE mietVertragID=$id");
-    $_SESSION['message'] = "Mietvertrag gelöscht!". mysqli_error($link);
+
+    $_SESSION['message'] = "Mietvertrag kann nicht gelöscht werden!" . mysqli_error($link);
     header('location: mietvertrag.php');
 }
 

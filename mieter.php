@@ -25,6 +25,7 @@
         $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
         ?>
 
+        
         <table>
             <thead>
                 <tr>

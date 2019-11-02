@@ -1,10 +1,12 @@
 <?php
 
+session_start();
 include 'db.inc.php';
 
 
 $link = mysqli_connect("localhost", $benutzer, $passwort) or die("Keine Verbindung zur Datenbank!");
 mysqli_select_db($link, $dbname) or die("DB nicht gefunden");
+
 
 // Now we check if the data was submitted, isset() function will check if the data exists.
 if (!isset($_POST['email'], $_POST['password'])) {
@@ -25,18 +27,24 @@ if ($stmt = $link->prepare('SELECT userID, pwd FROM users WHERE email = ?')) {
     // Store the result so we can check if the account exists in the database.
     if ($stmt->num_rows > 0) {
         // Username already exists
-        echo 'E-Mail exists, please choose another!';
+        
+        $_SESSION['messageNEG'] = "E-Mail Adresse existiert bereits!";
+        header('location: register.php');
     } else {
         // Username doesnt exists, insert new account
         if ($stmt = $link->prepare('INSERT INTO users (vorname, name, email, pwd) VALUES (?, ?,?,?)')) {
             // We do not want to expose passwords in our database, so hash the password and use password_verify when a user logs in.
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            $stmt->bind_param('ssss',$_POST['name'], $_POST['vorname'],$_POST['email'], $password);
+            $stmt->bind_param('ssss', $_POST['name'], $_POST['vorname'], $_POST['email'], $password);
             $stmt->execute();
-            echo 'You have successfully registered, you can now login!';
+           
+            $_SESSION['messagePOS'] = "Sie wurden erfolgreich registriert";
+            header('location: register.php');
         } else {
             // Something is wrong with the sql statement, check to make sure accounts table exists with all 3 fields.
-            echo 'Could not prepare statement!';
+
+            $_SESSION['messagePOS'] = "Es ist etwas schief gegangen...";
+            header('location: register.php');
         }
     }
     $stmt->close();
