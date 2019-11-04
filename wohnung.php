@@ -7,7 +7,6 @@
     <body>
         <?php
         include('wohnungDB.php');
-
         if (isset($_SESSION['message'])):
             ?>
             <div class="msg">
