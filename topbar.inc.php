@@ -25,32 +25,23 @@
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <a href="mieter.php">Mieter Verwalten</a>
-      
-    </div>
-  </div> 
-  
-  <div class="dropdown">
-    <button class="dropbtn">Miete
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="mietvertrag_ausgabe.php">Erfasste Mietverträge darstellen</a>
-      <a href="mietvertrag_erfassen.php">Neuen Mietvertrag erfassen</a>
+                    <a href="mieter.php">Mieter verwalten</a>
+                    <a href="mietvertrag.php">Mietverträge verwalten</a>
       <a href="mietzahlung_ausgabe.php">Erfasste Mietzahlungen darstellen</a>
       <a href="mietzahlung_erfassen.php">Neue Mietzahlung erfassen</a>
+
     </div>
   </div>
   
+
   <div class="dropdown">
     <button class="dropbtn">Immobilien 
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <a href="wohnung_ausgabe.php">Erfasste Wohnungen anzeigen</a>
-        <a href="wohnung_erfassen.php">Neue Wohnung erfassen</a>
-        <a href="haus_ausgabe.php">Erfasste Häuser darstellen</a>
-        <a href="haus_erfassen.php">Neues Haus erfassen</a>
+                    <a href="haus.php">Häuser verwalten</a>
+                    <a href="wohnung_ausgabe.php">Wohnungen verwalten</a>
+
     </div>
   </div>
   
@@ -61,11 +52,10 @@
     </button>
     <div class="dropdown-content">
         <a href="perioden_ausgabe.php">Erfasste Zahlungsperioden darstellen</a>
-        <a href="kostenkategorien_ausgabe.php">Erfasste Kostenkategorien darstellen</a>
+                    <a href="kostenkategorien.php">Kostenkategorien verwalten</a>
         <a href="lieferanten_ausgabe.php">Erfasste Lieferanten darstellen</a>
         <a href="lieferanten_erfassen.php">Neuen Lieferanten erfassen</a>
-        <a href="nkrechnungen_ausgabe.php">Erfasste Nebenkostenrechnungen darstellen</a>
-        <a href="nkrechnungen_erfassen.php">Neue Nebenkostenrechnung erfassen</a>
+                    <a href="nkrechnungen.php">Nebenkostenrechnungen verwalten</a>
     </div>
   </div>
   

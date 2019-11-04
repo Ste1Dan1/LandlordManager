@@ -77,7 +77,7 @@
             <div class="input-group">
 
                 <label>Mieter</label>
-                <select name="mieter" required>
+                <select class="input-group" name="mieter" required>
                     <?php
                     $sql = mysqli_query($link, "SELECT mieterID, name, vorname FROM mieter");
 
