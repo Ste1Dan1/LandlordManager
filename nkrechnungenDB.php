@@ -9,13 +9,14 @@ $fk_haus_id = "";
 $fk_lieferant_id = "";
 $fk_kostKat_id = "";
 $betrag = "";
+$kostKat_beschreibung = "";
 $id = 0;
 $update = false;
 
 if (isset($_GET['edit'])) {
     $id = $_GET['edit'];
     $update = true;
-    $record = mysqli_query($link, "SELECT * FROM nkrechnungen WHERE nkRechnungID=$id");
+    $record = mysqli_query($link, "SELECT *, kostenkategorien.beschreibung as beschreibung FROM nkrechnungen WHERE nkRechnungID=$id LEFT JOIN kostenkategorien ON nkrechnungen.FK_kostKatID=kostenkategorien.kostKatID");
 
     if (@count($record) == 1) {
         $n = mysqli_fetch_array($record);

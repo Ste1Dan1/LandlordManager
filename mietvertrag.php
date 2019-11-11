@@ -58,8 +58,15 @@
                         <a href="mietvertrag.php?edit= <?php echo $row['mietVertragID']; ?>" class="edit_btn" >Edit</a>
                     </td>
                     <td>
-                        <a href="mietvertragDB.php?del=<?php echo $row['mietVertragID']; ?>" class="del_btn">Delete</a>
+                        <?php
+                        $mietvertrag_id = $row['mietVertragID'];
+                        $abfrage_mieteingang = "SELECT count(*) AS mieteingaenge FROM mieteingang WHERE FK_mietVertragID=$mietvertrag_id";
+                        $res_mieteingaenge = mysqli_query($link, $abfrage_mieteingang) or die("Abfrage hat nicht geklappt");
+                        $has_mieteingaenge = (int) current(mysqli_fetch_array($res_mieteingaenge)) > 0;
+                        ?>
+                        <a href="mietvertragDB.php?del=<?php echo $row['mietVertragID']; ?>" class="del_btn <?php if ($has_mieteingaenge) echo "disabled" ?>" >Delete</a>
                     </td>
+                </tr>
                 </tr>
             <?php }
             ?>

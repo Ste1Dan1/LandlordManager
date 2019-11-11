@@ -45,7 +45,13 @@
                         <a href="lieferanten.php?edit= <?php echo $row['lieferantID']; ?>" class="edit_btn" >Ändern</a>
                     </td>
                     <td>
-                        <a href="lieferantenDB.php?del=<?php echo $row['lieferantID']; ?>" class="del_btn">Löschen</a>
+                        <?php
+                        $lieferant_id = $row['lieferantID'];
+                        $abfrage_nk_rechnungen = "SELECT count(*) AS nk_rechnungen FROM nkrechnungen WHERE FK_lieferantID=$lieferant_id";
+                        $res_nk_rechnungen = mysqli_query($link, $abfrage_nk_rechnungen) or die("Abfrage hat nicht geklappt");
+                        $has_nk_rechnungen = (int) current(mysqli_fetch_array($res_nk_rechnungen)) > 0;
+                        ?>
+                        <a href="lieferantenDB.php?del=<?php echo $row['hausID']; ?>" class="del_btn <?php if ($has_nk_rechnungen) echo "disabled" ?>" >Delete</a>
                     </td>
                 </tr>
             <?php } ?>

@@ -51,8 +51,8 @@
                     </td>
                     <td>
                         <?php
-                        $hausid = $row['hausID'];
-                        $abfrage_wohnungen = "SELECT count(*) AS wohnungen FROM wohnung WHERE FK_hausID=$hausid";
+                        $haus_id = $row['hausID'];
+                        $abfrage_wohnungen = "SELECT count(*) AS wohnungen FROM wohnung WHERE FK_hausID=$haus_id";
                         $res_wohnungen = mysqli_query($link, $abfrage_wohnungen) or die("Abfrage hat nicht geklappt");
                         $has_wohnungen = (int) current(mysqli_fetch_array($res_wohnungen)) > 0;
                         ?>

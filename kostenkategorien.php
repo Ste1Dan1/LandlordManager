@@ -28,6 +28,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>Beschreibung</th>
                     <th>Abrechnung</th>
                     <th colspan="2">Action</th>
                 </tr>
@@ -35,14 +36,15 @@
             
             <?php while ($row = mysqli_fetch_array($res)) { ?>
                 <tr>
+                    <td><?php echo $row['beschreibung']; ?></td>
                     <td><?php echo $row['abrechnung']; ?></td>
                     <td>
-                        <a href="kostenkategorien.php?edit= <?php echo $row['kostKatID']; ?>" class="edit_btn" >Edit</a>
+                        <a href="kostenkategorien.php?edit=<?php echo $row['kostKatID']; ?>" class="edit_btn" >Edit</a>
                     </td>
                     <td>
                         <?php
-                        $id = $row['kostKatID'];
-                        $abfrage_rechnungen = "SELECT count(*) AS rechnungen FROM nkrechnungen WHERE FK_kostKatID=$id";
+                        $kostkat_id = $row['kostKatID'];
+                        $abfrage_rechnungen = "SELECT count(*) AS rechnungen FROM nkrechnungen WHERE FK_kostKatID=$kostkat_id";
                         $res_rechnungen = mysqli_query($link, $abfrage_rechnungen) or die("Abfrage hat nicht geklappt");
                         $has_rechnungen = (int) current(mysqli_fetch_array($res_rechnungen)) > 0;
                         ?>
@@ -59,6 +61,8 @@
             
             
             <div class="input-group">
+                <label>Beschreibung</label>
+                <input type="text" name="beschreibung" required value="<?php echo $beschreibung; ?>">
                 <label>Abrechnung</label>
                 <input type="text" name="abrechnung" required value="<?php echo $abrechnung; ?>">
             </div>

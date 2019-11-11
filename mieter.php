@@ -44,10 +44,16 @@
                     <td><?php echo $row['name']; ?></td>
                     <td><?php echo $row['geburtsdatum']; ?></td>
                     <td>
-                        <a href="mieter.php?edit= <?php echo $row['mieterID']; ?>" class="edit_btn" >Ändern</a>
+                        <a href="c.php?edit= <?php echo $row['mieterID']; ?>" class="edit_btn" >Ändern</a>
                     </td>
                     <td>
-                        <a href="mieterDB.php?del=<?php echo $row['mieterID']; ?>" class="del_btn">Löschen</a>
+                        <?php
+                        $mieter_id = $row['mieterID'];
+                        $abfrage_mietvertraege = "SELECT count(*) AS mietvertraege FROM mietvertrag WHERE FK_mieterID=$mieter_id";
+                        $res_mietvertraege = mysqli_query($link, $abfrage_mietvertraege) or die("Abfrage hat nicht geklappt");
+                        $has_mietvertraege = (int) current(mysqli_fetch_array($res_mietvertraege)) > 0;
+                        ?>
+                        <a href="mieterDB.php?del=<?php echo $row['mieterID']; ?>" class="del_btn <?php if ($has_mietvertraege) echo "disabled" ?>" >Delete</a>
                     </td>
                 </tr>
             <?php } ?>

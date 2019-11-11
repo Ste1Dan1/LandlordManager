@@ -45,7 +45,13 @@
                         <a href="wohnung.php?edit= <?php echo $row['wohnungID']; ?>" class="edit_btn" >Ändern</a>
                     </td>
                     <td>
-                        <a href="wohnungDB.php?del=<?php echo $row['wohnungID']; ?>" class="del_btn">Löschen</a>
+                        <?php
+                        $wohnung_id = $row['wohnungID'];
+                        $abfrage_mietvertraege = "SELECT count(*) AS mietvertraege FROM mietvertrag WHERE FK_wohnungID=$wohnung_id";
+                        $res_mietvertraege = mysqli_query($link, $abfrage_mietvertraege) or die("Abfrage hat nicht geklappt");
+                        $has_mietvertraege = (int) current(mysqli_fetch_array($res_mietvertraege)) > 0;
+                        ?>
+                        <a href="wohnungDB.php?del=<?php echo $row['wohnungID']; ?>" class="del_btn <?php if ($has_mietvertraege) echo "disabled" ?>" >Delete</a>
                     </td>
                 </tr>
             <?php } ?>

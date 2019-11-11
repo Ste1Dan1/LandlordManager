@@ -20,7 +20,7 @@
 
         <?php
 
-        $abfrage = "SELECT nkrechnungen.*, haus.bezeichnung AS haus_bezeichnung, lieferanten.name AS lieferant_name, kostenkategorien.abrechnung AS kostenkat_abrechnung FROM nkrechnungen LEFT JOIN haus ON nkrechnungen.FK_hausID=haus.hausID LEFT JOIN lieferanten ON nkrechnungen.FK_lieferantID=lieferanten.lieferantID LEFT JOIN kostenkategorien ON nkrechnungen.FK_kostKatID=kostenkategorien.kostKatID";
+        $abfrage = "SELECT nkrechnungen.*, haus.bezeichnung AS haus_bezeichnung, lieferanten.name AS lieferant_name, kostenkategorien.abrechnung AS kostenkat_abrechnung, kostenkategorien.beschreibung AS kostenkat_beschreibung FROM nkrechnungen LEFT JOIN haus ON nkrechnungen.FK_hausID=haus.hausID LEFT JOIN lieferanten ON nkrechnungen.FK_lieferantID=lieferanten.lieferantID LEFT JOIN kostenkategorien ON nkrechnungen.FK_kostKatID=kostenkategorien.kostKatID";
         mysqli_query($link, "SET NAMES 'utf8'");
         $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
         ?>
@@ -32,6 +32,7 @@
                     <th>Haus</th>
                     <th>Lieferant</th>
                     <th>Kostenkategorie</th>
+                    <th>Beschreibung</th>
                     <th>Betrag</th>
                     <th colspan="2">Action</th>
                 </tr>
@@ -43,6 +44,7 @@
                     <td><?php echo $row['haus_bezeichnung']; ?></td>
                     <td><?php echo $row['lieferant_name']; ?></td>
                     <td><?php echo $row['kostenkat_abrechnung']; ?></td>
+                    <td><?php echo $row['kostenkat_beschreibung']; ?></td>
                     <td><?php echo $row['betrag']; ?></td>
                     <td>
                         <a href="nkrechnungen.php?edit= <?php echo $row['nkRechnungID']; ?>" class="edit_btn" >Edit</a>
@@ -97,10 +99,10 @@
             $res_kostenkategorien = mysqli_query($link, $abfrage_kostenkategorien) or die("Abfrage hat nicht geklappt");
             ?>
             <div class="input-group">
-                <label>Lieferant</label>
+                <label>Kostenkategorie</label>
                 <select name="FK_kostKatID">
                     <?php while ($row = mysqli_fetch_array($res_kostenkategorien)) { ?>
-                        <option value="<?php echo $row['kostKatID'] ?>" <?php if ($fk_lieferant_id === $row['kostKatID']) echo 'selected' ?>><?php echo $row['abrechnung'] ?></option>
+                        <option value="<?php echo $row['kostKatID'] ?>" <?php if ($fk_lieferant_id === $row['kostKatID']) echo 'selected' ?>><?php echo $row['abrechnung'].': '.$row['beschreibung'] ?></option>
                     <?php } ?>
                 </select>
             </div>

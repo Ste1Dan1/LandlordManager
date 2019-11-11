@@ -66,6 +66,7 @@
                         <a href="mietzahlungDB.php?del=<?php echo $row['mietEingangID']; ?>" class="del_btn">Delete</a>
                     </td>
                 </tr>
+                </tr>
             <?php }
             ?>
         </table>
