@@ -39,7 +39,7 @@
                     <td><?php echo $row['beschreibung']; ?></td>
                     <td><?php echo $row['abrechnung']; ?></td>
                     <td>
-                        <a href="kostenkategorien.php?edit=<?php echo $row['kostKatID']; ?>" class="edit_btn" >Edit</a>
+                        <a href="kostenkategorien.php?edit=<?php echo $row['kostKatID']; ?>" class="edit_btn" >Ändern</a>
                     </td>
                     <td>
                         <?php
@@ -48,7 +48,7 @@
                         $res_rechnungen = mysqli_query($link, $abfrage_rechnungen) or die("Abfrage hat nicht geklappt");
                         $has_rechnungen = (int) current(mysqli_fetch_array($res_rechnungen)) > 0;
                         ?>
-                        <a href="kostenkategorienDB.php?del=<?php echo $row['kostKatID']; ?>" class="del_btn <?php if ($has_rechnungen) echo "disabled" ?>" >Delete</a>
+                        <a href="kostenkategorienDB.php?del=<?php echo $row['kostKatID']; ?>" class="del_btn <?php if ($has_rechnungen) echo "disabled" ?>" >Löschen</a>
                     </td>
                 </tr>
             <?php } ?>

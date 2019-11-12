@@ -55,7 +55,7 @@
                     <td><?php echo $row['nebenkosten_mtl']; ?></td>
 
                     <td>
-                        <a href="mietvertrag.php?edit= <?php echo $row['mietVertragID']; ?>" class="edit_btn" >Edit</a>
+                        <a href="mietvertrag.php?edit= <?php echo $row['mietVertragID']; ?>" class="edit_btn" >Ändern</a>
                     </td>
                     <td>
                         <?php
@@ -64,7 +64,7 @@
                         $res_mieteingaenge = mysqli_query($link, $abfrage_mieteingang) or die("Abfrage hat nicht geklappt");
                         $has_mieteingaenge = (int) current(mysqli_fetch_array($res_mieteingaenge)) > 0;
                         ?>
-                        <a href="mietvertragDB.php?del=<?php echo $row['mietVertragID']; ?>" class="del_btn <?php if ($has_mieteingaenge) echo "disabled" ?>" >Delete</a>
+                        <a href="mietvertragDB.php?del=<?php echo $row['mietVertragID']; ?>" class="del_btn <?php if ($has_mieteingaenge) echo "disabled" ?>" >Löschen</a>
                     </td>
                 </tr>
                 </tr>

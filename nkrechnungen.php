@@ -47,10 +47,10 @@
                     <td><?php echo $row['kostenkat_beschreibung']; ?></td>
                     <td><?php echo $row['betrag']; ?></td>
                     <td>
-                        <a href="nkrechnungen.php?edit= <?php echo $row['nkRechnungID']; ?>" class="edit_btn" >Edit</a>
+                        <a href="nkrechnungen.php?edit= <?php echo $row['nkRechnungID']; ?>" class="edit_btn" >Ändern</a>
                     </td>
                     <td>
-                        <a href="nkrechnungenDB.php?del=<?php echo $row['nkRechnungID']; ?>" class="del_btn" >Delete</a>
+                        <a href="nkrechnungenDB.php?del=<?php echo $row['nkRechnungID']; ?>" class="del_btn" >Löschen</a>
                     </td>
                 </tr>
             <?php } ?>

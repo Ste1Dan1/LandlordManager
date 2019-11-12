@@ -53,7 +53,7 @@
                         $res_mietvertraege = mysqli_query($link, $abfrage_mietvertraege) or die("Abfrage hat nicht geklappt");
                         $has_mietvertraege = (int) current(mysqli_fetch_array($res_mietvertraege)) > 0;
                         ?>
-                        <a href="mieterDB.php?del=<?php echo $row['mieterID']; ?>" class="del_btn <?php if ($has_mietvertraege) echo "disabled" ?>" >Delete</a>
+                        <a href="mieterDB.php?del=<?php echo $row['mieterID']; ?>" class="del_btn <?php if ($has_mietvertraege) echo "disabled" ?>" >Löschen</a>
                     </td>
                 </tr>
             <?php } ?>

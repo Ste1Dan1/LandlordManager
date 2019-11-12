@@ -51,7 +51,7 @@
                         $res_nk_rechnungen = mysqli_query($link, $abfrage_nk_rechnungen) or die("Abfrage hat nicht geklappt");
                         $has_nk_rechnungen = (int) current(mysqli_fetch_array($res_nk_rechnungen)) > 0;
                         ?>
-                        <a href="lieferantenDB.php?del=<?php echo $row['hausID']; ?>" class="del_btn <?php if ($has_nk_rechnungen) echo "disabled" ?>" >Delete</a>
+                        <a href="lieferantenDB.php?del=<?php echo $row['hausID']; ?>" class="del_btn <?php if ($has_nk_rechnungen) echo "disabled" ?>" >Löschen</a>
                     </td>
                 </tr>
             <?php } ?>

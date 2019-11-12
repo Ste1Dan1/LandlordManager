@@ -21,7 +21,6 @@
         <?php
 
         $abfrage = "SELECT * from haus";
-        mysqli_query($link, "SET NAMES 'utf8'");
         $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
         ?>
 
@@ -47,7 +46,7 @@
                     <td><?php echo $row['anz_whg']; ?></td>
                     <td><?php echo $row['baujahr']; ?></td>
                     <td>
-                        <a href="haus.php?edit= <?php echo $row['hausID']; ?>" class="edit_btn" >Edit</a>
+                        <a href="haus.php?edit= <?php echo $row['hausID']; ?>" class="edit_btn" >Ändern</a>
                     </td>
                     <td>
                         <?php
@@ -56,7 +55,7 @@
                         $res_wohnungen = mysqli_query($link, $abfrage_wohnungen) or die("Abfrage hat nicht geklappt");
                         $has_wohnungen = (int) current(mysqli_fetch_array($res_wohnungen)) > 0;
                         ?>
-                        <a href="hausDB.php?del=<?php echo $row['hausID']; ?>" class="del_btn <?php if ($has_wohnungen) echo "disabled" ?>" >Delete</a>
+                        <a href="hausDB.php?del=<?php echo $row['hausID']; ?>" class="del_btn <?php if ($has_wohnungen) echo "disabled" ?>" >Löschen</a>
                     </td>
                 </tr>
             <?php } ?>

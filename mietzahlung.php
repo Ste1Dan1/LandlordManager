@@ -60,10 +60,10 @@
                     <td><?php echo $row['jahr']; ?></td>
 
                     <td>
-                        <a href="mietzahlung.php?edit= <?php echo $row['mietEingangID']; ?>" class="edit_btn" >Edit</a>
+                        <a href="mietzahlung.php?edit= <?php echo $row['mietEingangID']; ?>" class="edit_btn" >Ändern</a>
                     </td>
                     <td>
-                        <a href="mietzahlungDB.php?del=<?php echo $row['mietEingangID']; ?>" class="del_btn">Delete</a>
+                        <a href="mietzahlungDB.php?del=<?php echo $row['mietEingangID']; ?>" class="del_btn">Löschen</a>
                     </td>
                 </tr>
                 </tr>
