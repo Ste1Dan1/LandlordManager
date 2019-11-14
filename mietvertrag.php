@@ -44,13 +44,19 @@
                 </tr>
             </thead>
 
-            <?php while ($row = mysqli_fetch_array($res)) { ?>
+            <?php while ($row = mysqli_fetch_array($res)) { 
+                    $mbalt = strtotime($row['mietbeginn']);
+                    $mbdatum = date("d.m.Y", $mbalt);
+                    $mealt = strtotime($row['mietende']);
+                    $medatum = date("d.m.Y", $mealt);
+                
+                ?>
                 <tr>
                     <td><?php echo $row['Mieter']; ?></td>
                     <td><?php echo $row['Immobilie']; ?></td>
                     <td><?php echo $row['wohnungsNummer']; ?></td>
-                    <td><?php echo $row['mietbeginn']; ?></td>
-                    <td><?php echo $row['mietende']; ?></td>
+                    <td><?php echo $mbdatum; ?></td>
+                    <td><?php echo $medatum; ?></td>
                     <td><?php echo $row['mietzins_mtl']; ?></td>
                     <td><?php echo $row['nebenkosten_mtl']; ?></td>
 
