@@ -38,9 +38,12 @@
                 </tr>
             </thead>
             
-            <?php while ($row = mysqli_fetch_array($res)) { ?>
+            <?php while ($row = mysqli_fetch_array($res)) { 
+                    $datalt = strtotime($row['mietbeginn']);
+                    $datum = date("d.m.Y", $datalt);
+                ?>
                 <tr>
-                    <td><?php echo $row['rgdatum']; ?></td>
+                    <td><?php echo $datum; ?></td>
                     <td><?php echo $row['haus_bezeichnung']; ?></td>
                     <td><?php echo $row['lieferant_name']; ?></td>
                     <td><?php echo $row['kostenkat_abrechnung']; ?></td>
