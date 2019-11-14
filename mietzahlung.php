@@ -48,12 +48,15 @@
                 </tr>
             </thead>
 
-            <?php while ($row = mysqli_fetch_array($res)) { ?>
+            <?php while ($row = mysqli_fetch_array($res)) { 
+                    $zahldatalt = strtotime($row['mietbeginn']);
+                    $zahldatum = date("d.m.Y", $zahldatalt);
+                ?>
                 <tr>
                     <td><?php echo $row['vorname'] . " " . $row['name']; ?></td>
                     <td><?php echo $row['bezeichnung']; ?></td>
                     <td><?php echo $row['wohnungsNummer']; ?></td>
-                    <td><?php echo $row['datum']; ?></td>
+                    <td><?php echo $zahldatum; ?></td>
                     <td><?php echo $row['mietBetrag']; ?></td>
                     <td><?php echo $row['nkBetrag']; ?></td>
                     <td><?php echo $row['periodeKurz']; ?></td>
