@@ -37,12 +37,17 @@
                 </tr>
             </thead>
             
-            <?php while ($row = mysqli_fetch_array($res)) { ?>
+            <?php while ($row = mysqli_fetch_array($res)) { 
+                $datumalt = strtotime($row['geburtsdatum']);
+                $datum = date("d.m.Y", $datumalt);
+                
+                
+                ?>
                 <tr>
                     <td><?php echo $row['anrede']; ?></td>
                     <td><?php echo $row['vorname']; ?></td>
                     <td><?php echo $row['name']; ?></td>
-                    <td><?php echo $row['geburtsdatum']; ?></td>
+                    <td><?php echo $datum; ?></td>
                     <td>
                         <a href="c.php?edit= <?php echo $row['mieterID']; ?>" class="edit_btn" >Ändern</a>
                     </td>
