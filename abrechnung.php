@@ -8,7 +8,7 @@
     <body>
         <?php
         include 'db.inc.php';
-        // include 'topbar.inc.php';
+        include 'topbar.inc.php';
         ?>
         
         <h1>Ihre erfassten Nebenkosten-Rechnungen pro Haus</h1>
