@@ -2,7 +2,7 @@
     <head>
         <meta charset="UTF-8">
         <link href="./CSS/style.css" rel="stylesheet" type="text/css">
-        <title></title>
+        <title>LandlordManager - Wohnungen verwalten</title>
     </head>
     <body>
         <?php

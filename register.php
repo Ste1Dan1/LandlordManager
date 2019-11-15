@@ -12,7 +12,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
                 <link href="./CSS/MSGBOX.css" rel="stylesheet" type="text/css">
 
-        <title>Registrieren</title>
+        <title>LandlordManager - Registrieren</title>
     </head>
     <body>
 
