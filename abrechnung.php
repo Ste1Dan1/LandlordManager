@@ -8,13 +8,12 @@
     <body>
         <?php
         include 'db.inc.php';
-        include 'topbar.inc.php';
+        // include 'topbar.inc.php';
         ?>
         
-        <h1>Ihre erfassten Nebenkosten-Rechnungen pro Haus </h1>
+        <h1>Ihre erfassten Nebenkosten-Rechnungen pro Haus</h1>
         <form name ="jahrauswahl" method="post" action="abrechnung.php">
             <select name="jahr">
-                <!--<option value="Alle">Alle anzeigen</option>-->
                 <option value="2019">2019</option>
                 <option value="2020">2020</option>
                 <option value="2021">2021</option>
@@ -35,9 +34,12 @@
                 $anzahl = 0;
                 $anzwhg = $table['anz_whg'];
                 $bewmonate = $anzwhg * 12;
+                $perbeginn='';
+                $perende='';
                 $anteil = 0;
                 $summeanteil = 0;
                 $differenz = 0;
+                $jahr = '';
                 ?>
             <h2>Nebenkosten für Haus <?php echo $table['bezeichnung'] ?></h2>
             
@@ -99,7 +101,7 @@
                     <?php }
                 
                 if ($anzahl >=1){
-                    $anteil = round(($summe / $bewmonate), 2);
+                    $anteil = number_format((round(($summe / $bewmonate) * 20, 0) / 20), 2);
                 ?>
                     <tr>
                         <td><strong><?php echo 'TOTAL'; ?></strong></td>
@@ -123,7 +125,7 @@
                 AND wohnung.wohnungID = mietvertrag.FK_wohnungID
                 AND haus.hausID = wohnung.FK_hausID
                 AND haus.hausID = '$hausID'
-                AND (mietvertrag.mietende <= '$jahr-12-31' OR mietvertrag.mietende is NULL)
+                AND (mietvertrag.mietende >= '$jahr-01-01' OR mietvertrag.mietende is NULL)
                 ORDER BY wohnung.wohnungsNummer;";
             $res_mieter = mysqli_query($link, $abfrage_mieter) or die("Abfrage Mieter hat nicht geklappt");
             
@@ -143,22 +145,34 @@
                         <th><?php echo 'Anteil Jahr'; ?></th>
                     </tr>
             <?php
-                    
-            while ($mietertable = mysqli_fetch_array($res_mieter)) { 
-                // Datum in europäischem Format darstellen
+                //Periodenbeginn (Start Mietvertrag oder 01. Januar) evaluieren  
+                while ($mietertable = mysqli_fetch_array($res_mieter)) { 
                 $mietbeginn = strtotime($mietertable['mietbeginn']);
-                $perbeginn = date("d.m.Y", $mietbeginn);
-
-                if ($perbeginn < '01.01.'.$jahr){
+                $mietbeginn= date('Ymd', $mietbeginn);
+                                
+                if($jahr.'0101' >= $mietbeginn){
                     $perbeginn = '01.01.'.$jahr;
+                } 
+                if ($jahr.'0101' < $mietbeginn) {
+                    $perbeginn = date('d.m.Y',strtotime($mietertable['mietbeginn']));
                 }
                 
+                //Periodenende (Ende Mietvertrag oder 31. Dezember) evaluieren  
                 $mietende = strtotime($mietertable['mietende']);
-                $perende = date("d.m.Y", $mietende);
-                if ($perende=='01.01.1970' || $perende > '31.12.'.$jahr){
+                $mietende= date('Ymd', $mietende);
+                
+                if ($mietende < $jahr.'1231') {
+                    $perende = date('d.m.Y',strtotime($mietertable['mietende']));
+                }
+
+                if($mietende == '19700101'){
                     $perende='31.12.'.$jahr;
                 }
 
+                if($mietende >= $jahr.'1231'){
+                    $perende='31.12.'.$jahr;
+                }             
+ 
                 //Berechnung Monate
                 $anzahlmte;
                 
@@ -167,8 +181,10 @@
                 $Months = $d2->diff($d1); 
                 $anzahlmte = (($Months->y) * 12) + ($Months->m) + 1;
 
-                $anteilmieter = $anzahlmte * $anteil;
+                $anteilmieter = number_format(($anzahlmte * $anteil), 2);
                 $summeanteil += $anteilmieter;
+                $summeanteil = number_format($summeanteil, 2);
+                                               
                 
             ?>
                     <tr>
@@ -189,10 +205,10 @@
             $verlust = 0;
             
             if ($differenz <= 0){
-                $gewinn = -1 * $differenz;
+                $gewinn = number_format((-1 * (round($differenz * 20, 0) / 20)), 2);
                 $verlust = '';
             } else {
-                $verlust = $differenz;
+                $verlust = number_format((round ($differenz * 20, 0) / 20), 2);
                 $gewinn = '';
             }
             
