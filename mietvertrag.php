@@ -24,7 +24,7 @@
         FROM `mietvertrag` 
 	LEFT JOIN `wohnung` ON `mietvertrag`.`FK_wohnungID` = `wohnung`.`wohnungID` 
 	LEFT JOIN `mieter` ON `mietvertrag`.`FK_mieterID` = `mieter`.`mieterID` 
-	LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID`;";
+	LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID` ORDER BY `haus`.`bezeichnung`, `wohnung`.`wohnungID`, `mietvertrag`.`mietbeginn`;";
         mysqli_query($link, "SET NAMES 'utf8'");
         $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
         ?>
@@ -49,6 +49,9 @@
                     $mbdatum = date("d.m.Y", $mbalt);
                     $mealt = strtotime($row['mietende']);
                     $medatum = date("d.m.Y", $mealt);
+                    if ($medatum =='01.01.1970'){
+                    $medatum='';
+                }
                 
                 ?>
                 <tr>
