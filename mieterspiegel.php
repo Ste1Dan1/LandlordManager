@@ -2,6 +2,8 @@
     <head>
         <meta charset="UTF-8">
         <link href="./CSS/style.css" rel="stylesheet" type="text/css">
+        <link href="./CSS/topbar.css" rel="stylesheet" type="text/css">
+        <link href="./CSS/footer.css" rel="stylesheet" type="text/css">
         <title>LandlordManager - Mieterspiegel</title>
     </head>
 
@@ -15,17 +17,17 @@ FROM `mietvertrag`
 	LEFT JOIN `wohnung` ON `mietvertrag`.`FK_wohnungID` = `wohnung`.`wohnungID` 
 	LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID`
         WHERE cast(mietende as date) >=  cast(CURDATE() as date) 
-        OR mietende IS NULL" ;
+        OR mietende IS NULL";
 
-        $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt". mysqli_error($link));
+        $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt" . mysqli_error($link));
         ?>
 
-        
-        
+
+
         <table>
-           
+
             <thead>
-                  
+
                 <tr>
                     <th>Anrede</th>
                     <th>Vorname</th>
@@ -38,17 +40,17 @@ FROM `mietvertrag`
                     <th>Mietzins / Monat</th>
                     <th>Nebenkosten / Monat</th>
                     <th><a href="mieterspiegelExport.php" class="exp_btn" style="float: right">Exportieren</a></th>
-                    
-                    
+
+
                 </tr>
             </thead>
 
-            <?php while ($row = mysqli_fetch_array($res)) {
-                    $mbalt = strtotime($row['mietbeginn']);
-                    $mbdatum = date("d.m.Y", $mbalt);
-                    $mealt = strtotime($row['mietende']);
-                    $medatum = date("d.m.Y", $mealt);
-                
+            <?php
+            while ($row = mysqli_fetch_array($res)) {
+                $mbalt = strtotime($row['mietbeginn']);
+                $mbdatum = date("d.m.Y", $mbalt);
+                $mealt = strtotime($row['mietende']);
+                $medatum = date("d.m.Y", $mealt);
                 ?>
                 <tr>
                     <td><?php echo $row['anrede']; ?></td>
@@ -73,4 +75,9 @@ FROM `mietvertrag`
 
 
     </body>
+
+
+    <?php
+    include 'footer.inc.php';
+    ?>
 </html>

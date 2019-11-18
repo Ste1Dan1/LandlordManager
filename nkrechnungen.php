@@ -2,12 +2,14 @@
     <head>
         <meta charset="UTF-8">
         <link href="./CSS/style.css" rel="stylesheet" type="text/css">
+        <link href="./CSS/topbar.css" rel="stylesheet" type="text/css">
+        <link href="./CSS/footer.css" rel="stylesheet" type="text/css">
         <title>LandlordManager - Nebenkostenrechnungen verwalten</title>
     </head>
     <body>
         <?php
         include('nkrechnungenDB.php');
-        
+
         if (isset($_SESSION['message'])):
             ?>
             <div class="msg">
@@ -19,7 +21,6 @@
         <?php endif ?>
 
         <?php
-
         $abfrage = "SELECT nkrechnungen.*, haus.bezeichnung AS haus_bezeichnung, lieferanten.name AS lieferant_name, kostenkategorien.abrechnung AS kostenkat_abrechnung, kostenkategorien.beschreibung AS kostenkat_beschreibung FROM nkrechnungen LEFT JOIN haus ON nkrechnungen.FK_hausID=haus.hausID LEFT JOIN lieferanten ON nkrechnungen.FK_lieferantID=lieferanten.lieferantID LEFT JOIN kostenkategorien ON nkrechnungen.FK_kostKatID=kostenkategorien.kostKatID";
         mysqli_query($link, "SET NAMES 'utf8'");
         $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
@@ -37,10 +38,11 @@
                     <th colspan="2">Action</th>
                 </tr>
             </thead>
-            
-            <?php while ($row = mysqli_fetch_array($res)) { 
-                    $datalt = strtotime($row['mietbeginn']);
-                    $datum = date("d.m.Y", $datalt);
+
+            <?php
+            while ($row = mysqli_fetch_array($res)) {
+                $datalt = strtotime($row['mietbeginn']);
+                $datum = date("d.m.Y", $datalt);
                 ?>
                 <tr>
                     <td><?php echo $datum; ?></td>
@@ -58,7 +60,7 @@
                 </tr>
             <?php } ?>
         </table>
-        
+
         <form method="post" action="nkrechnungenDB.php" >
 
             <input type="hidden" name="id" value="<?php echo $id; ?>">
@@ -105,7 +107,7 @@
                 <label>Kostenkategorie</label>
                 <select name="FK_kostKatID">
                     <?php while ($row = mysqli_fetch_array($res_kostenkategorien)) { ?>
-                        <option value="<?php echo $row['kostKatID'] ?>" <?php if ($fk_lieferant_id === $row['kostKatID']) echo 'selected' ?>><?php echo $row['abrechnung'].': '.$row['beschreibung'] ?></option>
+                        <option value="<?php echo $row['kostKatID'] ?>" <?php if ($fk_lieferant_id === $row['kostKatID']) echo 'selected' ?>><?php echo $row['abrechnung'] . ': ' . $row['beschreibung'] ?></option>
                     <?php } ?>
                 </select>
             </div>
@@ -125,4 +127,9 @@
             </div>
         </form>
     </body>
+
+
+    <?php
+    include 'footer.inc.php';
+    ?>
 </html>

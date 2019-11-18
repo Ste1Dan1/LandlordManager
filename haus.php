@@ -2,12 +2,14 @@
     <head>
         <meta charset="UTF-8">
         <link href="./CSS/style.css" rel="stylesheet" type="text/css">
+        <link href="./CSS/topbar.css" rel="stylesheet" type="text/css">
+        <link href="./CSS/footer.css" rel="stylesheet" type="text/css">
         <title>LandlordManager - Häuser verwalten</title>
     </head>
     <body>
         <?php
         include('hausDB.php');
-        
+
         if (isset($_SESSION['message'])):
             ?>
             <div class="msg">
@@ -19,7 +21,6 @@
         <?php endif ?>
 
         <?php
-
         $abfrage = "SELECT * from haus";
         $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
         ?>
@@ -36,7 +37,7 @@
                     <th colspan="2">Action</th>
                 </tr>
             </thead>
-            
+
             <?php while ($row = mysqli_fetch_array($res)) { ?>
                 <tr>
                     <td><?php echo $row['bezeichnung']; ?></td>
@@ -60,13 +61,13 @@
                 </tr>
             <?php } ?>
         </table>
-        
+
         <form method="post" action="hausDB.php" >
 
             <input type="hidden" name="id" value="<?php echo $id; ?>">
 
-            
-            
+
+
             <div class="input-group">
                 <label>Bezeichnung</label>
                 <input type="text" name="bezeichnung" required value="<?php echo $bezeichnung; ?>">
@@ -103,4 +104,8 @@
             </div>
         </form>
     </body>
+
+    <?php
+    include 'footer.inc.php';
+    ?>
 </html>

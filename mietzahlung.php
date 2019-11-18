@@ -2,6 +2,8 @@
     <head>
         <meta charset="UTF-8">
         <link href="./CSS/style.css" rel="stylesheet" type="text/css">
+        <link href="./CSS/topbar.css" rel="stylesheet" type="text/css">
+        <link href="./CSS/footer.css" rel="stylesheet" type="text/css">
         <title>LandlordManager - Mietzahlungen verwalten</title>
     </head>
 
@@ -206,4 +208,9 @@
         </div>
     </form>
 </body>
+
+        <?php
+        include 'footer.inc.php';
+        ?>
+
 </html>

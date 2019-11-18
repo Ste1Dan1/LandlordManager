@@ -2,6 +2,8 @@
     <head>
         <meta charset="UTF-8">
         <link href="./CSS/style.css" rel="stylesheet" type="text/css">
+        <link href="./CSS/topbar.css" rel="stylesheet" type="text/css">
+        <link href="./CSS/footer.css" rel="stylesheet" type="text/css">
         <title>LandlordManager - Wohnungen verwalten</title>
     </head>
     <body>
@@ -18,7 +20,6 @@
         <?php endif ?>
 
         <?php
-               
         $abfrage = "SELECT * from wohnung";
         mysqli_query($link, "SET NAMES 'utf8'");
         $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
@@ -34,7 +35,7 @@
                     <th colspan="2">Aktion</th>
                 </tr>
             </thead>
-            
+
             <?php while ($row = mysqli_fetch_array($res)) { ?>
                 <tr>
                     <td><?php echo $row['wohnungsNummer']; ?></td>
@@ -79,19 +80,20 @@
             <div class="input-group">
                 <label>Haus</label>
                 <input type="text" name="FK_hausID" required value="<?php echo $FK_hausID; ?>">
-                
-                <?php //query
-                    $sql=mysql_query("SELECT hausID,bezeichnung FROM haus");
-                        if(mysql_num_rows($sql)){
-                            $select= '<select name="select">';
-                            while($rs=mysql_fetch_array($sql)){
-                            $select.='<option value="'.$rs['id'].'">'.$rs['name'].'</option>';
-                            }
-                        }
+
+                <?php
+                //query
+                $sql = mysql_query("SELECT hausID,bezeichnung FROM haus");
+                if (mysql_num_rows($sql)) {
+                    $select = '<select name="select">';
+                    while ($rs = mysql_fetch_array($sql)) {
+                        $select.='<option value="' . $rs['id'] . '">' . $rs['name'] . '</option>';
+                    }
+                }
                 $select.='</select>';
                 echo $select;
                 ?>
-                
+
             </div>
             <div class="input-group">
 
@@ -105,4 +107,8 @@
             </div>
         </form>
     </body>
+
+    <?php
+    include 'footer.inc.php';
+    ?>
 </html>

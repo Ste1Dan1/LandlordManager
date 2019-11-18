@@ -2,6 +2,8 @@
     <head>
         <meta charset="UTF-8">
         <link href="./CSS/style.css" rel="stylesheet" type="text/css">
+        <link href="./CSS/topbar.css" rel="stylesheet" type="text/css">
+        <link href="./CSS/footer.css" rel="stylesheet" type="text/css">
         <title>LandlordManager - Lieferanten verwalten</title>
     </head>
     <body>
@@ -18,7 +20,6 @@
         <?php endif ?>
 
         <?php
-               
         $abfrage = "SELECT * from lieferanten ORDER BY name";
         mysqli_query($link, "SET NAMES 'utf8'");
         $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
@@ -34,7 +35,7 @@
                     <th colspan="2">Aktion</th>
                 </tr>
             </thead>
-            
+
             <?php while ($row = mysqli_fetch_array($res)) { ?>
                 <tr>
                     <td><?php echo $row['name']; ?></td>
@@ -80,8 +81,8 @@
                 <label>Ort</label>
                 <input type="text" name="ort" required value="<?php echo $ort; ?>">
             </div>
-            
-            
+
+
             <div class="input-group">
 
                 <?php if ($update == true): ?>
@@ -94,4 +95,9 @@
             </div>
         </form>
     </body>
+
+
+    <?php
+    include 'footer.inc.php';
+    ?>
 </html>

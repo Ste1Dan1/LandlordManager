@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta name="Topbar Styling" content="width=device-width, initial-scale=1">
-        <link href="./CSS/topbar.css" rel="stylesheet" type="text/css">
+        <link href="./CSS/footer.css" rel="stylesheet" type="text/css">
 
     </head>
     <body>
@@ -15,10 +15,14 @@
         include 'db.inc.php';
         ?>
 
+        <div class="home">
+            <a href="index.php"><img src="Images/Logo_Landlord_Manager.png" /></a>
+        </div>
+
 
         <div class="navbar">
-            <a href="index.php">Startseite</a>
 
+<!--            <a href="index.php"><img src="Images/Logo_Landlord_Manager.png" /></a>-->
 
             <div class="dropdown">
                 <button class="dropbtn">Mieter 
@@ -62,7 +66,7 @@
                 </button>
                 <div class="dropdown-content">
                     <a href="mieterspiegel.php">Mieterspiegel</a>
-                    
+
                 </div>
             </div>
 
@@ -70,6 +74,15 @@
             <a href="logout.php">Logout</a>
 
         </div>
+
+  
+        <div class="navLogin">
+            <?php
+            echo "User: " . $_SESSION["name"];
+            ?>
+        </div>
+
+
 
     </body>
 </html>

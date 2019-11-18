@@ -2,11 +2,14 @@
     <head>
         <meta charset="UTF-8">
         <link href="./CSS/style.css" rel="stylesheet" type="text/css">
+        <link href="./CSS/topbar.css" rel="stylesheet" type="text/css">
+        <link href="./CSS/footer.css" rel="stylesheet" type="text/css">
         <title>LandlordManager - Mieter verwalten</title>
     </head>
     <body>
         <?php
         include('mieterDB.php');
+        
 
         if (isset($_SESSION['message'])):
             ?>
@@ -19,13 +22,12 @@
         <?php endif ?>
 
         <?php
-               
         $abfrage = "SELECT * from mieter";
         mysqli_query($link, "SET NAMES 'utf8'");
         $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
         ?>
 
-        
+
         <table>
             <thead>
                 <tr>
@@ -36,12 +38,11 @@
                     <th colspan="2">Aktion</th>
                 </tr>
             </thead>
-            
-            <?php while ($row = mysqli_fetch_array($res)) { 
+
+            <?php
+            while ($row = mysqli_fetch_array($res)) {
                 $datumalt = strtotime($row['geburtsdatum']);
                 $datum = date("d.m.Y", $datumalt);
-                
-                
                 ?>
                 <tr>
                     <td><?php echo $row['anrede']; ?></td>
@@ -52,16 +53,16 @@
                         <a href="c.php?edit= <?php echo $row['mieterID']; ?>" class="edit_btn" >Ändern</a>
                     </td>
                     <td>
-                        <?php
-                        $mieter_id = $row['mieterID'];
-                        $abfrage_mietvertraege = "SELECT count(*) AS mietvertraege FROM mietvertrag WHERE FK_mieterID=$mieter_id";
-                        $res_mietvertraege = mysqli_query($link, $abfrage_mietvertraege) or die("Abfrage hat nicht geklappt");
-                        $has_mietvertraege = (int) current(mysqli_fetch_array($res_mietvertraege)) > 0;
-                        ?>
+    <?php
+    $mieter_id = $row['mieterID'];
+    $abfrage_mietvertraege = "SELECT count(*) AS mietvertraege FROM mietvertrag WHERE FK_mieterID=$mieter_id";
+    $res_mietvertraege = mysqli_query($link, $abfrage_mietvertraege) or die("Abfrage hat nicht geklappt");
+    $has_mietvertraege = (int) current(mysqli_fetch_array($res_mietvertraege)) > 0;
+    ?>
                         <a href="mieterDB.php?del=<?php echo $row['mieterID']; ?>" class="del_btn <?php if ($has_mietvertraege) echo "disabled" ?>" >Löschen</a>
                     </td>
                 </tr>
-            <?php } ?>
+<?php } ?>
         </table>
 
 
@@ -72,7 +73,7 @@
             <input type="hidden" name="id" value="<?php echo $id; ?>">
 
 
-            
+
             <div class="input-radio">
                 <label>Anrede</label>
                 <input type="radio" name="anrede" value="Herr" required <?php echo $anrede == "Herr" ? 'checked' : ""; ?>>Herr
@@ -94,14 +95,18 @@
             </div>
             <div class="input-group">
 
-                <?php if ($update == true): ?>
+<?php if ($update == true): ?>
                     <button class="btn" type="submit" name="update" style="background: #556B2F;" >Ändern</button>
                     <button class="btn" type="submit" name="cancel" formnovalidate style="background: #556B2F;" >Löschen</button>
-                <?php else: ?>
+<?php else: ?>
                     <button class="btn" type="exit" name="save" >Speichern</button>
                 <?php endif ?>
 
             </div>
         </form>
     </body>
+
+<?php
+include 'footer.inc.php';
+?>
 </html>

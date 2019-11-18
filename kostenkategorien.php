@@ -2,12 +2,14 @@
     <head>
         <meta charset="UTF-8">
         <link href="./CSS/style.css" rel="stylesheet" type="text/css">
+        <link href="./CSS/topbar.css" rel="stylesheet" type="text/css">
+        <link href="./CSS/footer.css" rel="stylesheet" type="text/css">
         <title>LandlordManager - Kostenkategorien</title>
     </head>
     <body>
         <?php
         include('kostenkategorienDB.php');
-        
+
         if (isset($_SESSION['message'])):
             ?>
             <div class="msg">
@@ -19,7 +21,6 @@
         <?php endif ?>
 
         <?php
-
         $abfrage = "SELECT * from kostenkategorien";
         mysqli_query($link, "SET NAMES 'utf8'");
         $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
@@ -33,7 +34,7 @@
                     <th colspan="2">Action</th>
                 </tr>
             </thead>
-            
+
             <?php while ($row = mysqli_fetch_array($res)) { ?>
                 <tr>
                     <td><?php echo $row['beschreibung']; ?></td>
@@ -58,8 +59,8 @@
 
             <input type="hidden" name="id" value="<?php echo $id; ?>">
 
-            
-            
+
+
             <div class="input-group">
                 <label>Beschreibung</label>
                 <input type="text" name="beschreibung" required value="<?php echo $beschreibung; ?>">
@@ -78,4 +79,9 @@
             </div>
         </form>
     </body>
+
+
+    <?php
+    include 'footer.inc.php';
+    ?>
 </html>
