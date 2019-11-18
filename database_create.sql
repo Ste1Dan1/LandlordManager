@@ -194,13 +194,15 @@ INSERT INTO nkrechnungen (rgdatum, FK_hausID, FK_lieferantID, FK_kostKatID, betr
 ('2019-05-01', 1, 3, 1, 1700);
 
 INSERT INTO users (userID, anrede, vorname, name, email, pwd) VALUES 
-(NULL, 'frau', 'test', 'test', 'test.test@test.com', 'test')
+(NULL, 'frau', 'test', 'test', 'test.test@test.com', 'test');
 
--- create View nkrechnungenprohaus mit folgendem Skript:
--- select `landlordmanager`.`haus`.`bezeichnung` AS `Bezeichnung`,`landlordmanager`.`nkrechnungen`.`rgdatum` 
--- AS `Datum`,`landlordmanager`.`lieferanten`.`name` AS `Lieferant`,`landlordmanager`.`nkrechnungen`.`betrag` 
--- AS `Betrag`,`landlordmanager`.`kostenkategorien`.`beschreibung` AS `Beschreibung` 
--- from `landlordmanager`.`haus` join `landlordmanager`.`nkrechnungen` join `landlordmanager`.`kostenkategorien` 
--- join `landlordmanager`.`lieferanten` where ((`landlordmanager`.`haus`.`hausID` = `landlordmanager`.`nkrechnungen`.`FK_hausID`) 
--- and (`landlordmanager`.`lieferanten`.`lieferantID` = `landlordmanager`.`nkrechnungen`.`FK_lieferantID`) 
--- and (`landlordmanager`.`kostenkategorien`.`kostKatID` = `landlordmanager`.`nkrechnungen`.`FK_kostKatID`))
+create View nkrechnungenprohaus
+select `landlordmanager`.`haus`.`bezeichnung` AS `Bezeichnung`,`landlordmanager`.`nkrechnungen`.`rgdatum` AS `Datum`,
+        `landlordmanager`.`lieferanten`.`name` AS `Lieferant`,`landlordmanager`.`nkrechnungen`.`betrag` AS `Betrag`,
+        `landlordmanager`.`kostenkategorien`.`beschreibung` AS `Beschreibung`,
+        `landlordmanager`.`kostenkategorien`.`abrechnung` AS `Abrechnung`,`landlordmanager`.`kostenkategorien`.`kostKatID` AS `kategorieID`
+from (((`landlordmanager`.`haus` join `landlordmanager`.`nkrechnungen`) join `landlordmanager`.`kostenkategorien`) 
+    join `landlordmanager`.`lieferanten`)
+where ((`landlordmanager`.`haus`.`hausID` = `landlordmanager`.`nkrechnungen`.`FK_hausID`)
+and (`landlordmanager`.`lieferanten`.`lieferantID` = `landlordmanager`.`nkrechnungen`.`FK_lieferantID`)
+and (`landlordmanager`.`kostenkategorien`.`kostKatID` = `landlordmanager`.`nkrechnungen`.`FK_kostKatID`));
