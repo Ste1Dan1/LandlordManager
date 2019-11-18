@@ -194,7 +194,7 @@ INSERT INTO nkrechnungen (rgdatum, FK_hausID, FK_lieferantID, FK_kostKatID, betr
 ('2019-05-01', 1, 3, 1, 1700);
 
 INSERT INTO users (userID, anrede, vorname, name, email, pwd) VALUES 
-(NULL, 'frau', 'test', 'test', 'test.test@test.com', 'test')
+(NULL, 'frau', 'test', 'test', 'test.test@test.com', 'test');
 
 create View nkrechnungenprohaus AS
 select `landlordmanager`.`haus`.`bezeichnung` AS `Bezeichnung`,`landlordmanager`.`nkrechnungen`.`rgdatum` 
