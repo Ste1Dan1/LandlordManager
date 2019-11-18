@@ -2,7 +2,7 @@ body {
     font-size: 19px;
 }
 table{
-    width: 50%;
+    width: auto;
     margin: 30px auto;
     border-collapse: collapse;
     text-align: left;
@@ -28,7 +28,7 @@ form {
     border-radius: 5px;
 }
 .input-radio{
-   margin: 10px 0px 10px 0px; 
+    margin: 10px 0px 10px 0px; 
 }
 
 .input-group {
@@ -47,6 +47,16 @@ form {
     border-radius: 5px;
     border: 1px solid gray;
 }
+
+.input-group select {
+    height: 30px;
+    width: 93%;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
 .btn {
     padding: 10px;
     font-size: 15px;
@@ -54,6 +64,14 @@ form {
     background: #5F9EA0;
     border: none;
     border-radius: 5px;
+}
+
+.exp_btn{
+    text-decoration: none;
+    padding: 2px 5px;
+    background: #2E8B57;
+    color: white;
+    border-radius: 3px;
 }
 .edit_btn {
     text-decoration: none;
@@ -82,7 +100,7 @@ form {
 }
 
 .del_btn.disabled {
-  pointer-events: none;
-  cursor: default;
-  opacity: 0.5;
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.5;
 }
