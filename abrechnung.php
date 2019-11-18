@@ -5,6 +5,7 @@
         <title>LandlordManager - Jahresabrechnung</title>
     </head>
 
+    
     <body>
         <?php
         include 'db.inc.php';
