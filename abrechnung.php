@@ -13,6 +13,27 @@
         
         <h1>Ihre erfassten Nebenkosten-Rechnungen pro Haus</h1>
         
+        <!-- Plugin für PDF-Druck, E-Mail, Druck von https://www.printfriendly.com/button-->
+        <script>var pfHeaderImgUrl = 'Images/Logo_Landlord_Manager.png';
+            var pfDisablePDF = 0;
+            var pfDisableEmail = 1;
+            var pfDisablePrint = 0;
+            var pfHeaderTagline = '';
+            var pfdisableClickToDel = 1;
+            var pfHideImages = 0;
+            var pfImageDisplayStyle = 'right';
+            var pfCustomCSS = './CSS/style.css';
+            var pfBtVersion='2';
+            (function(){var js,pf;pf=document.createElement('script');
+                pf.type='text/javascript';
+                pf.src='//cdn.printfriendly.com/printfriendly.js';
+                document.getElementsByTagName('head')[0].appendChild(pf)})();
+        </script><a href="https://www.printfriendly.com" style="color:#6D9F00;text-decoration:none;
+                    " class="printfriendly" onclick="window.print();return false;" title="Druck oder PDF auslösen">
+            <img style="border:none;-webkit-box-shadow:none;box-shadow:none;
+                 " src="//cdn.printfriendly.com/buttons/printfriendly-pdf-button-nobg.png" 
+                 alt="PDF, E-Mail oder Druck auslösen"/></a>
+        
         <?php
             if (!empty($_POST['jahr'])) {
                 $dropDownVal = $_POST['jahr'];
@@ -33,8 +54,6 @@
             <button class="btn" type="submit" name="show" >Anzeigen</button>          
 
         </form>
-        <a href="abrechnung_pdf.php">PDF Nebenkosten</a><br>
-        <a href="abrechnung_mieter.php">PDF Nebenkostenabrechnung Mieter</a>
  
         <?php 
             $abfrage_haus = "SELECT hausID, bezeichnung, anz_whg, SUM(flaeche) as hausflaeche FROM haus, wohnung WHERE haus.hausID = wohnung.FK_hausID GROUP BY hausID ORDER BY bezeichnung;";
@@ -300,6 +319,7 @@
             }
              ?>
             </table>
+            <section class="page-break-after"></section>
             <?php  }
             
             ?>
