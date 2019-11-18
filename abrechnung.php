@@ -13,16 +13,17 @@
         ?>
         
         <h1>Ihre erfassten Nebenkosten-Rechnungen pro Haus</h1>
+
         
         <!-- Plugin für PDF-Druck, E-Mail, Druck von https://www.printfriendly.com/button-->
         <script>var pfHeaderImgUrl = 'Images/Logo_Landlord_Manager.png';
-            var pfDisablePDF = 0;
-            var pfDisableEmail = 1;
-            var pfDisablePrint = 0;
             var pfHeaderTagline = '';
             var pfdisableClickToDel = 1;
             var pfHideImages = 0;
             var pfImageDisplayStyle = 'right';
+            var pfDisablePDF = 0;
+            var pfDisableEmail = 1;
+            var pfDisablePrint = 0;
             var pfCustomCSS = './CSS/style.css';
             var pfBtVersion='2';
             (function(){var js,pf;pf=document.createElement('script');
@@ -32,8 +33,8 @@
         </script><a href="https://www.printfriendly.com" style="color:#6D9F00;text-decoration:none;
                     " class="printfriendly" onclick="window.print();return false;" title="Druck oder PDF auslösen">
             <img style="border:none;-webkit-box-shadow:none;box-shadow:none;
-                 " src="//cdn.printfriendly.com/buttons/printfriendly-pdf-button-nobg.png" 
-                 alt="PDF, E-Mail oder Druck auslösen"/></a>
+                 " src='Images/Icon_Print_PDF.png'
+                 alt="Druck oder PDF auslösen"/></a>
         
         <?php
             if (!empty($_POST['jahr'])) {
@@ -93,7 +94,8 @@
             }
             ?> 
             <hr>
-            <h2>Nebenkosten für Haus <?php echo $table['bezeichnung']?></h2> 
+            <section class="page-break-after">
+            <h2 class="pf-title">Nebenkosten für Haus <?php echo $table['bezeichnung']?></h2>
             
                 <?php
                 $res = mysqli_query($link, $abfrage_NK) or die("Abfrage NK-Rechnungen hat nicht geklappt");
@@ -320,7 +322,7 @@
             }
              ?>
             </table>
-            <section class="page-break-after"></section>
+            </section>
             <?php  }
             
             ?>
