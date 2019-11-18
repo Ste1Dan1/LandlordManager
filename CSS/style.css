@@ -100,7 +100,15 @@ form {
 }
 
 .del_btn.disabled {
-    pointer-events: none;
-    cursor: default;
-    opacity: 0.5;
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.5;
+}
+
+#printfriendly #pf-src {
+    display:none;
+}
+
+#printfriendly #pf-title{
+    display:none;
 }
