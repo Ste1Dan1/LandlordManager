@@ -9,7 +9,7 @@
 
     <body>
         <?php
-        //include('topbar.inc.php');
+        include('topbar.inc.php');
 
         $abfrage = "SELECT `mieter`.*, `mietvertrag`.*, `wohnung`.*, `haus`.*
 FROM `mietvertrag` 
