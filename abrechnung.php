@@ -7,6 +7,7 @@
         <title>LandlordManager - Jahresabrechnung</title>
     </head>
 
+    
     <body>
         <?php
         include 'db.inc.php';
@@ -14,12 +15,42 @@
         ?>
         
         <h1>Ihre erfassten Nebenkosten-Rechnungen pro Haus</h1>
-        <form name ="jahrauswahl" method="post" action="abrechnung.php">
+        
+        <!-- Plugin für PDF-Druck, E-Mail, Druck von https://www.printfriendly.com/button-->
+        <script>var pfHeaderImgUrl = 'Images/Logo_Landlord_Manager.png';
+            var pfDisablePDF = 0;
+            var pfDisableEmail = 1;
+            var pfDisablePrint = 0;
+            var pfHeaderTagline = '';
+            var pfdisableClickToDel = 1;
+            var pfHideImages = 0;
+            var pfImageDisplayStyle = 'right';
+            var pfCustomCSS = './CSS/style.css';
+            var pfBtVersion='2';
+            (function(){var js,pf;pf=document.createElement('script');
+                pf.type='text/javascript';
+                pf.src='//cdn.printfriendly.com/printfriendly.js';
+                document.getElementsByTagName('head')[0].appendChild(pf)})();
+        </script><a href="https://www.printfriendly.com" style="color:#6D9F00;text-decoration:none;
+                    " class="printfriendly" onclick="window.print();return false;" title="Druck oder PDF auslösen">
+            <img style="border:none;-webkit-box-shadow:none;box-shadow:none;
+                 " src="//cdn.printfriendly.com/buttons/printfriendly-pdf-button-nobg.png" 
+                 alt="PDF, E-Mail oder Druck auslösen"/></a>
+        
+        <?php
+            if (!empty($_POST['jahr'])) {
+                $dropDownVal = $_POST['jahr'];
+            } else {
+                $dropDownVal = 1;
+            }
+        ?>
+        
+        <form name ="jahrauswahl" method="post">
             <select name="jahr">
-                <option value="2019" selected>2019</option>
-                <option value="2020">2020</option>
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
+                <option value="2019"<?php if ($dropDownVal==2019) echo 'selected'; ?>>2019</option>
+                <option value="2020"<?php if ($dropDownVal==2020) echo 'selected'; ?>>2020</option>
+                <option value="2021"<?php if ($dropDownVal==2021) echo 'selected'; ?>>2021</option>
+                <option value="2022"<?php if ($dropDownVal==2022) echo 'selected'; ?>>2022</option>
             </select>
             
             
@@ -46,8 +77,7 @@
                 $differenz = 0;
                 ?>
 
-            
-
+           
                 <?php
                 
                 $hausID = $table['hausID'];
@@ -63,8 +93,10 @@
                 $jahr = date("Y");
                 $abfrage_NK = "SELECT * from nkrechnungenprohaus WHERE bezeichnung = '$hausname' AND datum BETWEEN '$jahr-01-01' AND '$jahr-12-31' ORDER BY datum;";                
             }
-             ?> <h2>Nebenkosten für Haus <?php echo $table['bezeichnung'].', '.$jahr ?></h2>            
-             
+            ?> 
+            <hr>
+            <h2>Nebenkosten für Haus <?php echo $table['bezeichnung']?></h2> 
+            
                 <?php
                 $res = mysqli_query($link, $abfrage_NK) or die("Abfrage NK-Rechnungen hat nicht geklappt");
                              
@@ -290,7 +322,7 @@
             }
              ?>
             </table>
-            <hr>
+            <section class="page-break-after"></section>
             <?php  }
             
             ?>
