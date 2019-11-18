@@ -9,7 +9,7 @@
 
     <body>
         <?php
-        include('topbar.inc.php');
+        //include('topbar.inc.php');
 
         $abfrage = "SELECT `mieter`.*, `mietvertrag`.*, `wohnung`.*, `haus`.*
 FROM `mietvertrag` 
@@ -51,6 +51,11 @@ FROM `mietvertrag`
                 $mbdatum = date("d.m.Y", $mbalt);
                 $mealt = strtotime($row['mietende']);
                 $medatum = date("d.m.Y", $mealt);
+                
+                if($medatum == '01.01.1970'){
+                    $medatum='';
+                }
+                
                 ?>
                 <tr>
                     <td><?php echo $row['anrede']; ?></td>
