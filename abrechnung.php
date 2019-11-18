@@ -8,22 +8,33 @@
     <body>
         <?php
         include 'db.inc.php';
-        include 'topbar.inc.php';
+        //include 'topbar.inc.php';
         ?>
         
         <h1>Ihre erfassten Nebenkosten-Rechnungen pro Haus</h1>
-        <form name ="jahrauswahl" method="post" action="abrechnung.php">
+        
+        <?php
+            if (!empty($_POST['jahr'])) {
+                $dropDownVal = $_POST['jahr'];
+            } else {
+                $dropDownVal = 1;
+            }
+        ?>
+        
+        <form name ="jahrauswahl" method="post">
             <select name="jahr">
-                <option value="2019" selected>2019</option>
-                <option value="2020">2020</option>
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
+                <option value="2019"<?php if ($dropDownVal==2019) echo 'selected'; ?>>2019</option>
+                <option value="2020"<?php if ($dropDownVal==2020) echo 'selected'; ?>>2020</option>
+                <option value="2021"<?php if ($dropDownVal==2021) echo 'selected'; ?>>2021</option>
+                <option value="2022"<?php if ($dropDownVal==2022) echo 'selected'; ?>>2022</option>
             </select>
             
             
             <button class="btn" type="submit" name="show" >Anzeigen</button>          
 
         </form>
+        <a href="abrechnung_pdf.php">PDF Nebenkosten</a><br>
+        <a href="abrechnung_mieter.php">PDF Nebenkostenabrechnung Mieter</a>
  
         <?php 
             $abfrage_haus = "SELECT hausID, bezeichnung, anz_whg, SUM(flaeche) as hausflaeche FROM haus, wohnung WHERE haus.hausID = wohnung.FK_hausID GROUP BY hausID ORDER BY bezeichnung;";
@@ -44,8 +55,7 @@
                 $differenz = 0;
                 ?>
 
-            
-
+           
                 <?php
                 
                 $hausID = $table['hausID'];
@@ -61,8 +71,10 @@
                 $jahr = date("Y");
                 $abfrage_NK = "SELECT * from nkrechnungenprohaus WHERE bezeichnung = '$hausname' AND datum BETWEEN '$jahr-01-01' AND '$jahr-12-31' ORDER BY datum;";                
             }
-             ?> <h2>Nebenkosten für Haus <?php echo $table['bezeichnung'].', '.$jahr ?></h2>            
-             
+            ?> 
+            <hr>
+            <h2>Nebenkosten für Haus <?php echo $table['bezeichnung']?></h2> 
+            
                 <?php
                 $res = mysqli_query($link, $abfrage_NK) or die("Abfrage NK-Rechnungen hat nicht geklappt");
                              
@@ -288,7 +300,6 @@
             }
              ?>
             </table>
-            <hr>
             <?php  }
             
             ?>
