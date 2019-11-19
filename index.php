@@ -11,13 +11,16 @@ Startseite mit Menüleiste und klickbaren Icons
         <title>LandLord Manager</title>
     </head>
     <body>
-        <div class="pagecontent">
-
-
+        
             <?php
             include 'topbar.inc.php';
             include 'loginCheck.inc.php';
             ?>
+        
+        
+        <div class="pagecontent">
+
+
 
 
             <h1>Herzlich Willkommen bei Landlord Manager</h1>
