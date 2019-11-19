@@ -2,6 +2,7 @@
 include 'topbar.inc.php';
 include 'db.inc.php';
 // initialize variables
+
 $wohnungsNummer = "";
 $zimmer = "";
 $flaeche = "";

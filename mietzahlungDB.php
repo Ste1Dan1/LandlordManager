@@ -69,7 +69,7 @@ if (isset($_GET['del'])) {
 
     mysqli_query($link, "DELETE FROM mieteingang WHERE mietEingangID=$id");
 
-    $_SESSION['message'] = "Mietvertrag gelöscht" . mysqli_error($link);
+    $_SESSION['message'] = "Mietzahlung gelöscht" . mysqli_error($link);
     header('location: mietzahlung.php');
 }
 

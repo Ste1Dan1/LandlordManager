@@ -8,6 +8,7 @@
     </head>
 
     <body>
+       <div class="pagecontent">
         <?php
         include('topbar.inc.php');
 
@@ -21,8 +22,9 @@ FROM `mietvertrag`
 
         $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt" . mysqli_error($link));
         ?>
+         
 
-
+            <h1>Mieterspiegel</h1>
 
         <table>
 
@@ -51,11 +53,10 @@ FROM `mietvertrag`
                 $mbdatum = date("d.m.Y", $mbalt);
                 $mealt = strtotime($row['mietende']);
                 $medatum = date("d.m.Y", $mealt);
-                
-                if($medatum == '01.01.1970'){
-                    $medatum='';
+
+                if ($medatum == '01.01.1970') {
+                    $medatum = '';
                 }
-                
                 ?>
                 <tr>
                     <td><?php echo $row['anrede']; ?></td>
@@ -74,15 +75,11 @@ FROM `mietvertrag`
             ?>
         </table>
 
+    </div>
+</body>
 
 
-
-
-
-    </body>
-
-
-    <?php
-    include 'footer.inc.php';
-    ?>
+<?php
+include 'footer.inc.php';
+?>
 </html>

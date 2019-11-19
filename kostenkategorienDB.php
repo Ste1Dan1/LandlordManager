@@ -22,6 +22,7 @@ if (isset($_GET['edit'])) {
 }
 
 if (isset($_POST['save'])) {
+    $beschreibung = $_POST['beschreibung'];
     $abrechnung = $_POST['abrechnung'];
 
     mysqli_query($link, "INSERT INTO kostenkategorien (beschreibung, abrechnung) VALUES ('$beschreibung', '$abrechnung')");

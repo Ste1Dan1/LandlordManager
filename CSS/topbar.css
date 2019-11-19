@@ -1,13 +1,19 @@
-body {
-  padding-top: 20px;
+header {
+  
   font-family: Arial, Helvetica, sans-serif;
   max-width: 1100px;
   max-height: 1500px;
-  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 0px;
+  padding: 0;
+  background-color: white;
 
 
+}
 
-
+.navLogin{
+    padding: 0;
+    margin-top: 0;
 }
 
 .home{
@@ -24,7 +30,6 @@ float: left;
 }
 
 .navbar {
-
   overflow: hidden;
   background-color: #333;
   

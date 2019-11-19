@@ -9,6 +9,7 @@
 
     
     <body>
+        <div class="pagecontent">
         <?php
         include 'db.inc.php';
         include 'topbar.inc.php';
@@ -328,6 +329,11 @@
             <?php  }
             
             ?>
-
+</div>
 </body>
+
+
+    <?php
+    include 'footer.inc.php';
+    ?>
 </html>

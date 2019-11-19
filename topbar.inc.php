@@ -2,13 +2,7 @@
 <!-- source: https://www.w3schools.com/howto/howto_css_dropdown_navbar.asp -->
 
 <html>
-    <head>
-        <meta name="Topbar Styling" content="width=device-width, initial-scale=1">
-        <link href="./CSS/footer.css" rel="stylesheet" type="text/css">
-
-    </head>
-    <body>
-
+    <header>
         <?php
         session_start();
         include 'loginCheck.inc.php';
@@ -66,23 +60,21 @@
                 </button>
                 <div class="dropdown-content">
                     <a href="mieterspiegel.php">Mieterspiegel</a>
-
+                    <a href="abrechnung.php">NK-Abrechnung</a>
                 </div>
+                
             </div>
 
-            <a href="user_ausgabe.php">User</a>
+            <a href="user.php">User</a>
             <a href="logout.php">Logout</a>
 
         </div>
 
-  
         <div class="navLogin">
             <?php
             echo "User: " . $_SESSION["name"];
             ?>
         </div>
+    </header>
 
-
-
-    </body>
 </html>
