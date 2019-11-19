@@ -14,10 +14,10 @@ and open the template in the editor.
 
                 <ul>
                     <li>
-                        <a href="/de/wiki/4910">Kontakt</a>
+                        <a href="kontakt.php">Kontakt</a>
                     </li>
                     <li>
-                        <a  href="/de/wiki/556">Unternehmen</a>
+                        <a  href="unternehmen.php">Unternehmen</a>
                     </li>
 
                 </ul>
@@ -29,10 +29,10 @@ and open the template in the editor.
 
                 <ul>
                     <li>
-                        <a href="/de/wiki/4910">FAQ</a>
+                        <a href="FAQ.php">FAQ</a>
                     </li>
                     <li>
-                        <a href="/de/wiki/556">Support</a>
+                        <a href="support.php">Support</a>
                     </li>
 
                 </ul>
@@ -44,11 +44,11 @@ and open the template in the editor.
 
 
         <div class="bottom_links">
-            <a href="/unternehmen/agb">AGB</a>
+            <a href="agb.php">AGB</a>
             <span class="footer__copyrightPipe"> | </span>
-            <a href="/unternehmen/datenschutz">Datenschutz</a>
+            <a href="datenschutz.php">Datenschutz</a>
             <span class="footer__copyrightPipe"> | </span>
-            <a href="/impressum">Impressum</a>
+            <a href="impressum.php">Impressum</a>
             <span class="footer__copyright ml-4"> <br>© 2019 – Landlord Manager Inc - Alle Rechte vorbehalten.</span>
         </div>
 
