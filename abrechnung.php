@@ -74,6 +74,7 @@
                 $perbeginn='';
                 $perende='';
                 $anteil = 0;
+                $summerg = 0;
                 $summeanteil = 0;
                 $offenmieter = 0;
                 $differenz = 0;
@@ -110,7 +111,7 @@
                 <table>
                 <thead>
                     <tr>
-                        <th>Datum NK-Rechnung</th>
+                        <th>Rechnung</th>
                         <th>Lieferant</th>
                         <th>Kostenkategorie</th>
                         <th>Betrag</th>                       
@@ -121,91 +122,98 @@
                 while ($row = mysqli_fetch_array($res)) { 
                     
                     $abrechnungstyp = $row['Abrechnung'];
-                    if ($abrechnungstyp =="Wohneinheit"){
-                    $summewhg += $row['Betrag'];
-                    }
-                    
-                    if ($abrechnungstyp =="Wohnfläche"){
-                    $summefl += $row['Betrag'];
-                    } 
+
+                    $summerg += $row['Betrag'];
                     
                     $anzahl +=1;
                     $datumalt = strtotime($row['Datum']);
                     $datum = date("d.m.Y", $datumalt);
                     ?>
-                    <tr>
+                    
+                <tr>
                         <td><?php echo $datum; ?></td>
                         <td><?php echo $row['Lieferant']; ?></td>
-                        <td><?php echo $row['Beschreibung'].' ('.$row['Abrechnung'].')'; ?></td>
+                        <td><?php echo $row['Beschreibung']; ?></td>
                         <td><?php echo $row['Betrag']; ?></td>
 
                     </tr>
                     <?php }
                 
                 if ($anzahl >=1){
-                    $anteilfl = $summefl / $flaeche / $bewmonate;
-                    $anteilwhg = $summewhg / $bewmonate;
                     
                 ?>
                     <tr>
-                        <td><strong><?php echo 'TOTAL pro Wohnung'; ?></strong></td>
+                        <td><strong><?php echo 'TOTAL'; ?></strong></td>
                         <td></td><td></td>
-                        <td><strong><?php echo number_format($summewhg, 2); ?></strong></td>
+                        <td><strong><?php echo number_format($summerg, 2); ?></strong></td>
                         <td><?php echo ''; ?></td>
                     </tr>
-                    <tr>
-                        <td><strong><?php echo 'TOTAL pro Wohnfläche'; ?></strong></td>
-                        <td></td><td></td>
-                        <td><strong><?php echo number_format($summefl, 2); ?></strong></td>
-                        <td><?php echo ''; ?></td>
-                    </tr>
+                    <tr><td></td><td></td><td></td><td></td></tr>
                     <tr>
                         <td><strong><?php echo 'Anz. Wohnungen'; ?></strong></td>
                         <td><?php echo $anzwhg; ?></td>
-                        <td><strong><?php echo 'mtl. Anteil/Whg' ?></strong></td>
-                        <td><?php echo number_format($anteilwhg, 2); ?></td>
-                    </tr>
-                    <tr>
                         <td><strong><?php echo 'Gesamtfläche'; ?></strong></td>
-                        <td><?php echo $flaeche; ?></td>
-                        <td><strong><?php echo 'mtl. Anteil/qm' ?></strong></td>
-                        <td><?php echo number_format($anteilfl, 2); ?></td>
+                        <td><?php echo $flaeche; ?></td>                        
                     </tr>
             
             <?php
                 }
             
-                $abfrage_kat = "SELECT kategorieID, beschreibung, SUM(betrag) as betrag from nkrechnungenprohaus WHERE bezeichnung = '$hausname' AND datum BETWEEN '$jahr-01-01' AND '$jahr-12-31' GROUP BY kategorieID;";                
+                $abfrage_kat = "SELECT kategorieID, beschreibung, abrechnung, SUM(betrag) as betrag from nkrechnungenprohaus WHERE bezeichnung = '$hausname' AND datum BETWEEN '$jahr-01-01' AND '$jahr-12-31' GROUP BY kategorieID;";                
             
                 $res_kat = mysqli_query($link, $abfrage_kat) or die("Abfrage NK-Kategorien hat nicht geklappt");
                              
                 if (mysqli_num_rows($res_kat)==0){
                     echo 'Keine Kategorien erfasst';
                 }
-                else { ?>
+                else { 
+                    $anteil = 0;
+                    $anteilfl = 0;
+                    $anteilwhg = 0;
+                    
+                    ?>
                     <tr><td></td><td></td><td></td><td></td></tr>
                     <tr>
                         <th>Kostenkategorie</th>
                         <th>Summe</th>
-                        <th></th><th></th>
+                        <th>Abrechnung</th>
+                        <th>Anteil</th>
+
+
+                        <th></th>
                     </tr>
                     
               
                 <?php
                 while ($kat = mysqli_fetch_array($res_kat)) { 
+                    
+                    $abrechnung = $kat['Abrechnung'];
+                    $betrag = $kat['betrag'];
+                    if ($abrechnung == 'Wohnfläche'){
+                        $anteilfl = $betrag / $flaeche / 12;
+                        
+                    } elseif ($abrechnung == 'Wohneinheit'){
+                        $anteilwhg = $betrag / $bewmonate;
+                    }
+                    
+                    $anteil = $anteilwhg + $anteilfl;
+                    
                     ?>
                     <tr>
                         <td><?php echo $kat['Beschreibung']; ?></td>
-                        <td><?php echo $kat['betrag']; ?></td>
-                        <td></td><td></td>
+                        <td><?php echo $betrag; ?></td>
+                        <td><?php echo $abrechnung; ?></td>
+                        <td><?php echo number_format($anteil, 2); ?></td>
+                        <td></td>
 
                     </tr>
                     <?php }
                     ?>
-                    </table>                                        
+                    </table> 
+                    <br>
             
                     
-            <?php $abfrage_mieter = "SELECT wohnung.wohnungsNummer, wohnung.flaeche, mieter.vorname, mieter.name,  mietvertrag.mietbeginn, mietvertrag.mietende, SUM(nkBetrag) as Summe 
+            <?php $abfrage_mieter = "SELECT wohnung.wohnungsNummer, wohnung.flaeche, mieter.mieterID, mieter.vorname, mieter.name,  mietvertrag.mietVertragID, mietvertrag.mietbeginn, mietvertrag.mietende, SUM(nkBetrag) as Summe 
                 FROM mieter, mietvertrag, wohnung, haus, mietEingang
                 WHERE mieter.mieterID = mietvertrag.FK_mieterID
                 AND wohnung.wohnungID = mietvertrag.FK_wohnungID
@@ -227,10 +235,10 @@
                         <th><?php echo 'Wohnung'; ?></th>
                         <th><?php echo 'Mieter'; ?></th>
                         <th><?php echo 'Zahlperiode' ?></th>
-                        <th><?php echo 'Anz. Monate'; ?></th>
-                        <th><?php echo 'Anteil Jahr'; ?></th>
+                        <th><?php echo 'Mte.'; ?></th>
+                        <th><?php echo 'Anteil'; ?></th>
                         <th><?php echo 'Bezahlt'; ?></th>                        
-                        <th><?php echo 'Offen'; ?></th>                    
+                        <th><?php echo 'Offen'; ?></th>                       
                     </tr>
             <?php
                 //Periodenbeginn (Start Mietvertrag oder 01. Januar) evaluieren  
@@ -259,7 +267,11 @@
 
                 if($mietende >= $jahr.'1231'){
                     $perende='31.12.'.$jahr;
-                }             
+                }
+                
+                if ($perende >= date('Ymd')){
+                    $perende = date('d.m.Y');
+                }
  
                 //Berechnung Monate
                 $anzahlmte;
@@ -267,34 +279,42 @@
                 $d1=new DateTime($perende); 
                 $d2=new DateTime($perbeginn);                                  
                 $Months = $d2->diff($d1); 
-                $anzahlmte = (($Months->y) * 12) + ($Months->m) + 1;
+                $anzahlmte = (($Months->y) * 12) + ($Months->m);
                 
                 $flaechewhg = $mietertable['flaeche'];
-
-                $anteilmieter = number_format((($anzahlmte * $anteilwhg) + ($anzahlmte * $flaechewhg * $anteilfl)), 2);
-                $summeanteil += $anteilmieter;
-                $summeanteil = number_format($summeanteil, 2);
                 
-                $bezahlt = $mietertable['Summe'];
-                $offen = number_format(($anteilmieter - $bezahlt), 2);
+                
+
+                $anteilmieter = ($anzahlmte * $anteilwhg) + ($anzahlmte * $flaechewhg * $anteilfl);
+                $summeanteil += $anteilmieter;
+                               
+                $bezahlt = $mietertable['Summe'];                
+                $offen = $anteilmieter - $bezahlt;
                 $offenmieter += $offen;
+                
+                $whgnr = $mietertable['wohnungsNummer'];
+                $mietername = $mietertable['vorname'].' '.$mietertable['name'];
+                $mieterID = $mietertable['mieterID'];
+                $mietvertragID = $mietertable['mietVertragID'];
 
 
             ?>
                     <tr>
-                    <td><?php echo $mietertable['wohnungsNummer']; ?></td>
-                    <td><?php echo $mietertable['vorname'].' '.$mietertable['name']; ?></td>
+                    <td><?php echo $whgnr ?></td>
+                    <td><?php echo $mietername ?></td>
                     <td><?php echo $perbeginn.' - '.$perende; ?></td>
                     <td><?php echo $anzahlmte; ?></td>
-                    <td><?php echo $anteilmieter; ?></td>
+                    <td><?php echo number_format($anteilmieter, 2); ?></td>
                     <td><?php echo $bezahlt; ?></td>
-                    <td><?php echo $offen; ?></td>                    
+                    <td><?php echo number_format($offen, 2); ?></td> 
+                    <th class = "print-no"><a href="abrechnung_mieter.php?mietvertragID=<?php echo $mietvertragID ?>&jahr=<?php echo $jahr ?>" style="color:#6D9F00;text-decoration:none;" title="PDF anzeigen">
+                    <img style="border:none;-webkit-box-shadow:none;box-shadow:none;
+                    " src='Images/Icon_PDF.png' alt="PDF anzeigen"/></a></th>
                     </tr>
                     
             <?php  
             }
-            $summe = $summewhg + $summefl;
-            $differenz = $summe - $summeanteil;
+            $differenz = $summerg - $summeanteil;
             $gewinn = 0;
             $verlust = 0;
             $offenmieter = number_format($offenmieter, 2);
@@ -309,14 +329,17 @@
             
             ?>
                     <tr></tr><tr>
-                        <td><strong><?php echo 'TOTAL'; ?></strong></td>
-                        <td><?php echo $summeanteil; ?></td>
+                        <td><strong><?php echo 'Verrechenbar'; ?></strong></td>
+                        <td><?php echo number_format($summeanteil, 2); ?></td>
                         <td><strong><?php echo 'Offen: '.$offenmieter; ?></strong></td>
+                        <td></td><td></td><td></td><td></td><td></td>
+                    </tr>
+                    <tr>
                         <td><strong><?php echo 'Verlust'; ?></strong></td>
                         <td><FONT COLOR='#ff4300'><?php echo $verlust; ?></td>
                         <td><strong><?php echo 'Gewinn'; ?></strong></td>
                         <td><FONT COLOR='#04f014'><?php echo $gewinn; ?></td>
-                        <td></td>
+                        <td></td><td></td><td></td><td></td>
                         </tr>
             
             <?php
