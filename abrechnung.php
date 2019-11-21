@@ -45,15 +45,40 @@
             } else {
                 $dropDownVal = 1;
             }
+            
+        $abfrage_jahr = "SELECT DISTINCT YEAR(rgdatum) as jahr FROM NKRechnungen ORDER BY jahr;";
+        $res_jahr = mysqli_query($link, $abfrage_jahr) or die("Abfrage Jahr hat nicht geklappt");       
+
         ?>
-        
         <form name ="jahrauswahl" method="post">
-            <select name="jahr">
-                <option value="2019"<?php if ($dropDownVal==2019) echo 'selected'; ?>>2019</option>
-                <option value="2020"<?php if ($dropDownVal==2020) echo 'selected'; ?>>2020</option>
-                <option value="2021"<?php if ($dropDownVal==2021) echo 'selected'; ?>>2021</option>
-                <option value="2022"<?php if ($dropDownVal==2022) echo 'selected'; ?>>2022</option>
-            </select>
+            <select class="input-group" name="jahr" required>
+                        <?php
+                        $sql = mysqli_query($link, $abfrage_jahr);
+
+
+                        //Default Value anzeigen falls nichts ausgewählt
+                        if ($jahr == NULL) {
+                            echo '<option value="" disabled selected>Select your option</option>';
+                        } else {
+                            echo '<option value="" disabled>Select your option</option>';
+                        }
+
+                        //Werte auflisten
+                        while ($row = $sql->fetch_assoc()) {
+
+                            $select_attribute = "";
+
+                            if ($row['jahr'] == $jahr) {
+                                $select_attribute = 'selected';
+                                echo "<option value=". $row['jahr']."' selected = " . $select_attribute .">".$row['jahr']."</option>";
+                            } else {
+                                echo "<option value=". $row['jahr'].">".$row['jahr']."</option>";
+                            }
+                        }
+                        ?>
+
+                    </select>
+            
             
             
             <button class="btn" type="submit" name="show" >Anzeigen</button>          
