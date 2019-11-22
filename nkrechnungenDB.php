@@ -16,7 +16,7 @@ $update = false;
 if (isset($_GET['edit'])) {
     $id = $_GET['edit'];
     $update = true;
-    $record = mysqli_query($link, "SELECT *, kostenkategorien.beschreibung as beschreibung FROM nkrechnungen WHERE nkRechnungID=$id LEFT JOIN kostenkategorien ON nkrechnungen.FK_kostKatID=kostenkategorien.kostKatID");
+    $record = mysqli_query($link, "SELECT * FROM nkrechnungen WHERE nkRechnungID=$id");
 
     if (@count($record) == 1) {
         $n = mysqli_fetch_array($record);

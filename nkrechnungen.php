@@ -71,18 +71,25 @@
 
                 <div class="input-group">
                     <label>Rechnungsdatum</label>
-                    <input type="date" name="rgdatum" required value="<?php echo $bezeichnung; ?>">
+                    <input type="date" name="rgdatum" required value="<?php echo $rgdatum; ?>">
                 </div>
 
                 <?php
                 $abfrage_haus = "SELECT * FROM haus";
-                mysqli_query($link, "SET NAMES 'utf8'");
+               
                 $res_haus = mysqli_query($link, $abfrage_haus) or die("Abfrage hat nicht geklappt");
                 ?>
                 <div class="input-group">
                     <label>Haus</label>
                     <select name="FK_hausID">
-                        <?php while ($row = mysqli_fetch_array($res_haus)) { ?>
+                        <?php 
+                        if ($fk_haus_id == NULL) {
+                            echo '<option value="" disabled selected>Select your option</option>';
+                        } else {
+                            echo '<option value="" disabled>Select your option</option>';
+                        }
+                        
+                        while ($row = mysqli_fetch_array($res_haus)) { ?>
                             <option value="<?php echo $row['hausID'] ?>" <?php if ($fk_haus_id === $row['hausID']) echo 'selected' ?>><?php echo $row['bezeichnung'] ?></option>
                         <?php } ?>
                     </select>
@@ -90,28 +97,43 @@
 
                 <?php
                 $abfrage_lieferanten = "SELECT * FROM lieferanten";
-                mysqli_query($link, "SET NAMES 'utf8'");
+                
                 $res_lieferanten = mysqli_query($link, $abfrage_lieferanten) or die("Abfrage hat nicht geklappt");
                 ?>
                 <div class="input-group">
                     <label>Lieferant</label>
                     <select name="FK_lieferantID">
-                        <?php while ($row = mysqli_fetch_array($res_lieferanten)) { ?>
+                        <?php 
+                        
+                        if ($fk_lieferant_id == NULL) {
+                            echo '<option value="" disabled selected>Select your option</option>';
+                        } else {
+                            echo '<option value="" disabled>Select your option</option>';
+                        }
+                        
+                        while ($row = mysqli_fetch_array($res_lieferanten)) { ?>
                             <option value="<?php echo $row['lieferantID'] ?>" <?php if ($fk_lieferant_id === $row['lieferantID']) echo 'selected' ?>><?php echo $row['name'] ?></option>
                         <?php } ?>
                     </select>
                 </div>
 
                 <?php
-                $abfrage_kostenkategorien = "SELECT * FROM kostenkategorien";
-                mysqli_query($link, "SET NAMES 'utf8'");
+                $abfrage_kostenkategorien = "SELECT * FROM kostenkategorien Order By beschreibung";
+               
                 $res_kostenkategorien = mysqli_query($link, $abfrage_kostenkategorien) or die("Abfrage hat nicht geklappt");
                 ?>
                 <div class="input-group">
                     <label>Kostenkategorie</label>
                     <select name="FK_kostKatID">
-                        <?php while ($row = mysqli_fetch_array($res_kostenkategorien)) { ?>
-                            <option value="<?php echo $row['kostKatID'] ?>" <?php if ($fk_lieferant_id === $row['kostKatID']) echo 'selected' ?>><?php echo $row['abrechnung'] . ': ' . $row['beschreibung'] ?></option>
+                        <?php 
+                        
+                        if ($fk_kostKat_id == NULL) {
+                            echo '<option value="" disabled selected>Select your option</option>';
+                        } else {
+                            echo '<option value="" disabled>Select your option</option>';
+                        }
+                        while ($row = mysqli_fetch_array($res_kostenkategorien)) { ?>
+                            <option value="<?php echo $row['kostKatID'] ?>" <?php if ($fk_lieferant_id === $row['kostKatID']) echo 'selected' ?>><?php echo $row['beschreibung']. " / ".$row['abrechnung'] ?></option>
                         <?php } ?>
                     </select>
                 </div>
