@@ -70,7 +70,7 @@
 
                             if ($row['jahr'] == $jahr) {
                                 $select_attribute = 'selected';
-                                echo "<option value=". $row['jahr']."' selected = " . $select_attribute .">".$row['jahr']."</option>";
+                                echo "<option value=". $row['jahr']." selected = ". $select_attribute .">".$row['jahr']."</option>";
                             } else {
                                 echo "<option value=". $row['jahr'].">".$row['jahr']."</option>";
                             }
@@ -79,7 +79,8 @@
 
                     </select>
             
-            
+         <!-- <option value="2019"<?php if ($dropDownVal==2019) echo 'selected'; ?>>2019</option> -->
+
             
             <button class="btn" type="submit" name="show" >Anzeigen</button>          
 
