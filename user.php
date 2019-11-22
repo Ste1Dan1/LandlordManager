@@ -87,7 +87,7 @@
 
                     
                         <button class="btn" type="submit" name="update" style="background: #556B2F;" >Ändern</button>
-                        <button class="btn" type="submit" name="cancel" formnovalidate style="background: #556B2F;" >cancel</button>
+                        <button class="btn" type="submit" name="cancel" formnovalidate style="background: #556B2F;" >Abbrechen</button>
                     <?php else: ?>
                         
                     <?php endif ?>

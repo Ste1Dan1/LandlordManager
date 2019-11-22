@@ -54,7 +54,7 @@
                         <td><?php echo $row['name']; ?></td>
                         <td><?php echo $datum; ?></td>
                         <td>
-                            <a href="c.php?edit= <?php echo $row['mieterID']; ?>" class="edit_btn" >Ändern</a>
+                            <a href="mieter.php?edit= <?php echo $row['mieterID']; ?>" class="edit_btn" >Ändern</a>
                         </td>
                         <td>
                             <?php
@@ -96,7 +96,7 @@
 
                     <?php if ($update == true): ?>
                         <button class="btn" type="submit" name="update" style="background: #556B2F;" >Ändern</button>
-                        <button class="btn" type="submit" name="cancel" formnovalidate style="background: #556B2F;" >Löschen</button>
+                        <button class="btn" type="submit" name="cancel" formnovalidate style="background: #556B2F;" >Abbrechen</button>
                     <?php else: ?>
                         <button class="btn" type="exit" name="save" >Speichern</button>
                     <?php endif ?>

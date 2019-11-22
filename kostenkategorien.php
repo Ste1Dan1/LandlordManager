@@ -108,10 +108,10 @@
                 <div class="input-group">
 
                     <?php if ($update == true): ?>
-                        <button class="btn" type="submit" name="update" style="background: #556B2F;" >update</button>
-                        <button class="btn" type="submit" name="cancel" formnovalidate style="background: #556B2F;" >cancel</button>
+                        <button class="btn" type="submit" name="update" style="background: #556B2F;" >Ändern</button>
+                        <button class="btn" type="submit" name="cancel" formnovalidate style="background: #556B2F;" >Abbrechen</button>
                     <?php else: ?>
-                        <button class="btn" type="exit" name="save" >Save</button>
+                        <button class="btn" type="exit" name="save" >Speichern</button>
                     <?php endif ?>
 
                 </div>
