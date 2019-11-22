@@ -31,7 +31,7 @@
 	LEFT JOIN `perioden` ON `mieteingang`.`FK_periode` = `perioden`.`periodID` 
 	LEFT JOIN `mieter` ON `mietvertrag`.`FK_mieterID` = `mieter`.`mieterID`;";
 
-            mysqli_query($link, "SET NAMES 'utf8'");
+
             $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
             ?>
             <h1>Mietzahlungen verwalten</h1>
@@ -201,12 +201,12 @@
 
                     </select>
                 </div>    
-<?php if ($update == true): ?>
+                <?php if ($update == true): ?>
                     <button class="btn" type="submit" name="update" style="background: #556B2F;" >update</button>
                     <button class="btn" type="submit" name="cancel" formnovalidate style="background: #556B2F;" >cancel</button>
                 <?php else: ?>
                     <button class="btn" type="exit" name="save" >Save</button>
-<?php endif ?>
+                <?php endif ?>
 
         </div>
     </form>

@@ -29,7 +29,7 @@
 	LEFT JOIN `wohnung` ON `mietvertrag`.`FK_wohnungID` = `wohnung`.`wohnungID` 
 	LEFT JOIN `mieter` ON `mietvertrag`.`FK_mieterID` = `mieter`.`mieterID` 
 	LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID` ORDER BY `haus`.`bezeichnung`, `wohnung`.`wohnungID`, `mietvertrag`.`mietbeginn`;";
-        mysqli_query($link, "SET NAMES 'utf8'");
+ 
         $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
         ?>
         

@@ -24,7 +24,7 @@
 
         <?php
         $abfrage = "SELECT * from mieter";
-        mysqli_query($link, "SET NAMES 'utf8'");
+      
         $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
         ?>
 

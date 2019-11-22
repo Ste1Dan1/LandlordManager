@@ -23,7 +23,7 @@
 
             <?php
             $abfrage = "SELECT * from kostenkategorien";
-            mysqli_query($link, "SET NAMES 'utf8'");
+           
             $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
             ?>
             <h1>Kostenkategorien verwalten</h1>

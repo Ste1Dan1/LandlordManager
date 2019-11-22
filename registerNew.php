@@ -43,7 +43,7 @@ if ($stmt = $link->prepare('SELECT userID, pwd FROM users WHERE email = ?')) {
         } else {
             // Something is wrong with the sql statement, check to make sure accounts table exists with all 3 fields.
 
-            $_SESSION['messagePOS'] = "Es ist etwas schief gegangen...";
+            $_SESSION['messageNEG'] = "Es ist etwas schief gegangen...";
             header('location: register.php');
         }
     }

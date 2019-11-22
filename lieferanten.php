@@ -22,7 +22,7 @@
 
             <?php
             $abfrage = "SELECT * from lieferanten ORDER BY name";
-            mysqli_query($link, "SET NAMES 'utf8'");
+           
             $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
             ?>
             <h1>Lieferanten verwalten</h1>

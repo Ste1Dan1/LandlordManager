@@ -22,7 +22,7 @@
 
             <?php
             $abfrage = "SELECT `haus`.*, `wohnung`.* FROM `wohnung` LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID` ORDER BY bezeichnung, wohnungsNummer;";
-            mysqli_query($link, "SET NAMES 'utf8'");
+          
             $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
             ?>
             <h1>Wohnungen verwalten</h1>
