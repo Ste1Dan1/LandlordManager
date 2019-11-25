@@ -61,6 +61,8 @@
                 <div class="dropdown-content">
                     <a href="mieterspiegel.php">Mieterspiegel</a>
                     <a href="abrechnung.php">NK-Abrechnung</a>
+                    <a href="mietkontrolle.php">Fehlende Mietzahlungen</a>
+
                 </div>
                 
             </div>
