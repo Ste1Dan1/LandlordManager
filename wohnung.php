@@ -101,15 +101,15 @@
 
                 <div class="input-group">
                     <label>Wohnungsnummer</label>
-                    <input type="text" name="wohnungsNummer" required value="<?php echo $wohnungsNummer; ?>">
+                    <input type="number" min="0" name="wohnungsNummer" required value="<?php echo $wohnungsNummer; ?>">
                 </div>
                 <div class="input-group">
                     <label>Zimmer</label>
-                    <input type="text" name="zimmer" required value="<?php echo $zimmer; ?>">
+                    <input type="number" min="1" name="zimmer" required value="<?php echo $zimmer; ?>">
                 </div>
                 <div class="input-group">
                     <label>Fläche</label>
-                    <input type="text" name="flaeche" required value="<?php echo $flaeche; ?>">
+                    <input type="number" min="1" name="flaeche" required value="<?php echo $flaeche; ?>">
                 </div>
 
                 <div class="input-group">

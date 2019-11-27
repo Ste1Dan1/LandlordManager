@@ -1,4 +1,4 @@
-DROP DATABASE landlordmanager;
+DROP DATABASE IF EXISTS landlordmanager;
 
 CREATE DATABASE IF NOT EXISTS landlordmanager DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE landlordmanager;

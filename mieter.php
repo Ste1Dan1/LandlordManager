@@ -75,18 +75,18 @@
 
                 <div class="input-radio">
                     <label>Anrede</label>
-                    <input type="radio" name="anrede" value="Herr" required <?php echo $anrede == "Herr" ? 'checked' : ""; ?>>Herr
-                    <input type="radio" name="anrede" value="Frau" <?php echo $anrede == "Frau" ? 'checked' : ""; ?>>Frau
-                    <input type="radio" name="anrede" value="Neutral" <?php echo $anrede == "Neutral" ? 'checked' : ""; ?>>Neutral
+                    <input type="radio" name="anrede" id="anrede-herr" value="Herr" required <?php echo $anrede == "Herr" ? 'checked' : ""; ?>><label for="anrede-herr">Herr</label>
+                    <input type="radio" name="anrede" id="anrede-frau" value="Frau" <?php echo $anrede == "Frau" ? 'checked' : ""; ?>><label for="anrede-frau">Frau</label>
+                    <input type="radio" name="anrede" id="anrede-neutral" value="Neutral" <?php echo $anrede == "Neutral" ? 'checked' : ""; ?>><label for="anrede-neutral">Neutral</label>
                 </div>
 
                 <div class="input-group">
                     <label>Vorname</label>
-                    <input type="text" name="vorname" required value="<?php echo $vorname; ?>">
+                    <input type="text" name="vorname" required pattern="[a-zA-Z]+" title="Nur Buchstaben, keine Zahlen!" value="<?php echo $vorname; ?>">
                 </div>
                 <div class="input-group">
                     <label>Name</label>
-                    <input type="text" name="name" required value="<?php echo $name; ?>">
+                    <input type="text" name="name" required pattern="[a-zA-Z]+" title="Nur Buchstaben, keine Zahlen!" value="<?php echo $name; ?>">
                 </div>
                 <div class="input-group">
                     <label>Geburtsdatum</label>

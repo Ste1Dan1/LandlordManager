@@ -123,7 +123,7 @@
                 </div>
                 <div class="input-group">
                     <label>Betrag</label>
-                    <input type="number" name="betrag" required value="<?php echo $betrag; ?>">
+                    <input type="number" min="0" name="betrag" required value="<?php echo $betrag; ?>">
                 </div>
                 <div class="input-group">
 

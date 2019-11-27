@@ -80,7 +80,7 @@
                 </div>
                 <div class="input-group">
                     <label>PLZ</label>
-                    <input type="number" name="plz" required value="<?php echo $plz; ?>">
+                    <input type="number" name="plz" min="1000" max="9999" required value="<?php echo $plz; ?>">
                 </div>
                 <div class="input-group">
                     <label>Ort</label>
@@ -88,11 +88,11 @@
                 </div>
                 <div class="input-group">
                     <label>Anzahl Wohng.</label>
-                    <input type="number" name="anz_whg" required value="<?php echo $anz_whg; ?>">
+                    <input type="number" min="0" name="anz_whg" required value="<?php echo $anz_whg; ?>">
                 </div>
                 <div class="input-group">
                     <label>Baujahr</label>
-                    <input type="number" name="baujahr" required value="<?php echo $baujahr; ?>">
+                    <input type="number" min="0" name="baujahr" required value="<?php echo $baujahr; ?>">
                 </div>
                 <div class="input-group">
 

@@ -21,7 +21,7 @@ float: left;
 }
 
 .home img{
-    max-height: 42.5px;
+    max-height: 41.5px;
     background-color:  #333;
     overflow: hidden;
     border: #333;
@@ -100,13 +100,11 @@ float: left;
 
 
 .navLogin{
-  margin-top: 5px;
+  margin-top: 7px;
   background-color: #787878;
   font-size: 16px;
   color: white;
   text-align: left;
-
-  
-
+  padding: 4px 0px 4px 10px;
 }
 
