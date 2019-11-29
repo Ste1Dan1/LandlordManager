@@ -19,46 +19,59 @@
                     ?>
                 </div>
             <?php endif ?>
-
-            <?php
-            $abfrage = "SELECT `haus`.*, `wohnung`.* FROM `wohnung` LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID` ORDER BY bezeichnung, wohnungsNummer;";
-          
-            $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
-            ?>
             <h1>Wohnungen verwalten</h1>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Haus</th>
-                        <th>Wohnungsnummer</th>
-                        <th>Zimmer</th>
-                        <th>Fläche</th>
-                        <th>Haus</th>
-                        <th colspan="2">Aktion</th>
-                    </tr>
-                </thead>
+            <?php
+            $abfrageHaus = "SELECT * FROM haus";
+            $resHaus = mysqli_query($link, $abfrageHaus) or die("Abfrage hat nicht geklappt");
+            while ($rowHaus = mysqli_fetch_array($resHaus)) {
+                $hID = $rowHaus['hausID'];
 
-                <?php while ($row = mysqli_fetch_array($res)) { ?>
-                    <tr>
-                        <td><?php echo $row['bezeichnung']; ?></td>
-                        <td><?php echo $row['wohnungsNummer']; ?></td>
-                        <td><?php echo $row['zimmer']; ?></td>
-                        <td><?php echo $row['flaeche']; ?></td>
-                        <td><?php echo $row['FK_hausID']; ?></td>
-                        <td>
-                            <a href="wohnung.php?edit= <?php echo $row['wohnungID']; ?>" class="edit_btn" >Ändern</a>
-                        </td>
-                        <td>
-                            <?php
-                            $wohnung_id = $row['wohnungID'];
-                            $abfrage_mietvertraege = "SELECT count(*) AS mietvertraege FROM mietvertrag WHERE FK_wohnungID=$wohnung_id";
-                            $res_mietvertraege = mysqli_query($link, $abfrage_mietvertraege) or die("Abfrage hat nicht geklappt");
-                            $has_mietvertraege = (int) current(mysqli_fetch_array($res_mietvertraege)) > 0;
-                            ?>
-                            <a href="wohnungDB.php?del=<?php echo $row['wohnungID']; ?>" class="del_btn <?php if ($has_mietvertraege) echo "disabled" ?>" >Löschen</a>
-                        </td>
-                    </tr>
+
+
+                $abfrage = "SELECT `haus`.*, `wohnung`.* FROM `wohnung` LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID` WHERE `wohnung`.`FK_hausID` = $hID ORDER BY bezeichnung, wohnungsNummer;";
+
+
+                $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
+                ?>
+
+
+                <table>
+
+                    <thead>
+                        <tr> <th> <?php echo $rowHaus['bezeichnung']; ?></th> </tr>
+                        <tr>
+
+                            <th>Wohnungsnummer</th>
+                            <th>Zimmer</th>
+                            <th>Fläche</th>
+                            <th>Haus</th>
+                            <th colspan="2">Aktion</th>
+                        </tr>
+                    </thead>
+
+                    <?php while ($row = mysqli_fetch_array($res)) { ?>
+                        <tr>
+                            <td><?php echo $row['wohnungsNummer']; ?></td>
+                            <td><?php echo $row['zimmer']; ?></td>
+                            <td><?php echo $row['flaeche']; ?></td>
+                            <td><?php echo $row['FK_hausID']; ?></td>
+                            <td>
+                                <a href="wohnung.php?edit= <?php echo $row['wohnungID']; ?>" class="edit_btn" >Ändern</a>
+                            </td>
+                            <td>
+                                <?php
+                                $wohnung_id = $row['wohnungID'];
+                                $abfrage_mietvertraege = "SELECT count(*) AS mietvertraege FROM mietvertrag WHERE FK_wohnungID=$wohnung_id";
+                                $res_mietvertraege = mysqli_query($link, $abfrage_mietvertraege) or die("Abfrage hat nicht geklappt");
+                                $has_mietvertraege = (int) current(mysqli_fetch_array($res_mietvertraege)) > 0;
+                                ?>
+                                <a href="wohnungDB.php?del=<?php echo $row['wohnungID']; ?>" class="del_btn <?php if ($has_mietvertraege) echo "disabled" ?>" >Löschen</a>
+                            </td>
+                        </tr>
+                        <br>
+                    <?php } ?>
+
                 <?php } ?>
             </table>
 
@@ -88,7 +101,7 @@
                                 $select_attribute = 'selected';
                                 echo "<option value='" . $row['hausID'] . "' selected = " . $select_attribute . ">" . $row['bezeichnung'] . ", " . $row['ort'] . "</option>";
                             } else {
-                                echo "<option value='" . $row['hausID'] . "'>" . $row['bezeichnung'] . ", " . $row['ort']  . "</option>";
+                                echo "<option value='" . $row['hausID'] . "'>" . $row['bezeichnung'] . ", " . $row['ort'] . "</option>";
                             }
                         }
                         ?>
