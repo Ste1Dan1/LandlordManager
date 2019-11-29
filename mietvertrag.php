@@ -1,3 +1,8 @@
+<?php
+include 'topbar.inc.php';
+include 'loginCheck.inc.php';
+?>
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -76,7 +81,7 @@
                         <td>
                             <?php
                             $mietvertrag_id = $row['mietVertragID'];
-                            $abfrage_mieteingang = "SELECT count(*) AS mieteingaenge FROM mieteingang WHERE FK_mietVertragID=$mietvertrag_id";
+                            $abfrage_mieteingang = "SELECT count(*) AS mieteingaenge FROM mietEingang WHERE FK_mietVertragID=$mietvertrag_id";
                             $res_mieteingaenge = mysqli_query($link, $abfrage_mieteingang) or die("Abfrage hat nicht geklappt");
                             $has_mieteingaenge = (int) current(mysqli_fetch_array($res_mieteingaenge)) > 0;
                             ?>
