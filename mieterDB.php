@@ -1,6 +1,5 @@
 <?php
 
-include 'topbar.inc.php';
 include 'db.inc.php';
 
 // initialize variables
@@ -33,7 +32,7 @@ if (isset($_POST['save'])) {
 
     mysqli_query($link, "INSERT INTO mieter (anrede, vorname, name, geburtsdatum) VALUES ('$anrede', '$vorname', '$name', '$geburtsdatum')");
     $_SESSION['message'] = "Mieter erfasst";
-    header('location: mieter.php');
+    header('location: ./mieter.php');
 }
 
 
@@ -46,18 +45,19 @@ if (isset($_POST['update'])) {
     
     mysqli_query($link, "UPDATE mieter SET anrede='$anrede', vorname='$vorname', name='$name', geburtsdatum='$geburtsdatum' WHERE mieterID=$id");
     $_SESSION['message'] = "Mieter geändert!";
-    header('location: mieter.php');
+    header('location: ./mieter.php');
 }
 
 if (isset($_POST['cancel'])) {
-    header('location: mieter.php');
+    header('Location: ./mieter.php');
+
 }
 
 if (isset($_GET['del'])) {
     $id = $_GET['del'];
     mysqli_query($link, "DELETE FROM mieter WHERE mieterID=$id");
     $_SESSION['message'] = "Mieter gelöscht!";
-    header('location: mieter.php');
+    header('Location: ./mieter.php');
 }
 
 $res = mysqli_query($link, "SELECT * FROM mieter");
