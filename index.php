@@ -1,7 +1,11 @@
-<!DOCTYPE html>
+<?php
+include 'topbar.inc.php';
+include 'loginCheck.inc.php';
+?><!DOCTYPE html>
 <!--
 Startseite mit Menüleiste und klickbaren Icons
 -->
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -11,13 +15,9 @@ Startseite mit Menüleiste und klickbaren Icons
         <title>LandLord Manager</title>
     </head>
     <body>
-        
-            <?php
-            include 'topbar.inc.php';
-            include 'loginCheck.inc.php';
-            ?>
-        
-        
+
+
+
         <div class="pagecontent">
 
 
@@ -27,10 +27,10 @@ Startseite mit Menüleiste und klickbaren Icons
             <h2>Hier finden Sie alles was Sie für Ihre Tätigkeit als Vermieter brauchen!</h2>
 
 
-            <a href="mieter.php"><img src="Images/Mieter.png" alt="Mieter-Icon" height="200" width="200"/></a>
-            <a href="wohnung.php"><img src="Images/immobilien.png" alt="Immobilien-Icon" height="200" width="200"/></a>
-            <a href="nkrechnungen_ausgabe.php"><img src="Images/Nebenkosten.png" alt="Nebenkosten-Icon" height="200" width="200"/></a>
-            <a href=#reporting><img src="Images/Reporting.png" alt="Reporting-Icon" height="200" width="200"/></a>
+            <a href="mieter.php"><img src="./Images/mieter.png" alt="Mieter-Icon" height="200" width="200"/></a>
+            <a href="wohnung.php"><img src="./Images/immobilien.png" alt="Immobilien-Icon" height="200" width="200"/></a>
+            <a href="nkrechnungen_ausgabe.php"><img src="./Images/nebenkosten.png" alt="Nebenkosten-Icon" height="200" width="200"/></a>
+            <a href=#reporting><img src="./Images/reporting.png" alt="Reporting-Icon" height="200" width="200"/></a>
 
 
             <br>
@@ -38,8 +38,7 @@ Startseite mit Menüleiste und klickbaren Icons
 
 
     </body>
-   <?php
+    <?php
     include 'footer.inc.php';
     ?>
 </html>
- 
