@@ -165,15 +165,15 @@
                 </div>
                 <div class="input-group">
                     <label>Mietende</label>
-                    <input type="date" name="mietende"  value="<?php echo $mietende; ?>">
+                    <input type="date" name="mietende"   value="<?php echo $mietende; ?>">
                 </div>
                 <div class="input-group">
                     <label>Mietzins / Monat</label>
-                    <input type="text" name="mietzins_mtl" required value="<?php echo $mietzins; ?>">
+                    <input type="number" min="0" name="mietzins_mtl" required value="<?php echo $mietzins; ?>">
                 </div>
                 <div class="input-group">
                     <label>Nebenkosten / Monat</label>
-                    <input type="text" name="nebenkosten_mtl" required value="<?php echo $nebenkosten; ?>">
+                    <input type="number" min="0" name="nebenkosten_mtl" required value="<?php echo $nebenkosten; ?>">
                 </div>
                 <div class="input-group">
 

@@ -131,11 +131,11 @@
 
                 <div class="input-group">
                     <label>Miet-Betrag</label>
-                    <input type="text" name="mietbetrag" required value="<?php echo $mietbetrag; ?>">
+                    <input type="number" min="0" name="mietbetrag" required value="<?php echo $mietbetrag; ?>">
                 </div>
                 <div class="input-group">
                     <label>NK-Betragt</label>
-                    <input type="text" name="nkbetrag" required value="<?php echo $nkbetrag; ?>">
+                    <input type="number" min="0" name="nkbetrag" required value="<?php echo $nkbetrag; ?>">
                 </div>
 
 

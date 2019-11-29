@@ -10,16 +10,19 @@
     
     <body>
         <div class="pagecontent">
+            <div class ="print-no">
+                
         <?php
         include 'db.inc.php';
         include 'topbar.inc.php';
         ?>
+            </div>
         
         <h1>Ihre erfassten Nebenkosten-Rechnungen pro Haus</h1>
 
         
         <!-- Plugin für PDF-Druck, E-Mail, Druck von https://www.printfriendly.com/button-->
-        <script>var pfHeaderImgUrl = 'Images/Logo_Landlord_Manager.png';
+        <script>var pfHeaderImgUrl = '';
             var pfHeaderTagline = '';
             var pfdisableClickToDel = 1;
             var pfHideImages = 0;
@@ -39,48 +42,10 @@
                  " src='Images/Icon_Print_PDF.png'
                  alt="Druck oder PDF auslösen"/></a>
         
-        <?php
-            if (!empty($_POST['jahr'])) {
-                $dropDownVal = $_POST['jahr'];
-            } else {
-                $dropDownVal = 1;
-            }
+        <form name ="jahrauswahl" method="post" class ="print-no">         
             
-        $abfrage_jahr = "SELECT DISTINCT YEAR(rgdatum) as jahr FROM NKRechnungen ORDER BY jahr;";
-        $res_jahr = mysqli_query($link, $abfrage_jahr) or die("Abfrage Jahr hat nicht geklappt");       
-
-        ?>
-        <form name ="jahrauswahl" method="post">
-            <select class="input-group" name="jahr" required>
-                        <?php
-                        $sql = mysqli_query($link, $abfrage_jahr);
-
-
-                        //Default Value anzeigen falls nichts ausgewählt
-                        if ($jahr == NULL) {
-                            echo '<option value="" disabled selected>Select your option</option>';
-                        } else {
-                            echo '<option value="" disabled>Select your option</option>';
-                        }
-
-                        //Werte auflisten
-                        while ($row = $sql->fetch_assoc()) {
-
-                            $select_attribute = "";
-
-                            if ($row['jahr'] == $jahr) {
-                                $select_attribute = 'selected';
-                                echo "<option value=". $row['jahr']." selected = ". $select_attribute .">".$row['jahr']."</option>";
-                            } else {
-                                echo "<option value=". $row['jahr'].">".$row['jahr']."</option>";
-                            }
-                        }
-                        ?>
-
-                    </select>
-            
-         <!-- <option value="2019"<?php if ($dropDownVal==2019) echo 'selected'; ?>>2019</option> -->
-
+            Abrechnung von: <input type="date" name="periodenbeginn" value ="2019-10-01"><br>
+            bis: <input type="date" name="periodenende" value ="2019-11-30"><br>          
             
             <button class="btn" type="submit" name="show" >Anzeigen</button>          
 
@@ -114,18 +79,20 @@
                 
                 if (isset($_POST['show'])){
                     
-                    $jahr = $_POST['jahr'];
-                    $abfrage_NK = "SELECT * from nkrechnungenprohaus WHERE bezeichnung = '$hausname' AND datum BETWEEN '$jahr-01-01' AND '$jahr-12-31' ORDER BY datum;";
+                    $periodenbeginn = $_POST['periodenbeginn'];
+                    $periodenende = $_POST['periodenende'];                   
 
-                    $jahr = $_POST['jahr'];
-            } else {
-                $jahr = date("Y");
-                $abfrage_NK = "SELECT * from nkrechnungenprohaus WHERE bezeichnung = '$hausname' AND datum BETWEEN '$jahr-01-01' AND '$jahr-12-31' ORDER BY datum;";                
-            }
+                    $abfrage_NK = "SELECT * from nkrechnungenprohaus WHERE bezeichnung = '$hausname' "
+                            . "AND datum BETWEEN '$periodenbeginn' AND '$periodenende' ORDER BY datum;";
+
+                    $beginn = date('d.m.Y', strtotime($periodenbeginn));
+                    $ende = date('d.m.Y', strtotime($periodenende));
+               
+
             ?> 
             <hr>
             <section class="page-break-after">
-            <h2 class="pf-title">Nebenkosten für Haus <?php echo $table['bezeichnung']?></h2>
+            <h2 class="pf-title">Nebenkosten für Haus <?php echo $table['bezeichnung']?> von <?php echo $beginn?> bis <?php echo $ende?></h2>
             
                 <?php
                 $res = mysqli_query($link, $abfrage_NK) or die("Abfrage NK-Rechnungen hat nicht geklappt");
@@ -185,7 +152,9 @@
             <?php
                 }
             
-                $abfrage_kat = "SELECT kategorieID, beschreibung, abrechnung, SUM(betrag) as betrag from nkrechnungenprohaus WHERE bezeichnung = '$hausname' AND datum BETWEEN '$jahr-01-01' AND '$jahr-12-31' GROUP BY kategorieID;";                
+                $abfrage_kat = "SELECT kategorieID, beschreibung, abrechnung, SUM(betrag) as betrag "
+                        . "from nkrechnungenprohaus WHERE bezeichnung = '$hausname' "
+                        . "AND datum BETWEEN '$periodenbeginn' AND '$periodenende' GROUP BY kategorieID;";                
             
                 $res_kat = mysqli_query($link, $abfrage_kat) or die("Abfrage NK-Kategorien hat nicht geklappt");
                              
@@ -239,13 +208,14 @@
                     <br>
             
                     
-            <?php $abfrage_mieter = "SELECT wohnung.wohnungsNummer, wohnung.flaeche, mieter.mieterID, mieter.vorname, mieter.name,  mietvertrag.mietVertragID, mietvertrag.mietbeginn, mietvertrag.mietende, SUM(nkBetrag) as Summe 
+            <?php
+            $abfrage_mieter = "SELECT wohnung.wohnungsNummer, wohnung.flaeche, mieter.mieterID, mieter.vorname, mieter.name,  mietvertrag.mietVertragID, mietvertrag.mietbeginn, mietvertrag.mietende, SUM(nkBetrag) as Summe 
                 FROM mieter, mietvertrag, wohnung, haus, mietEingang
                 WHERE mieter.mieterID = mietvertrag.FK_mieterID
                 AND wohnung.wohnungID = mietvertrag.FK_wohnungID
                 AND haus.hausID = wohnung.FK_hausID
                 AND haus.hausID = '$hausID'
-                AND (mietvertrag.mietende >= '$jahr-01-01' OR mietvertrag.mietende is NULL)
+                AND (mietvertrag.mietende >= '$periodenbeginn' OR mietvertrag.mietende is NULL)
                 AND mietvertrag.mietVertragID = mietEingang.FK_mietVertragID
                 GROUP BY mietEingang.FK_mietVertragID
                 ORDER BY wohnung.wohnungsNummer;";
@@ -264,48 +234,52 @@
                         <th><?php echo 'Mte.'; ?></th>
                         <th><?php echo 'Anteil'; ?></th>
                         <th><?php echo 'Bezahlt'; ?></th>                        
-                        <th><?php echo 'Offen'; ?></th>                       
+                        <th><?php echo 'Offen'; ?></th>    
+                        <th></th>
                     </tr>
             <?php
                 //Periodenbeginn (Start Mietvertrag oder 01. Januar) evaluieren  
-                while ($mietertable = mysqli_fetch_array($res_mieter)) { 
+                while ($mietertable = mysqli_fetch_array($res_mieter)) {    
+                    
+                $periodenbeginn = $_POST['periodenbeginn'];
+                $periodenende = $_POST['periodenende'];
+                
+                $periodenbeginn = strtotime($periodenbeginn);
+                $perbeginn = date('Ymd', $periodenbeginn);   
+                
                 $mietbeginn = strtotime($mietertable['mietbeginn']);
                 $mietbeginn= date('Ymd', $mietbeginn);
-                                
-                if($jahr.'0101' >= $mietbeginn){
-                    $perbeginn = '01.01.'.$jahr;
-                } 
-                if ($jahr.'0101' < $mietbeginn) {
-                    $perbeginn = date('d.m.Y',strtotime($mietertable['mietbeginn']));
+                               
+                if ($perbeginn < $mietbeginn) {
+                    $perbeginn = $mietbeginn;
                 }
+                
+                $perbeginn = date('d.m.Y', strtotime($perbeginn));
                 
                 //Periodenende (Ende Mietvertrag oder 31. Dezember) evaluieren  
+                $periodenende = strtotime($periodenende);
+                $perende = date('Ymd', $periodenende);
+                
                 $mietende = strtotime($mietertable['mietende']);
                 $mietende= date('Ymd', $mietende);
-                
-                if ($mietende < $jahr.'1231') {
-                    $perende = date('d.m.Y',strtotime($mietertable['mietende']));
-                }
-
+               
                 if($mietende == '19700101'){
-                    $perende='31.12.'.$jahr;
-                }
-
-                if($mietende >= $jahr.'1231'){
-                    $perende='31.12.'.$jahr;
+                    $mietende=$perende;
                 }
                 
-                if ($perende >= date('Ymd')){
-                    $perende = date('d.m.Y');
+                if($perende >= $mietende){
+                    $perende = $mietende;
                 }
- 
+                               
+                $perende = date('d.m.Y', strtotime($perende));
+            
                 //Berechnung Monate
                 $anzahlmte;
                 
                 $d1=new DateTime($perende); 
                 $d2=new DateTime($perbeginn);                                  
                 $Months = $d2->diff($d1); 
-                $anzahlmte = (($Months->y) * 12) + ($Months->m);
+                $anzahlmte = (($Months->y) * 12) + ($Months->m) + 1;
                 
                 $flaechewhg = $mietertable['flaeche'];
                 
@@ -340,6 +314,7 @@
                     
             <?php  
             }
+            
             $differenz = $summerg - $summeanteil;
             $gewinn = 0;
             $verlust = 0;
@@ -376,6 +351,7 @@
             </table>
             </section>
             <?php  }
+            }
             
             ?>
 </div>

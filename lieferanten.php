@@ -77,7 +77,7 @@
                 </div>
                 <div class="input-group">
                     <label>PLZ</label>
-                    <input type="text" name="plz" required value="<?php echo $plz; ?>">
+                    <input type="number" min="1000" max="9999" name="plz" required value="<?php echo $plz; ?>">
                 </div>
                 <div class="input-group">
                     <label>Ort</label>

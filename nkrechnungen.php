@@ -24,7 +24,13 @@
             <?php endif ?>
 
             <?php
-            $abfrage = "SELECT nkrechnungen.*, haus.bezeichnung AS haus_bezeichnung, lieferanten.name AS lieferant_name, kostenkategorien.abrechnung AS kostenkat_abrechnung, kostenkategorien.beschreibung AS kostenkat_beschreibung FROM nkrechnungen LEFT JOIN haus ON nkrechnungen.FK_hausID=haus.hausID LEFT JOIN lieferanten ON nkrechnungen.FK_lieferantID=lieferanten.lieferantID LEFT JOIN kostenkategorien ON nkrechnungen.FK_kostKatID=kostenkategorien.kostKatID";
+            $abfrage = "SELECT nkrechnungen.*, haus.bezeichnung AS haus_bezeichnung, lieferanten.name AS lieferant_name, "
+                    . "kostenkategorien.abrechnung AS kostenkat_abrechnung, "
+                    . "kostenkategorien.beschreibung AS kostenkat_beschreibung "
+                    . "FROM nkrechnungen LEFT JOIN haus ON nkrechnungen.FK_hausID=haus.hausID "
+                    . "LEFT JOIN lieferanten ON nkrechnungen.FK_lieferantID=lieferanten.lieferantID "
+                    . "LEFT JOIN kostenkategorien ON nkrechnungen.FK_kostKatID=kostenkategorien.kostKatID "
+                    . "ORDER BY rgdatum";
            
             $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
             ?>
@@ -139,7 +145,7 @@
                 </div>
                 <div class="input-group">
                     <label>Betrag</label>
-                    <input type="number" name="betrag" required value="<?php echo $betrag; ?>">
+                    <input type="number" min="0" name="betrag" required value="<?php echo $betrag; ?>">
                 </div>
                 <div class="input-group">
 

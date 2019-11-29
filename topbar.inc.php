@@ -57,9 +57,11 @@ include 'db.inc.php';
                 <button class = "dropbtn">Reports
                     <i class = "fa fa-caret-down"></i>
                 </button>
-                <div class = "dropdown-content">
-                    <a href = "mieterspiegel.php">Mieterspiegel</a>
-                    <a href = "abrechnung.php">NK-Abrechnung</a>
+                <div class="dropdown-content">
+                    <a href="mieterspiegel.php">Mieterspiegel</a>
+                    <a href="abrechnung.php">NK-Abrechnung</a>
+                    <a href="mietkontrolle.php">Fehlende Mietzahlungen</a>
+
                 </div>
 
             </div>
