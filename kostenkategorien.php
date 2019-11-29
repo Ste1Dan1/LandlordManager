@@ -1,3 +1,7 @@
+<?php
+include 'topbar.inc.php';
+include 'loginCheck.inc.php';
+?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -22,7 +26,7 @@
             <?php endif ?>
 
             <?php
-            $abfrage = "SELECT * from kostenkategorien";
+            $abfrage = "SELECT * from kostenKategorien";
            
             $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
             ?>
@@ -47,7 +51,7 @@
                         <td>
                             <?php
                             $kostkat_id = $row['kostKatID'];
-                            $abfrage_rechnungen = "SELECT count(*) AS rechnungen FROM nkrechnungen WHERE FK_kostKatID=$kostkat_id";
+                            $abfrage_rechnungen = "SELECT count(*) AS rechnungen FROM NKRechnungen WHERE FK_kostKatID=$kostkat_id";
                             $res_rechnungen = mysqli_query($link, $abfrage_rechnungen) or die("Abfrage hat nicht geklappt");
                             $has_rechnungen = (int) current(mysqli_fetch_array($res_rechnungen)) > 0;
                             ?>

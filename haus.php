@@ -1,3 +1,7 @@
+<?php
+include 'topbar.inc.php';
+include 'loginCheck.inc.php';
+?>
 <html>
     <head>
         <meta charset="UTF-8">

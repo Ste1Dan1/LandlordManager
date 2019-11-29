@@ -1,3 +1,8 @@
+<?php
+include 'topbar.inc.php';
+include 'loginCheck.inc.php';
+?>
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -22,7 +27,7 @@
             <h1>Wohnungen verwalten</h1>
 
             <?php
-            $abfrageHaus = "SELECT * FROM haus";
+            $abfrageHaus = "SELECT * FROM haus INNER JOIN wohnung ON `wohnung`.`FK_hausID` = `haus`.`hausID`";
             $resHaus = mysqli_query($link, $abfrageHaus) or die("Abfrage hat nicht geklappt");
             while ($rowHaus = mysqli_fetch_array($resHaus)) {
                 $hID = $rowHaus['hausID'];

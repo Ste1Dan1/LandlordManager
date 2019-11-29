@@ -1,3 +1,7 @@
+<?php
+include 'topbar.inc.php';
+include 'loginCheck.inc.php';
+?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -50,11 +54,11 @@
                         <td>
                             <?php
                             $lieferant_id = $row['lieferantID'];
-                            $abfrage_nk_rechnungen = "SELECT count(*) AS nk_rechnungen FROM nkrechnungen WHERE FK_lieferantID=$lieferant_id";
+                            $abfrage_nk_rechnungen = "SELECT count(*) AS nk_rechnungen FROM NKRechnungen WHERE FK_lieferantID=$lieferant_id";
                             $res_nk_rechnungen = mysqli_query($link, $abfrage_nk_rechnungen) or die("Abfrage hat nicht geklappt");
                             $has_nk_rechnungen = (int) current(mysqli_fetch_array($res_nk_rechnungen)) > 0;
                             ?>
-                            <a href="lieferantenDB.php?del=<?php echo $row['hausID']; ?>" class="del_btn <?php if ($has_nk_rechnungen) echo "disabled" ?>" >Löschen</a>
+                            <a href="lieferantenDB.php?del=<?php echo $row['lieferantID']; ?>" class="del_btn <?php if ($has_nk_rechnungen) echo "disabled" ?>" >Löschen</a>
                         </td>
                     </tr>
                 <?php } ?>

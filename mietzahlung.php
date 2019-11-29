@@ -1,3 +1,20 @@
+<?php
+include 'topbar.inc.php';
+include 'loginCheck.inc.php';
+
+include('mietzahlungDB.php');
+
+if (isset($_SESSION['message'])):
+    ?>
+    <div class="msg">
+        <?php
+        echo $_SESSION['message'];
+        unset($_SESSION['message']);
+        ?>
+    </div>
+<?php endif ?>
+
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -9,26 +26,15 @@
 
     <body>
         <div class="pagecontent">
-            <?php
-            include('mietzahlungDB.php');
-
-            if (isset($_SESSION['message'])):
-                ?>
-                <div class="msg">
-                    <?php
-                    echo $_SESSION['message'];
-                    unset($_SESSION['message']);
-                    ?>
-                </div>
-            <?php endif ?>
+           
 
             <?php
-            $abfrage = "SELECT `mieteingang`.*, `mietvertrag`.*, `wohnung`.*, `haus`.*, `perioden`.*, `mieter`.*
-        FROM `mieteingang` 
-	LEFT JOIN `mietvertrag` ON `mieteingang`.`FK_mietVertragID` = `mietvertrag`.`mietVertragID` 
+            $abfrage = "SELECT `mietEingang`.*, `mietvertrag`.*, `wohnung`.*, `haus`.*, `perioden`.*, `mieter`.*
+        FROM `mietEingang` 
+	LEFT JOIN `mietvertrag` ON `mietEingang`.`FK_mietVertragID` = `mietvertrag`.`mietVertragID` 
 	LEFT JOIN `wohnung` ON `mietvertrag`.`FK_wohnungID` = `wohnung`.`wohnungID` 
 	LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID` 
-	LEFT JOIN `perioden` ON `mieteingang`.`FK_periode` = `perioden`.`periodID` 
+	LEFT JOIN `perioden` ON `mietEingang`.`FK_periode` = `perioden`.`periodID` 
 	LEFT JOIN `mieter` ON `mietvertrag`.`FK_mieterID` = `mieter`.`mieterID`;";
 
 
@@ -53,6 +59,7 @@
                 </thead>
 
                 <?php
+                
                 while ($row = mysqli_fetch_array($res)) {
                     $zahldatalt = strtotime($row['mietbeginn']);
                     $zahldatum = date("d.m.Y", $zahldatalt);

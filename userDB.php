@@ -1,6 +1,5 @@
 <?php
-
-include 'topbar.inc.php';
+@session_start();
 include 'db.inc.php';
 
 // initialize variables

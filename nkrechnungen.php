@@ -1,3 +1,7 @@
+<?php
+include 'topbar.inc.php';
+include 'loginCheck.inc.php';
+?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -24,12 +28,12 @@
             <?php endif ?>
 
             <?php
-            $abfrage = "SELECT nkrechnungen.*, haus.bezeichnung AS haus_bezeichnung, lieferanten.name AS lieferant_name, "
-                    . "kostenkategorien.abrechnung AS kostenkat_abrechnung, "
-                    . "kostenkategorien.beschreibung AS kostenkat_beschreibung "
-                    . "FROM nkrechnungen LEFT JOIN haus ON nkrechnungen.FK_hausID=haus.hausID "
-                    . "LEFT JOIN lieferanten ON nkrechnungen.FK_lieferantID=lieferanten.lieferantID "
-                    . "LEFT JOIN kostenkategorien ON nkrechnungen.FK_kostKatID=kostenkategorien.kostKatID "
+            $abfrage = "SELECT NKRechnungen.*, haus.bezeichnung AS haus_bezeichnung, lieferanten.name AS lieferant_name, "
+                    . "kostenKategorien.abrechnung AS kostenkat_abrechnung, "
+                    . "kostenKategorien.beschreibung AS kostenkat_beschreibung "
+                    . "FROM NKRechnungen LEFT JOIN haus ON NKRechnungen.FK_hausID=haus.hausID "
+                    . "LEFT JOIN lieferanten ON NKRechnungen.FK_lieferantID=lieferanten.lieferantID "
+                    . "LEFT JOIN kostenKategorien ON NKRechnungen.FK_kostKatID=kostenKategorien.kostKatID "
                     . "ORDER BY rgdatum";
            
             $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
@@ -124,7 +128,7 @@
                 </div>
 
                 <?php
-                $abfrage_kostenkategorien = "SELECT * FROM kostenkategorien Order By beschreibung";
+                $abfrage_kostenkategorien = "SELECT * FROM kostenKategorien Order By beschreibung";
                
                 $res_kostenkategorien = mysqli_query($link, $abfrage_kostenkategorien) or die("Abfrage hat nicht geklappt");
                 ?>

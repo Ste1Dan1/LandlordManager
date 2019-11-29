@@ -13,6 +13,7 @@ include 'loginCheck.inc.php';
 
     <body>
         <div class="pagecontent">
+            
         <?php
         include('mieterDB.php');
 
