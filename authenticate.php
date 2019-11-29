@@ -28,17 +28,16 @@ if ($stmt->num_rows > 0) {
     if (password_verify($_POST['password'], $password)) {
         // Verification success! User has loggedin!
         // Create sessions so we know the user is logged in, they basically act like cookies but remember the data on the server.
-        session_regenerate_id();
+         session_regenerate_id();
         $_SESSION['loggedin'] = TRUE;
         $_SESSION['name'] = $_POST['username'];
         $_SESSION['id'] = $id;
-        echo 'Welcome ' . $_SESSION['name'] . '!';
-        header("Location:index.php");
+        header("Location: index.php");
         exit;
     } else {
         $_SESSION['messageNEG'] = "Benutzername oder Passwort ist falsch!";
         header('location: login.php');
-    }
+    } 
 } else {
     echo 'Incorrect username!';
 }
