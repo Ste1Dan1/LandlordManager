@@ -1,3 +1,8 @@
+<?php
+include 'topbar.inc.php';
+include 'loginCheck.inc.php';
+include 'db.inc.php';
+?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -12,10 +17,6 @@
         <div class="pagecontent">
             <div class ="print-no">
                 
-        <?php
-        include 'db.inc.php';
-        include 'topbar.inc.php';
-        ?>
             </div>
         
         <h1>Ihre erfassten Nebenkosten-Rechnungen pro Haus</h1>
