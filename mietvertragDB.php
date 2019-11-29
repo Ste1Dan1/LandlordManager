@@ -1,8 +1,5 @@
 <?php
-
-include 'topbar.inc.php';
-include 'db.inc.php';
-
+include('db.inc.php');
 // initialize variables
 $mieter = "";
 $wohnung = "";
