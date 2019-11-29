@@ -1,10 +1,9 @@
-DROP DATABASE IF EXISTS landlordmanager;
+DROP DATABASE IF EXISTS llm_landlordmanager;
+CREATE Database llm_landlordmanager;
+USE llm_landlordmanager;
 
-CREATE DATABASE IF NOT EXISTS landlordmanager DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE landlordmanager;
-
-CREATE USER IF NOT EXISTS 'landlord_DB_user'@'localhost' IDENTIFIED BY 'LandL0rdMana6er';
-GRANT ALL PRIVILEGES ON landlordmanager.* TO 'landlord_DB_user'@'localhost';
+CREATE OR REPLACE USER  'llm_dbUser '@'localhost' IDENTIFIED BY 'LMM2019';
+GRANT ALL PRIVILEGES ON llm_landlordmanager.* TO 'llm_dbUser'@'localhost';
 
 CREATE TABLE haus (
   hausID int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -127,9 +126,9 @@ CREATE TABLE users(
 
 INSERT INTO haus (bezeichnung, strasse_nr, plz, ort, anz_whg, baujahr) VALUES
 ('Garten1', 'Gartenstrasse 1', 4600, 'Olten', 8, 1980),
-('Brfchl-links', 'Brfchlstrasse 4c', 5018, 'Erlinsbach', 6, 2015),
+('Bühl-links', 'Bühlstrasse 4c', 5018, 'Erlinsbach', 6, 2015),
 ('Garten2', 'Gartenstrasse 2', 4600, 'Olten', 12, 1981),
-('Brfchl-rechts', 'Brfchlstrasse 4b', 5018, 'Erlinsbach', 7, 2015),
+('Bühl-rechts', 'Bühhlstrasse 4b', 5018, 'Erlinsbach', 7, 2015),
 ('Boiler', 'Rathausgasse 18', 5000, 'Aarau', 2, 1750);
 
 
@@ -169,7 +168,7 @@ INSERT INTO perioden (periodeKurz, periodeLang) VALUES
 ('Dez','Dezember');
 
 
-INSERT INTO mieteingang (datum, mietBetrag, nkBetrag, FK_periode, jahr, FK_mietVertragID) VALUES
+INSERT INTO mietEingang (datum, mietBetrag, nkBetrag, FK_periode, jahr, FK_mietVertragID) VALUES
 
  ('2019-01-02', '300', '100', 2, 2019, 1),
  ('2019-01-02', '300', '100', 2, 2019, 2),
@@ -183,26 +182,30 @@ INSERT INTO lieferanten (name, strasse_nr, plz, ort) VALUES
   
 
 
-INSERT INTO kostenkategorien (abrechnung) VALUES 
-('Wohnfläche'),
-('Wohneinheit');
+INSERT INTO kostenKategorien (beschreibung, abrechnung) VALUES 
+('Oel', 'Wohnfläche'),
+('Strom', 'Wohnfläche'),
+('Reinigung', 'Wohneinheit'),
+('Müllabfuhr', 'Wohneinheit'),
+('Reparatur','Wohneinheit');
 
 
-INSERT INTO nkrechnungen (rgdatum, FK_hausID, FK_lieferantID, FK_kostKatID, betrag) VALUES
+INSERT INTO NKRechnungen (rgdatum, FK_hausID, FK_lieferantID, FK_kostKatID, betrag) VALUES
 ('2019-01-01', 1, 1, 2, 3500),
-('2019-10-01', 1, 2, 2, 1500),
+('2019-01-01', 1, 1, 1, 3500),
+('2019-01-01', 1, 1, 3, 3500),
+('2019-01-01', 1, 1, 4, 3500),
+('2019-10-01', 1, 2, 4, 1500),
 ('2019-05-01', 1, 3, 1, 1700);
 
 INSERT INTO users (userID, anrede, vorname, name, email, pwd) VALUES 
 (NULL, 'frau', 'test', 'test', 'test.test@test.com', 'test');
 
 create View nkrechnungenprohaus AS
-select `landlordmanager`.`haus`.`bezeichnung` AS `Bezeichnung`,`landlordmanager`.`nkrechnungen`.`rgdatum` AS `Datum`,
-        `landlordmanager`.`lieferanten`.`name` AS `Lieferant`,`landlordmanager`.`nkrechnungen`.`betrag` AS `Betrag`,
-        `landlordmanager`.`kostenkategorien`.`beschreibung` AS `Beschreibung`,
-        `landlordmanager`.`kostenkategorien`.`abrechnung` AS `Abrechnung`,`landlordmanager`.`kostenkategorien`.`kostKatID` AS `kategorieID`
-from (((`landlordmanager`.`haus` join `landlordmanager`.`nkrechnungen`) join `landlordmanager`.`kostenkategorien`) 
-    join `landlordmanager`.`lieferanten`)
-where ((`landlordmanager`.`haus`.`hausID` = `landlordmanager`.`nkrechnungen`.`FK_hausID`)
-and (`landlordmanager`.`lieferanten`.`lieferantID` = `landlordmanager`.`nkrechnungen`.`FK_lieferantID`)
-and (`landlordmanager`.`kostenkategorien`.`kostKatID` = `landlordmanager`.`nkrechnungen`.`FK_kostKatID`));
+select `llm_landlordmanager`.`haus`.`bezeichnung` AS `Bezeichnung`,`llm_landlordmanager`.`NKRechnungen`.`rgdatum` 
+AS `Datum`,`llm_landlordmanager`.`lieferanten`.`name` AS `Lieferant`,`llm_landlordmanager`.`NKRechnungen`.`betrag` 
+AS `Betrag`,`llm_landlordmanager`.`kostenKategorien`.`beschreibung` AS `Beschreibung` 
+from `llm_landlordmanager`.`haus` join `llm_landlordmanager`.`NKRechnungen` join `llm_landlordmanager`.`kostenKategorien` 
+join `llm_landlordmanager`.`lieferanten` where ((`llm_landlordmanager`.`haus`.`hausID` = `llm_landlordmanager`.`NKRechnungen`.`FK_hausID`) 
+and (`llm_landlordmanager`.`lieferanten`.`lieferantID` = `llm_landlordmanager`.`NKRechnungen`.`FK_lieferantID`) 
+and (`llm_landlordmanager`.`kostenKategorien`.`kostKatID` = `llm_landlordmanager`.`NKRechnungen`.`FK_kostKatID`));
