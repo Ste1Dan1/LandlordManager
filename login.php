@@ -1,3 +1,17 @@
+<?php
+        
+        include 'db.inc.php';
+        if (isset($_SESSION['messageNEG'])):
+            ?>
+            <div class="msgNEG">
+                <?php
+                echo $_SESSION['messageNEG'];
+                unset($_SESSION['messageNEG']);
+                ?>
+            </div>
+
+        <?php endif ?>
+
 <html>
     <head>
         <meta charset="utf-8">
@@ -9,7 +23,7 @@
     <body>
 
         <?php
-        session_start();
+        
         include 'db.inc.php';
         if (isset($_SESSION['messageNEG'])):
             ?>
@@ -25,7 +39,7 @@
 
         <div class="login">
 
-            <img src="images/Logo_Landlord_Manager.png" alt="LogoLLM">
+            <img src="./Images/Logo_Landlord_Manager.png" alt="LogoLLM">
             <h1>Login</h1>
             <form action="authenticate.php" method="post">
                 <label for="username">
