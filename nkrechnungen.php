@@ -26,52 +26,55 @@ include 'loginCheck.inc.php';
                     ?>
                 </div>
             <?php endif ?>
-
-            <?php
-            $abfrage = "SELECT NKRechnungen.*, haus.bezeichnung AS haus_bezeichnung, lieferanten.name AS lieferant_name, "
-                    . "kostenKategorien.abrechnung AS kostenkat_abrechnung, "
-                    . "kostenKategorien.beschreibung AS kostenkat_beschreibung "
-                    . "FROM NKRechnungen LEFT JOIN haus ON NKRechnungen.FK_hausID=haus.hausID "
-                    . "LEFT JOIN lieferanten ON NKRechnungen.FK_lieferantID=lieferanten.lieferantID "
-                    . "LEFT JOIN kostenKategorien ON NKRechnungen.FK_kostKatID=kostenKategorien.kostKatID "
-                    . "ORDER BY rgdatum";
-           
-            $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
-            ?>
             <h1>Nebenkostenrechnungen verwalten</h1>
+            <?php
+            $abfrageHaus = "SELECT DISTINCT hausID, bezeichnung  FROM haus INNER JOIN NKRechnungen ON `NKRechnungen`.`FK_hausID` = `haus`.`hausID";
+            $resHaus = mysqli_query($link, $abfrageHaus) or die("Abfrage hat nicht geklappt");
+            while ($rowHaus = mysqli_fetch_array($resHaus)) {
+                $hID = $rowHaus['hausID'];
+                $abfrage = "SELECT NKRechnungen.*, haus.bezeichnung , lieferanten.name, kostenKategorien.abrechnung,                    kostenKategorien.beschreibung 
+                        FROM NKRechnungen LEFT JOIN haus ON NKRechnungen.FK_hausID=haus.hausID 
+                        LEFT JOIN lieferanten ON NKRechnungen.FK_lieferantID=lieferanten.lieferantID 
+                        LEFT JOIN kostenKategorien ON NKRechnungen.FK_kostKatID=kostenKategorien.kostKatID
+                        WHERE hausID=$hID
+                        ORDER BY rgdatum";
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Rechnungsdatum</th>
-                        <th>Haus</th>
-                        <th>Lieferant</th>
-                        <th>Kostenkategorie</th>
-                        <th>Beschreibung</th>
-                        <th>Betrag</th>
-                        <th colspan="2">Action</th>
-                    </tr>
-                </thead>
+                $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
+                ?>
 
-                <?php
-                while ($row = mysqli_fetch_array($res)) {
-                    $datalt = strtotime($row['rgdatum']);
-                    $datum = date("d.m.Y", $datalt);
-                    ?>
-                    <tr>
-                        <td><?php echo $datum; ?></td>
-                        <td><?php echo $row['haus_bezeichnung']; ?></td>
-                        <td><?php echo $row['lieferant_name']; ?></td>
-                        <td><?php echo $row['kostenkat_abrechnung']; ?></td>
-                        <td><?php echo $row['kostenkat_beschreibung']; ?></td>
-                        <td><?php echo $row['betrag']; ?></td>
-                        <td>
-                            <a href="nkrechnungen.php?edit= <?php echo $row['nkRechnungID']; ?>" class="edit_btn" >Ändern</a>
-                        </td>
-                        <td>
-                            <a href="nkrechnungenDB.php?del=<?php echo $row['nkRechnungID']; ?>" class="del_btn" >Löschen</a>
-                        </td>
-                    </tr>
+
+                <table>
+                    <thead>
+                        <tr> <th> <?php echo $rowHaus['bezeichnung']; ?></th> </tr>
+                        <tr>
+                            <th>Rechnungsdatum</th>
+                            <th>Lieferant</th>
+                            <th>Kostenkategorie</th>
+                            <th>Beschreibung</th>
+                            <th>Betrag</th>
+                            <th colspan="2">Action</th>
+                        </tr>
+                    </thead>
+
+                    <?php
+                    while ($row = mysqli_fetch_array($res)) {
+                        $datalt = strtotime($row['rgdatum']);
+                        $datum = date("d.m.Y", $datalt);
+                        ?>
+                        <tr>
+                            <td><?php echo $datum; ?></td>
+                            <td><?php echo $row['name']; ?></td>
+                            <td><?php echo $row['abrechnung']; ?></td>
+                            <td><?php echo $row['beschreibung']; ?></td>
+                            <td><?php echo $row['betrag']; ?></td>
+                            <td>
+                                <a href="nkrechnungen.php?edit= <?php echo $row['nkRechnungID']; ?>" class="edit_btn" >Ändern</a>
+                            </td>
+                            <td>
+                                <a href="nkrechnungenDB.php?del=<?php echo $row['nkRechnungID']; ?>" class="del_btn" >Löschen</a>
+                            </td>
+                        </tr>
+                    <?php } ?>
                 <?php } ?>
             </table>
 
@@ -86,20 +89,21 @@ include 'loginCheck.inc.php';
 
                 <?php
                 $abfrage_haus = "SELECT * FROM haus";
-               
+
                 $res_haus = mysqli_query($link, $abfrage_haus) or die("Abfrage hat nicht geklappt");
                 ?>
                 <div class="input-group">
                     <label>Haus</label>
                     <select name="FK_hausID">
-                        <?php 
+                        <?php
                         if ($fk_haus_id == NULL) {
                             echo '<option value="" disabled selected>Select your option</option>';
                         } else {
                             echo '<option value="" disabled>Select your option</option>';
                         }
-                        
-                        while ($row = mysqli_fetch_array($res_haus)) { ?>
+
+                        while ($row = mysqli_fetch_array($res_haus)) {
+                            ?>
                             <option value="<?php echo $row['hausID'] ?>" <?php if ($fk_haus_id === $row['hausID']) echo 'selected' ?>><?php echo $row['bezeichnung'] ?></option>
                         <?php } ?>
                     </select>
@@ -107,21 +111,21 @@ include 'loginCheck.inc.php';
 
                 <?php
                 $abfrage_lieferanten = "SELECT * FROM lieferanten";
-                
+
                 $res_lieferanten = mysqli_query($link, $abfrage_lieferanten) or die("Abfrage hat nicht geklappt");
                 ?>
                 <div class="input-group">
                     <label>Lieferant</label>
                     <select name="FK_lieferantID">
-                        <?php 
-                        
+                        <?php
                         if ($fk_lieferant_id == NULL) {
                             echo '<option value="" disabled selected>Select your option</option>';
                         } else {
                             echo '<option value="" disabled>Select your option</option>';
                         }
-                        
-                        while ($row = mysqli_fetch_array($res_lieferanten)) { ?>
+
+                        while ($row = mysqli_fetch_array($res_lieferanten)) {
+                            ?>
                             <option value="<?php echo $row['lieferantID'] ?>" <?php if ($fk_lieferant_id === $row['lieferantID']) echo 'selected' ?>><?php echo $row['name'] ?></option>
                         <?php } ?>
                     </select>
@@ -129,21 +133,21 @@ include 'loginCheck.inc.php';
 
                 <?php
                 $abfrage_kostenkategorien = "SELECT * FROM kostenKategorien Order By beschreibung";
-               
+
                 $res_kostenkategorien = mysqli_query($link, $abfrage_kostenkategorien) or die("Abfrage hat nicht geklappt");
                 ?>
                 <div class="input-group">
                     <label>Kostenkategorie</label>
                     <select name="FK_kostKatID">
-                        <?php 
-                        
+                        <?php
                         if ($fk_kostKat_id == NULL) {
                             echo '<option value="" disabled selected>Select your option</option>';
                         } else {
                             echo '<option value="" disabled>Select your option</option>';
                         }
-                        while ($row = mysqli_fetch_array($res_kostenkategorien)) { ?>
-                            <option value="<?php echo $row['kostKatID'] ?>" <?php if ($fk_lieferant_id === $row['kostKatID']) echo 'selected' ?>><?php echo $row['beschreibung']. " / ".$row['abrechnung'] ?></option>
+                        while ($row = mysqli_fetch_array($res_kostenkategorien)) {
+                            ?>
+                            <option value="<?php echo $row['kostKatID'] ?>" <?php if ($fk_lieferant_id === $row['kostKatID']) echo 'selected' ?>><?php echo $row['beschreibung'] . " / " . $row['abrechnung'] ?></option>
                         <?php } ?>
                     </select>
                 </div>
