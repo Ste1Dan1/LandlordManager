@@ -1,10 +1,8 @@
 <?php
-if($_SESSION['loggedin']==true){
+
+if ($_SESSION['loggedin'] == true) {
     
-}
-else{
+} else {
     header("Location:login.php");
     exit;
-    
-}
-?>
+}?>
