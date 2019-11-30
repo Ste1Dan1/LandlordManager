@@ -1,3 +1,7 @@
+<?php
+include 'topbar.inc.php';
+include 'loginCheck.inc.php';
+?>
 <!DOCTYPE html>
 
 <html>
@@ -10,10 +14,7 @@
     </head>
     <body>
 
-        <?php
-        include 'topbar.inc.php';
-        include 'loginCheck.inc.php';
-        ?>
+
         <div class="pagecontent">
             <h1>FAQ</h1>
             <?php

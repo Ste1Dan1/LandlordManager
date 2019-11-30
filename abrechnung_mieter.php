@@ -5,7 +5,10 @@ include 'loginCheck.inc.php';
 <html>
     <head>
         <meta charset="UTF-8">
+
         <link href="./CSS/style.css" rel="stylesheet" type="text/css">
+        <link href="./CSS/topbar.css" rel="stylesheet" type="text/css">
+        <link href="./CSS/footer.css" rel="stylesheet" type="text/css">
         <title>LandlordManager - Jahresabrechnung Mieter</title>
     </head>
 
@@ -13,7 +16,7 @@ include 'loginCheck.inc.php';
         <div class="pagecontent">           
         
     <?php
-       include 'topbar.inc.php';
+
        include 'db.inc.php';
     ?>
     
