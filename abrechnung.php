@@ -49,8 +49,8 @@ include 'db.inc.php';
 
             <form name ="jahrauswahl" method="post" class ="print-no">         
 
-                Abrechnung von: <input type="date" name="periodenbeginn" value ="2019-10-01"><br>
-                bis: <input type="date" name="periodenende" value ="2019-11-30"><br>          
+                Abrechnung von: <input type="date" name="periodenbeginn" value ="2019-01-01"><br>
+                bis: <input type="date" name="periodenende" value ="2019-12-31"><br>          
 
                 <button class="btn" type="submit" name="show" >Anzeigen</button>          
 
@@ -163,9 +163,7 @@ include 'db.inc.php';
                                 if (mysqli_num_rows($res_kat) == 0) {
                                     echo 'Keine Kategorien erfasst';
                                 } else {
-                                    $anteil = 0;
-                                    $anteilfl = 0;
-                                    $anteilwhg = 0;
+
                                     ?>
                                     <tr><td></td><td></td><td></td><td></td></tr>
                                     <tr>
@@ -181,6 +179,9 @@ include 'db.inc.php';
 
                                     <?php
                                     while ($kat = mysqli_fetch_array($res_kat)) {
+                                        $anteil = 0;
+                                        $anteilfl = 0;
+                                        $anteilwhg = 0;
 
                                         $abrechnung = $kat['Abrechnung'];
                                         $betrag = $kat['betrag'];
@@ -191,6 +192,7 @@ include 'db.inc.php';
                                         }
 
                                         $anteil = $anteilwhg + $anteilfl;
+
                                         ?>
                                         <tr>
                                             <td><?php echo $kat['Beschreibung']; ?></td>
@@ -237,6 +239,7 @@ include 'db.inc.php';
                                         <?php
                                         //Periodenbeginn (Start Mietvertrag oder 01. Januar) evaluieren  
                                         while ($mietertable = mysqli_fetch_array($res_mieter)) {
+                                            $anteilmieter = 0;
 
                                             $periodenbeginn = $_POST['periodenbeginn'];
                                             $periodenende = $_POST['periodenende'];
@@ -280,8 +283,6 @@ include 'db.inc.php';
 
                                             $flaechewhg = $mietertable['flaeche'];
 
-
-
                                             $anteilmieter = ($anzahlmte * $anteilwhg) + ($anzahlmte * $flaechewhg * $anteilfl);
                                             $summeanteil += $anteilmieter;
 
@@ -293,21 +294,24 @@ include 'db.inc.php';
                                             $mietername = $mietertable['vorname'] . ' ' . $mietertable['name'];
                                             $mieterID = $mietertable['mieterID'];
                                             $mietvertragID = $mietertable['mietVertragID'];
+                                            
+
                                             ?>
                                             <tr>
                                                 <td><?php echo $whgnr ?></td>
                                                 <td><?php echo $mietername ?></td>
                                                 <td><?php echo $perbeginn . ' - ' . $perende; ?></td>
                                                 <td><?php echo $anzahlmte; ?></td>
-                                                <td><?php echo number_format($anteilmieter, 2); ?></td>
+                                                <td><?php echo number_format($summeanteil, 2); ?></td>
                                                 <td><?php echo $bezahlt; ?></td>
                                                 <td><?php echo number_format($offen, 2); ?></td> 
-                                                <th class = "print-no"><a href="abrechnung_mieter.php?mietvertragID=<?php echo $mietvertragID ?>&jahr=<?php echo $jahr ?>"target="_blank" style="color:#6D9F00;text-decoration:none;" title="PDF anzeigen">
+                                                <th class = "print-no"><a href="abrechnung_mieter.php?mietvertragID=<?php echo $mietvertragID ?>&von=<?php echo $perbeginn ?>&bis=<?php echo $perende ?> "target="_blank" style="color:#6D9F00;text-decoration:none;" title="PDF anzeigen">
                                                         <img style="border:none;-webkit-box-shadow:none;box-shadow:none;
                                                              " src='Images/Icon_PDF.png' alt="PDF anzeigen"/></a></th>
                                             </tr>
 
                                             <?php
+
                                         }
 
                                         $differenz = $summerg - $summeanteil;
