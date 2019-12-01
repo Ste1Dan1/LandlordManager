@@ -1,6 +1,6 @@
 <?php
-include 'topbar.inc.php';
-include 'loginCheck.inc.php';
+//include 'topbar.inc.php';
+//include 'loginCheck.inc.php';
 ?>
 <html>
     <head>
@@ -28,18 +28,18 @@ include 'loginCheck.inc.php';
             <?php endif ?>
             <h1>Nebenkostenrechnungen verwalten</h1>
             <?php
-            $abfrageHaus = "SELECT DISTINCT hausID, bezeichnung  FROM haus INNER JOIN NKRechnungen ON `NKRechnungen`.`FK_hausID` = `haus`.`hausID";
-            $resHaus = mysqli_query($link, $abfrageHaus) or die("Abfrage hat nicht geklappt");
+            $abfrageHaus = "SELECT DISTINCT hausID, bezeichnung  FROM haus INNER JOIN NKRechnungen ON `NKRechnungen`.`FK_hausID` = `haus`.`hausID` ORDER BY bezeichnung;";
+            $resHaus = mysqli_query($link, $abfrageHaus) or die("Abfrage Haus hat nicht geklappt");
             while ($rowHaus = mysqli_fetch_array($resHaus)) {
                 $hID = $rowHaus['hausID'];
-                $abfrage = "SELECT NKRechnungen.*, haus.bezeichnung , lieferanten.name, kostenKategorien.abrechnung,                    kostenKategorien.beschreibung 
+                $abfrage = "SELECT NKRechnungen.*, haus.bezeichnung , lieferanten.name, kostenKategorien.abrechnung, kostenKategorien.beschreibung 
                         FROM NKRechnungen LEFT JOIN haus ON NKRechnungen.FK_hausID=haus.hausID 
                         LEFT JOIN lieferanten ON NKRechnungen.FK_lieferantID=lieferanten.lieferantID 
                         LEFT JOIN kostenKategorien ON NKRechnungen.FK_kostKatID=kostenKategorien.kostKatID
                         WHERE hausID=$hID
                         ORDER BY rgdatum, name";
 
-                $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
+                $res = mysqli_query($link, $abfrage) or die("Abfrage Rechnungen hat nicht geklappt");
                 ?>
 
 
@@ -75,8 +75,9 @@ include 'loginCheck.inc.php';
                             </td>
                         </tr>
                     <?php } ?>
+                    </table><br>
+
                 <?php } ?>
-            </table>
 
             <form method="post" action="nkrechnungenDB.php" >
 
