@@ -37,7 +37,7 @@ include 'loginCheck.inc.php';
                         LEFT JOIN lieferanten ON NKRechnungen.FK_lieferantID=lieferanten.lieferantID 
                         LEFT JOIN kostenKategorien ON NKRechnungen.FK_kostKatID=kostenKategorien.kostKatID
                         WHERE hausID=$hID
-                        ORDER BY rgdatum";
+                        ORDER BY rgdatum, name";
 
                 $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
                 ?>
@@ -88,7 +88,7 @@ include 'loginCheck.inc.php';
                 </div>
 
                 <?php
-                $abfrage_haus = "SELECT * FROM haus";
+                $abfrage_haus = "SELECT * FROM haus ORDER BY bezeichnung";
 
                 $res_haus = mysqli_query($link, $abfrage_haus) or die("Abfrage hat nicht geklappt");
                 ?>
@@ -110,7 +110,7 @@ include 'loginCheck.inc.php';
                 </div>
 
                 <?php
-                $abfrage_lieferanten = "SELECT * FROM lieferanten";
+                $abfrage_lieferanten = "SELECT * FROM lieferanten ORDER BY name";
 
                 $res_lieferanten = mysqli_query($link, $abfrage_lieferanten) or die("Abfrage hat nicht geklappt");
                 ?>
@@ -132,7 +132,7 @@ include 'loginCheck.inc.php';
                 </div>
 
                 <?php
-                $abfrage_kostenkategorien = "SELECT * FROM kostenKategorien Order By beschreibung";
+                $abfrage_kostenkategorien = "SELECT * FROM kostenKategorien ORDER BY beschreibung";
 
                 $res_kostenkategorien = mysqli_query($link, $abfrage_kostenkategorien) or die("Abfrage hat nicht geklappt");
                 ?>

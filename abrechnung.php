@@ -1,6 +1,6 @@
 <?php
-include 'topbar.inc.php';
-include 'loginCheck.inc.php';
+//include 'topbar.inc.php';
+// include 'loginCheck.inc.php';
 include 'db.inc.php';
 ?>
 <html>
@@ -86,8 +86,8 @@ include 'db.inc.php';
                     $periodenbeginn = $_POST['periodenbeginn'];
                     $periodenende = $_POST['periodenende'];
 
-                    $abfrage_NK = "SELECT * from nkrechnungenprohaus WHERE bezeichnung = '$hausname' "
-                            . "AND datum BETWEEN '$periodenbeginn' AND '$periodenende' ORDER BY datum;";
+                    $abfrage_NK = "SELECT * from nkrechnungenprohaus WHERE bezeichnung = '$hausname'"
+                            . "AND datum BETWEEN '$periodenbeginn' AND '$periodenende' ORDER BY datum, betrag;";
 
                     $beginn = date('d.m.Y', strtotime($periodenbeginn));
                     $ende = date('d.m.Y', strtotime($periodenende));
@@ -156,7 +156,7 @@ include 'db.inc.php';
 
                                 $abfrage_kat = "SELECT kategorieID, beschreibung, abrechnung, SUM(betrag) as betrag "
                                         . "from nkrechnungenprohaus WHERE bezeichnung = '$hausname' "
-                                        . "AND datum BETWEEN '$periodenbeginn' AND '$periodenende' GROUP BY kategorieID;";
+                                        . "AND datum BETWEEN '$periodenbeginn' AND '$periodenende' GROUP BY kategorieID ORDER BY beschreibung;";
 
                                 $res_kat = mysqli_query($link, $abfrage_kat) or die("Abfrage NK-Kategorien hat nicht geklappt");
 

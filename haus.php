@@ -26,7 +26,7 @@ include 'loginCheck.inc.php';
             <?php endif ?>
 
             <?php
-            $abfrage = "SELECT * from haus";
+            $abfrage = "SELECT * from haus ORDER BY bezeichnung";
             $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
             ?>
             <h1>Häuser verwalten</h1>

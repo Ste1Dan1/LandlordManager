@@ -27,14 +27,16 @@ include 'loginCheck.inc.php';
             <h1>Wohnungen verwalten</h1>
 
             <?php
-            $abfrageHaus = "SELECT DISTINCT hausID, bezeichnung FROM haus INNER JOIN wohnung ON `wohnung`.`FK_hausID` = `haus`.`hausID`";
+            $abfrageHaus = "SELECT DISTINCT hausID, bezeichnung FROM haus INNER JOIN wohnung ON `wohnung`.`FK_hausID` = `haus`.`hausID` ORDER BY bezeichnung";
             $resHaus = mysqli_query($link, $abfrageHaus) or die("Abfrage hat nicht geklappt");
             while ($rowHaus = mysqli_fetch_array($resHaus)) {
                 $hID = $rowHaus['hausID'];
 
 
 
-                $abfrage = "SELECT `haus`.*, `wohnung`.* FROM `wohnung` LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID` WHERE `wohnung`.`FK_hausID` = $hID ORDER BY bezeichnung, wohnungsNummer;";
+                $abfrage = "SELECT `haus`.*, `wohnung`.* FROM `wohnung` "
+                        . "LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID` "
+                        . "WHERE `wohnung`.`FK_hausID` = $hID ORDER BY bezeichnung, wohnungsNummer;";
 
 
                 $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");

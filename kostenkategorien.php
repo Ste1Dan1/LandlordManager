@@ -26,7 +26,7 @@ include 'loginCheck.inc.php';
             <?php endif ?>
 
             <?php
-            $abfrage = "SELECT * from kostenKategorien";
+            $abfrage = "SELECT * from kostenKategorien ORDER BY beschreibung";
            
             $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
             ?>

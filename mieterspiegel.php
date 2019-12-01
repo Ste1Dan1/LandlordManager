@@ -22,7 +22,7 @@ FROM `mietvertrag`
 	LEFT JOIN `wohnung` ON `mietvertrag`.`FK_wohnungID` = `wohnung`.`wohnungID` 
 	LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID`
         WHERE cast(mietende as date) >=  cast(CURDATE() as date) 
-        OR mietende IS NULL";
+        OR mietende IS NULL ORDER BY mietbeginn, mietende, name";
 
         $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt" . mysqli_error($link));
         ?>
