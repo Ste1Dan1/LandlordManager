@@ -105,7 +105,7 @@ if (isset($_POST['show'])) {
                     AND (mietende >= '$periodenende' OR mietende IS NULL)
                     AND mietvertrag.FK_mieterID = mieter.MieterID
                     AND mietvertrag.FK_wohnungID = wohnung.wohnungID
-                    AND mietVertragID NOT IN (SELECT mietEingang.mietEingangID FROM mietEingang WHERE mietEingang.FK_periode=$monatID);";
+                    AND mietVertragID NOT IN (SELECT mietEingang.mietEingangID FROM mietEingang WHERE mietEingang.FK_periode=$monatID) ORDER BY name;";
         $res_kontrolle = mysqli_query($link, $abfrage_kontrolle) or die("Abfrage Zahlungen hat nicht geklappt");
         ?>
 

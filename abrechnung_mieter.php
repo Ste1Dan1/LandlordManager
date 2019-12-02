@@ -1,6 +1,6 @@
 <?php
-session_start();
-include 'loginCheck.inc.php';
+//include 'topbar.inc.php';
+//include 'loginCheck.inc.php';
 ?>
 <html>
     <head>
@@ -24,7 +24,8 @@ include 'loginCheck.inc.php';
 
     <?php   
         $mietvertragID = $_GET['mietvertragID'];
-        $jahr = $_GET['jahr'];   
+        $perbeginn = $_GET['von'];   
+        $perende = $_GET['bis'];   
 
         $offen = 0;
 
@@ -35,7 +36,8 @@ include 'loginCheck.inc.php';
             AND mieter.mieterID = mietvertrag.FK_mieterID
             AND wohnung.wohnungID = mietvertrag.FK_wohnungID
             AND haus.hausID = wohnung.FK_hausID
-            AND (mietvertrag.mietende >= '$jahr-01-01' OR mietvertrag.mietende is NULL)
+            AND (mietvertrag.mietende > '$perbeginn' OR mietvertrag.mietende is NULL)
+            AND mietvertrag.mietbeginn < '$perende'
             AND mietvertrag.mietVertragID = mietEingang.FK_mietVertragID
         GROUP BY mietEingang.FK_mietVertragID
         ORDER BY wohnung.wohnungsNummer;";
@@ -64,34 +66,7 @@ include 'loginCheck.inc.php';
                 $bezahlt = $row['Summe'];
                 $summe = 0;
                 $offen = 0;
-                                                    
-                if($jahr.'0101' >= $mietbeginn){
-                    $perbeginn = '01.01.'.$jahr;
-                } 
-                if ($jahr.'0101' < $mietbeginn) {
-                    $perbeginn = date('d.m.Y',strtotime($mietertable['mietbeginn']));
-                }
-                
-                // Periodenende (Ende Mietvertrag oder 31. Dezember) evaluieren
-                // Wenn noch nicht das Ende des Jahres erreicht ist, wird das heutige Datum als Periodenende genommen
-                $mietende = strtotime($mietertable['mietende']);
-                $mietende= date('Ymd', $mietende);
-                
-                if ($mietende < $jahr.'1231') {
-                    $perende = date('d.m.Y',strtotime($mietertable['mietende']));
-                }
 
-                if($mietende == '19700101'){
-                    $perende='31.12.'.$jahr;
-                }
-
-                if($mietende >= $jahr.'1231'){
-                    $perende='31.12.'.$jahr;
-                }             
-                
-                if ($perende >= date('Ymd')){
-                    $perende = date('d.m.Y');
-                }
  
                 //Berechnung Monate
                 $anzahlmte;
@@ -99,7 +74,7 @@ include 'loginCheck.inc.php';
                 $d1=new DateTime($perende); 
                 $d2=new DateTime($perbeginn);                                  
                 $Months = $d2->diff($d1); 
-                $anzahlmte = (($Months->y) * 12) + ($Months->m);
+                $anzahlmte = (($Months->y) * 12) + ($Months->m) + 1;
                               
                 
                 $abfrage_haus = "SELECT hausID, bezeichnung, anz_whg, SUM(flaeche) as hausflaeche FROM haus, wohnung WHERE haus.hausID = $hausID AND haus.hausID = wohnung.FK_hausID GROUP BY hausID ORDER BY bezeichnung;";
@@ -110,7 +85,7 @@ include 'loginCheck.inc.php';
                     $hausflaeche = $table['hausflaeche'];
                 }                
                 
-                $abfrage_kat = "SELECT kategorieID, beschreibung, abrechnung, SUM(betrag) as betrag from nkrechnungenprohaus WHERE bezeichnung = '$hausbezeichnung' AND datum BETWEEN '$jahr-01-01' AND '$jahr-12-31' GROUP BY kategorieID;";                            
+                $abfrage_kat = "SELECT kategorieID, beschreibung, abrechnung, SUM(betrag) as betrag from nkrechnungenprohaus WHERE bezeichnung = '$hausbezeichnung' AND datum BETWEEN '$perbegin' AND '$perende' GROUP BY kategorieID ORDER BY beschreibung;";                            
                 $res_kat = mysqli_query($link, $abfrage_kat) or die("Abfrage NK-Kategorien hat nicht geklappt");
 
         ?>
@@ -177,17 +152,18 @@ include 'loginCheck.inc.php';
                     $beschreibung = $kat['Beschreibung'];
                     $betrag = $kat['betrag'];                   
                     $abrechnungstyp = $kat['Abrechnung'];
+                    
                     $anteil = 0; 
                     $gesamtanteil = 0;
                     $zeitanteil = 0;
                     $bewmonate = $anzwhg * 12;
-                    
+                                       
                     if ($abrechnungstyp =="Wohneinheit"){
                     $anteil = $betrag / $bewmonate;
                     
                     $gesamtanteil = $anteil * 12;
                     $zeitanteil = $anteil * $anzahlmte;
-                   
+                                     
                     }
                     
                     if ($abrechnungstyp =="Wohnfläche"){
@@ -201,7 +177,7 @@ include 'loginCheck.inc.php';
                     $offen = $summe - $bezahlt;
                     $zahlenbis = strtotime("+30 day", time());
                     $zahlenbis = date('d.m.Y', $zahlenbis);
-                                                         
+
                     ?>
                     <tr>
                         <td><?php echo $beschreibung; ?></td>

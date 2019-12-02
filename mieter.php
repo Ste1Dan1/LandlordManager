@@ -28,7 +28,7 @@ include 'loginCheck.inc.php';
         <?php endif ?>
 
         <?php
-        $abfrage = "SELECT * from mieter";
+        $abfrage = "SELECT * from mieter ORDER BY name";
       
         $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
         ?>
