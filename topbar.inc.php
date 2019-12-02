@@ -66,7 +66,19 @@ include 'db.inc.php';
 
             </div>
 
-            <a href = "user.php">User</a>
+            <div class = "dropdown">
+                <button class = "dropbtn">Benutzer
+                    <i class = "fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="user.php">Ihre Daten</a>
+                    <a href="userPW.php">Passwort ändern</a>
+
+                </div>
+
+            </div>
+
+
             <a href = "logout.php">Logout</a>
 
         </div>
