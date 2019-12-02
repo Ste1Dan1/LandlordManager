@@ -1,5 +1,5 @@
 <?php
-include 'topbar.inc.php';
+session_start();
 include 'loginCheck.inc.php';
 ?>
 <html>

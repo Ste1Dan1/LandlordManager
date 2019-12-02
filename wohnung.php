@@ -123,7 +123,7 @@ include 'loginCheck.inc.php';
                 </div>
                 <div class="input-group">
                     <label>Zimmer</label>
-                    <input type="number" min="1" name="zimmer" required value="<?php echo $zimmer; ?>">
+                    <input type="number" min="1" step="0.5" name="zimmer" required value="<?php echo $zimmer; ?>">
                 </div>
                 <div class="input-group">
                     <label>Fläche</label>

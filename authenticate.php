@@ -1,5 +1,5 @@
 <?php
-session_start();
+@session_start();
 include 'db.inc.php';
 
 $link = mysqli_connect("localhost", $benutzer, $passwort) or die("Keine Verbindung zur Datenbank!");

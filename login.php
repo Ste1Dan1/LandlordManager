@@ -1,5 +1,5 @@
 <?php
-        
+@session_start();       
         include 'db.inc.php';
         if (isset($_SESSION['messageNEG'])):
             ?>
@@ -27,7 +27,7 @@
         include 'db.inc.php';
         if (isset($_SESSION['messageNEG'])):
             ?>
-            <div class="msgNEG">
+            <div class="msgNEG"> 
                 <?php
                 echo $_SESSION['messageNEG'];
                 unset($_SESSION['messageNEG']);
@@ -35,7 +35,7 @@
             </div>
 
         <?php endif ?>
-
+ 
 
         <div class="login">
 
@@ -52,11 +52,12 @@
                 <input type="password" name="password" placeholder="Password" id="password" required>
 
                 <input type="submit" value="Login">
-
-                <a href="register.php">Registrieren</a>
-
+                <a class="loginButton" href="register.php">Registrieren</a>
+                <a class="loginButton" href="accountRecovery.php">Passwort vergessen</a>
 
             </form>
+            
         </div>
+         
     </body>
 </html>

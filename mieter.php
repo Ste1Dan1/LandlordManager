@@ -87,11 +87,11 @@ include 'loginCheck.inc.php';
 
                 <div class="input-group">
                     <label>Vorname</label>
-                    <input type="text" name="vorname" required pattern="[a-zA-Z]+" title="Nur Buchstaben, keine Zahlen!" value="<?php echo $vorname; ?>">
+                    <input type="text" name="vorname" required pattern="[A-Za-zÄäÖöÜüß]+" title="Nur Buchstaben, keine Zahlen!" value="<?php echo $vorname; ?>">
                 </div>
                 <div class="input-group">
                     <label>Name</label>
-                    <input type="text" name="name" required pattern="[a-zA-Z]+" title="Nur Buchstaben, keine Zahlen!" value="<?php echo $name; ?>">
+                    <input type="text" name="name" required pattern="[A-Za-zÄäÖöÜüß]+" title="Nur Buchstaben, keine Zahlen!" value="<?php echo $name; ?>">
                 </div>
                 <div class="input-group">
                     <label>Geburtsdatum</label>
