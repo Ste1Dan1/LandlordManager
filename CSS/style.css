@@ -24,6 +24,21 @@ h1, h2 {
 
 }
 
+.report{
+   min-height: 80%;
+    background-color: white;
+    margin: 0;
+    padding: 10px;
+}
+.report table{
+    margin-left: 40px;
+}
+.report h2{
+    margin-left: 40px;
+    text-align: left;
+}
+
+
 .pagecontent .wrapper {
     width: fit-content;
     margin: auto;
