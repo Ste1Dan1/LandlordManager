@@ -40,20 +40,26 @@ include 'db.inc.php';
                     pf.src = '//cdn.printfriendly.com/printfriendly.js';
                     document.getElementsByTagName('head')[0].appendChild(pf)
                 })();
-            </script><a href="https://www.printfriendly.com" style="color:#6D9F00;text-decoration:none;
+            </script>
+
+            <form name ="jahrauswahl" method="post" class ="print-no">         
+
+                <div class="input-group">
+                    <label>Abrechnung von: </label>
+                    <input type="date" name="periodenbeginn" value ="<?php echo date('Y-m-d', strtotime('first day of january this year'));?>">
+                </div>
+                <div class="input-group"> 
+                    <label>Bis: </label>
+                    <input type="date" name="periodenende" value ="<?php echo date('Y-m-d', strtotime('last day of december this year'));?>">        
+                </div>
+                
+                <button class="btn" type="submit" name="show" >Anzeigen</button>          
+                <a href="https://www.printfriendly.com" style="color:#6D9F00;text-decoration:none;
                         " class="printfriendly" onclick="window.print();
                                 return false;" title="Druck oder PDF auslösen">
                 <img style="border:none;-webkit-box-shadow:none;box-shadow:none;
                      " src='Images/Icon_Print_PDF.png'
                      alt="Druck oder PDF auslösen"/></a>
-
-            <form name ="jahrauswahl" method="post" class ="print-no">         
-
-                Abrechnung von: <input type="date" name="periodenbeginn" value ="2019-01-01"><br>
-                bis: <input type="date" name="periodenende" value ="2019-12-31"><br>          
-
-                <button class="btn" type="submit" name="show" >Anzeigen</button>          
-
             </form>
 
             <?php
@@ -163,7 +169,6 @@ include 'db.inc.php';
                                 if (mysqli_num_rows($res_kat) == 0) {
                                     echo 'Keine Kategorien erfasst';
                                 } else {
-
                                     ?>
                                     <tr><td></td><td></td><td></td><td></td></tr>
                                     <tr>
@@ -192,7 +197,6 @@ include 'db.inc.php';
                                         }
 
                                         $anteil = $anteilwhg + $anteilfl;
-
                                         ?>
                                         <tr>
                                             <td><?php echo $kat['Beschreibung']; ?></td>
@@ -294,8 +298,6 @@ include 'db.inc.php';
                                             $mietername = $mietertable['vorname'] . ' ' . $mietertable['name'];
                                             $mieterID = $mietertable['mieterID'];
                                             $mietvertragID = $mietertable['mietVertragID'];
-                                            
-
                                             ?>
                                             <tr>
                                                 <td><?php echo $whgnr ?></td>
@@ -311,7 +313,6 @@ include 'db.inc.php';
                                             </tr>
 
                                             <?php
-
                                         }
 
                                         $differenz = $summerg - $summeanteil;

@@ -69,7 +69,7 @@ form {
 }
 .input-group input {
     height: 30px;
-    width: 98%;
+    width: 93%;
     padding: 5px 10px;
     font-size: 16px;
     border-radius: 5px;
@@ -78,7 +78,7 @@ form {
 
 .input-group select {
     height: 30px;
-    width: 93%;
+    width: 98%;
     padding: 5px 10px;
     font-size: 16px;
     border-radius: 5px;

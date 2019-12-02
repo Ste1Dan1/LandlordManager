@@ -1,4 +1,5 @@
 <?php
+
 @session_start();
 include 'db.inc.php';
 
@@ -11,6 +12,7 @@ $betrag = "";
 $kostKat_beschreibung = "";
 $id = 0;
 $update = false;
+
 
 if (isset($_GET['edit'])) {
     $id = $_GET['edit'];
@@ -64,5 +66,4 @@ if (isset($_GET['del'])) {
 }
 
 $res = mysqli_query($link, "SELECT * FROM NKRechnungen");
-
 ?>
