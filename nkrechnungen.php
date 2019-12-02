@@ -107,7 +107,7 @@ if (isset($_POST['filter'])) {
                     </table><br>
 
     <?php } ?>
-
+<?php } ?>
                 <form method="post" action="nkrechnungenDB.php" >
 
                     <input type="hidden" name="id" value="<?php echo $id; ?>">
@@ -196,7 +196,7 @@ if (isset($_POST['filter'])) {
 
                     </div>
                 </form>
-<?php } ?>
+
 
         </div>
     </body>
