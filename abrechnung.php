@@ -1,6 +1,6 @@
 <?php
-//include 'topbar.inc.php';
-//include 'loginCheck.inc.php';
+include 'topbar.inc.php';
+include 'loginCheck.inc.php';
 include 'db.inc.php';
 ?>
 <html>
