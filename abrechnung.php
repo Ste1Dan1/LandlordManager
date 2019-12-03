@@ -1,6 +1,6 @@
 <?php
-include 'topbar.inc.php';
-include 'loginCheck.inc.php';
+//include 'topbar.inc.php';
+//include 'loginCheck.inc.php';
 include 'db.inc.php';
 ?>
 <html>
@@ -183,6 +183,9 @@ include 'db.inc.php';
 
 
                                     <?php
+                                    $summeanteilwhg = 0;
+                                    $summeanteilfl = 0;
+                                    
                                     while ($kat = mysqli_fetch_array($res_kat)) {
                                         $anteil = 0;
                                         $anteilfl = 0;
@@ -192,8 +195,10 @@ include 'db.inc.php';
                                         $betrag = $kat['betrag'];
                                         if ($abrechnung == 'Wohnfläche') {
                                             $anteilfl = $betrag / $flaeche / 12;
+                                            $summeanteilfl+= $anteilfl;
                                         } elseif ($abrechnung == 'Wohneinheit') {
                                             $anteilwhg = $betrag / $bewmonate;
+                                            $summeanteilwhg += $anteilwhg;
                                         }
 
                                         $anteil = $anteilwhg + $anteilfl;
@@ -287,7 +292,7 @@ include 'db.inc.php';
 
                                             $flaechewhg = $mietertable['flaeche'];
 
-                                            $anteilmieter = ($anzahlmte * $anteilwhg) + ($anzahlmte * $flaechewhg * $anteilfl);
+                                            $anteilmieter = ($anzahlmte * $summeanteilwhg) + ($anzahlmte * $flaechewhg * $summeanteilfl);
                                             $summeanteil += $anteilmieter;
 
                                             $bezahlt = $mietertable['Summe'];
@@ -304,7 +309,7 @@ include 'db.inc.php';
                                                 <td><?php echo $mietername ?></td>
                                                 <td><?php echo $perbeginn . ' - ' . $perende; ?></td>
                                                 <td><?php echo $anzahlmte; ?></td>
-                                                <td><?php echo number_format($summeanteil, 2); ?></td>
+                                                <td><?php echo number_format($anteilmieter, 2); ?></td>
                                                 <td><?php echo $bezahlt; ?></td>
                                                 <td><?php echo number_format($offen, 2); ?></td> 
                                                 <th class = "print-no"><a href="abrechnung_mieter.php?mietvertragID=<?php echo $mietvertragID ?>&von=<?php echo $perbeginn ?>&bis=<?php echo $perende ?> "target="_blank" style="color:#6D9F00;text-decoration:none;" title="PDF anzeigen">
