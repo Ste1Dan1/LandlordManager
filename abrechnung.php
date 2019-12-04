@@ -1,6 +1,6 @@
 <?php
-include 'topbar.inc.php';
-include 'loginCheck.inc.php';
+//include 'topbar.inc.php';
+//include 'loginCheck.inc.php';
 include 'db.inc.php';
 ?>
 <html>
@@ -315,7 +315,7 @@ include 'db.inc.php';
                                                 <td><?php echo number_format($anteilmieter, 2); ?></td>
                                                 <td><?php echo $bezahlt; ?></td>
                                                 <td><?php echo number_format($offen, 2); ?></td> 
-                                                <th class = "print-no"><a href="abrechnung_mieter.php?mietvertragID=<?php echo $mietvertragID ?>&von=<?php echo $perbeginn ?>&bis=<?php echo $perende ?> "target="_blank" style="color:#6D9F00;text-decoration:none;" title="PDF anzeigen">
+                                                <th class = "print-no"><a href="abrechnung_mieter_pdf.php?mietvertragID=<?php echo $mietvertragID ?>&von=<?php echo $perbeginn ?>&bis=<?php echo $perende ?> "target="_blank" style="color:#6D9F00;text-decoration:none;" title="PDF anzeigen">
                                                         <img style="border:none;-webkit-box-shadow:none;box-shadow:none;
                                                              " src='Images/Icon_PDF.png' alt="PDF anzeigen"/></a></th>
                                             </tr>
