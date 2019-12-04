@@ -225,6 +225,7 @@ include 'db.inc.php';
 				LEFT JOIN mietEingang on mietEingang.FK_mietVertragID = mietvertrag.mietVertragID
                 WHERE wohnung.FK_hausID = '$hausID'
                 and (mietvertrag.mietende >= '$periodenbeginn' OR mietvertrag.mietende is NULL)
+                and (mietvertrag.mietbeginn <= '$periodenende')
                 GROUP BY mietVertragID;";
                                 $res_mieter = mysqli_query($link, $abfrage_mieter) or die("Abfrage Mieter hat nicht geklappt");
 
@@ -286,7 +287,7 @@ include 'db.inc.php';
 
                                             $d1 = new DateTime($perende);
                                             $d2 = new DateTime($perbeginn);
-                                            $anzahlmte = date_diff($d1, $d2);
+                                            $anzahlmte = date_diff($d1, $d2,TRUE );
                                             
                                             if($anzahlmte->m == 1){
                                                 $anzahlmte =0;
