@@ -155,3 +155,7 @@ form {
 #printfriendly #pf-title{
     display:none;
 }
+
+.pagecontent{
+    text-align: center;
+}

@@ -16,12 +16,10 @@ include 'loginCheck.inc.php';
 
         <div class="pagecontent">
             <h1>Support</h1>
-
-<?php
-            include 'loremIpsum.php'
-            ?>  
-        </div>
-
+            <p> </p>
+            Als Nutzer unseres Online-Tools profitieren Sie von unserem persönlichen Support. <br>
+            Rufen Sie uns an! Sie erreichen uns täglich Mo-Fr von 07:30-18:00 Uhr unter der Telefonnummer +41 58 355 46 00.
+            <p> </p>
 
     </body>
     <?php

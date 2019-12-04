@@ -16,9 +16,11 @@ include 'loginCheck.inc.php';
 
         <div class="pagecontent">
             <h1>Unternehmen</h1>
-            <?php
-            include 'loremIpsum.php'
-            ?>  
+            <p> Wir sind die Nummer 1 in der Region Olten!<p/>
+            «Wir blicken an unserem Hauptsitz in Olten seit 1999 auf eine erfolgreiche Geschichte zurück. <br>
+            Heute arbeiten wir schweizweit an den Immobilienlösungen von morgen. <br>
+            Gerne zeigen wir Ihnen mehr!»
+            
 
         </div>
 

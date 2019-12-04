@@ -15,10 +15,10 @@ include 'loginCheck.inc.php';
 
         <div class="pagecontent">
             <h1>Datenschutz</h1>
-            <?php
-            include 'loremIpsum.php'
-            ?>  
-
+            <p> </p>
+            Uns ist der Schutz Ihrer Daten und Ihrer Privatsphäre ein wichtiges Anliegen. Technische und organisatorische Massnahmen stellen sicher, dass die gesetzlichen Vorschriften über den Datenschutz eingehalten werden. 
+            <p> </p>
+            Weitere Informationen finden Sie in unter <a href="impressum.html">Impressum</a>
         </div>
 
 
