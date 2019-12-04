@@ -17,6 +17,7 @@ CREATE TABLE haus (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+
 CREATE TABLE wohnung (
   wohnungID int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, 
   wohnungsNummer varchar (10),

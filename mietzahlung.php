@@ -61,7 +61,7 @@ if (isset($_SESSION['message'])):
                 <?php
                 
                 while ($row = mysqli_fetch_array($res)) {
-                    $zahldatalt = strtotime($row['mietbeginn']);
+                    $zahldatalt = strtotime($row['datum']);
                     $zahldatum = date("d.m.Y", $zahldatalt);
                     ?>
                     <tr>
@@ -141,7 +141,7 @@ if (isset($_SESSION['message'])):
                     <input type="number" min="0" name="mietbetrag" required value="<?php echo $mietbetrag; ?>">
                 </div>
                 <div class="input-group">
-                    <label>NK-Betragt</label>
+                    <label>NK-Betrag</label>
                     <input type="number" min="0" name="nkbetrag" required value="<?php echo $nkbetrag; ?>">
                 </div>
 

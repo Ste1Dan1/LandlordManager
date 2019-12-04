@@ -46,20 +46,20 @@ include 'db.inc.php';
 
                 <div class="input-group">
                     <label>Abrechnung von: </label>
-                    <input type="date" name="periodenbeginn" value ="<?php echo date('Y-m-d', strtotime('first day of january this year'));?>">
+                    <input type="date" name="periodenbeginn" value ="<?php echo date('Y-m-d', strtotime('first day of january this year')); ?>">
                 </div>
                 <div class="input-group"> 
                     <label>Bis: </label>
-                    <input type="date" name="periodenende" value ="<?php echo date('Y-m-d', strtotime('last day of december this year'));?>">        
+                    <input type="date" name="periodenende" value ="<?php echo date('Y-m-d', strtotime('last day of december this year')); ?>">        
                 </div>
-                
+
                 <button class="btn" type="submit" name="show" >Anzeigen</button>          
                 <a href="https://www.printfriendly.com" style="color:#6D9F00;text-decoration:none;
-                        " class="printfriendly" onclick="window.print();
+                   " class="printfriendly" onclick="window.print();
                                 return false;" title="Druck oder PDF auslösen">
-                <img style="border:none;-webkit-box-shadow:none;box-shadow:none;
-                     " src='Images/Icon_Print_PDF.png'
-                     alt="Druck oder PDF auslösen"/></a>
+                    <img style="border:none;-webkit-box-shadow:none;box-shadow:none;
+                         " src='Images/Icon_Print_PDF.png'
+                         alt="Druck oder PDF auslösen"/></a>
             </form>
 
             <?php
@@ -185,7 +185,7 @@ include 'db.inc.php';
                                     <?php
                                     $summeanteilwhg = 0;
                                     $summeanteilfl = 0;
-                                    
+
                                     while ($kat = mysqli_fetch_array($res_kat)) {
                                         $anteil = 0;
                                         $anteilfl = 0;
@@ -218,16 +218,14 @@ include 'db.inc.php';
 
 
                                 <?php
-                                $abfrage_mieter = "SELECT wohnung.wohnungsNummer, wohnung.flaeche, mieter.mieterID, mieter.vorname, mieter.name,  mietvertrag.mietVertragID, mietvertrag.mietbeginn, mietvertrag.mietende, SUM(nkBetrag) as Summe 
-                FROM mieter, mietvertrag, wohnung, haus, mietEingang
-                WHERE mieter.mieterID = mietvertrag.FK_mieterID
-                AND wohnung.wohnungID = mietvertrag.FK_wohnungID
-                AND haus.hausID = wohnung.FK_hausID
-                AND haus.hausID = '$hausID'
-                AND (mietvertrag.mietende >= '$periodenbeginn' OR mietvertrag.mietende is NULL)
-                AND mietvertrag.mietVertragID = mietEingang.FK_mietVertragID
-                GROUP BY mietEingang.FK_mietVertragID
-                ORDER BY wohnung.wohnungsNummer;";
+                                $abfrage_mieter = "SELECT wohnung.wohnungsNummer, wohnung.flaeche, mieter.mieterID, mieter.vorname, mieter.name,  mietvertrag.mietVertragID, mietvertrag.mietbeginn, mietvertrag.mietende, SUM(nkBetrag)
+                FROM mietvertrag
+				LEFT JOIN mieter on mieter.mieterID = mietvertrag.FK_mieterID
+				LEFT JOIN wohnung on wohnung.wohnungID = mietvertrag.FK_wohnungID
+				LEFT JOIN mietEingang on mietEingang.FK_mietVertragID = mietvertrag.mietVertragID
+                WHERE wohnung.FK_hausID = '$hausID'
+                and (mietvertrag.mietende >= '$periodenbeginn' OR mietvertrag.mietende is NULL)
+                GROUP BY mietVertragID;";
                                 $res_mieter = mysqli_query($link, $abfrage_mieter) or die("Abfrage Mieter hat nicht geklappt");
 
                                 if (mysqli_num_rows($res_mieter) == 0) {
