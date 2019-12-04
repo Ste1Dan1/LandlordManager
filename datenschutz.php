@@ -18,7 +18,7 @@ include 'loginCheck.inc.php';
             <p> </p>
             Uns ist der Schutz Ihrer Daten und Ihrer Privatsphäre ein wichtiges Anliegen. Technische und organisatorische Massnahmen stellen sicher, dass die gesetzlichen Vorschriften über den Datenschutz eingehalten werden. 
             <p> </p>
-            Weitere Informationen finden Sie in unter <a href="impressum.html">Impressum</a>
+            Weitere Informationen finden Sie in unter <a href="impressum.php">Impressum</a>
         </div>
 
 
