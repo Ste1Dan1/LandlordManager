@@ -56,7 +56,7 @@ include 'db.inc.php';
                 <button class="btn" type="submit" name="show" >Anzeigen</button>          
                 <a href="https://www.printfriendly.com" style="color:#6D9F00;text-decoration:none;
                    " class="printfriendly" onclick="window.print();
-                                return false;" title="Druck oder PDF auslösen">
+                           return false;" title="Druck oder PDF auslösen">
                     <img style="border:none;-webkit-box-shadow:none;box-shadow:none;
                          " src='Images/Icon_Print_PDF.png'
                          alt="Druck oder PDF auslösen"/></a>
@@ -258,7 +258,8 @@ include 'db.inc.php';
                                             $mietbeginn = date('Ymd', $mietbeginn);
 
                                             if ($perbeginn < $mietbeginn) {
-                                                $perbeginn = $mietbeginn;
+                                                $perbeginn = date('d.m.Y', strtotime($mietbeginn));
+                                                // $perbeginn = $mietbeginn;
                                             }
 
                                             $perbeginn = date('d.m.Y', strtotime($perbeginn));
@@ -285,12 +286,15 @@ include 'db.inc.php';
 
                                             $d1 = new DateTime($perende);
                                             $d2 = new DateTime($perbeginn);
-                                            $Months = $d2->diff($d1);
-                                            $anzahlmte = (($Months->y) * 12) + ($Months->m) + 1;
-
+                                            $anzahlmte = date_diff($d1, $d2);
+                                            
+                                            if($anzahlmte->m == 1){
+                                                $anzahlmte =0;
+                                            }
+                                            
                                             $flaechewhg = $mietertable['flaeche'];
 
-                                            $anteilmieter = ($anzahlmte * $summeanteilwhg) + ($anzahlmte * $flaechewhg * $summeanteilfl);
+                                            $anteilmieter = (($anzahlmte->m + 1) * $summeanteilwhg) + (($anzahlmte->m + 1) * $flaechewhg * $summeanteilfl);
                                             $summeanteil += $anteilmieter;
 
                                             $bezahlt = $mietertable['Summe'];
@@ -306,7 +310,7 @@ include 'db.inc.php';
                                                 <td><?php echo $whgnr ?></td>
                                                 <td><?php echo $mietername ?></td>
                                                 <td><?php echo $perbeginn . ' - ' . $perende; ?></td>
-                                                <td><?php echo $anzahlmte; ?></td>
+                                                <td><?php echo $anzahlmte->m + 1; ?></td>
                                                 <td><?php echo number_format($anteilmieter, 2); ?></td>
                                                 <td><?php echo $bezahlt; ?></td>
                                                 <td><?php echo number_format($offen, 2); ?></td> 
