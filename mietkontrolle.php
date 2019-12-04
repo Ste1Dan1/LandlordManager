@@ -13,7 +13,7 @@ include 'loginCheck.inc.php';
 
 
     <body>
-        <div class="pagecontent">
+        <div class="report">
             <div class ="print-no">
 
             </div>
