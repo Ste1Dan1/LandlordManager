@@ -1,6 +1,6 @@
 <?php
-include 'topbar.inc.php';
-include 'loginCheck.inc.php';
+//include 'topbar.inc.php';
+//include 'loginCheck.inc.php';
 include 'db.inc.php';
 ?>
 <html>
@@ -15,32 +15,9 @@ include 'db.inc.php';
 
     <body>
         <div class="report">
-            <div class ="print-no">
-
-            </div>
 
             <h1>Ihre erfassten Nebenkosten-Rechnungen pro Haus</h1>
 
-
-            <!-- Plugin für PDF-Druck, E-Mail, Druck von https://www.printfriendly.com/button-->
-            <script>var pfHeaderImgUrl = '';
-                var pfHeaderTagline = '';
-                var pfdisableClickToDel = 1;
-                var pfHideImages = 0;
-                var pfImageDisplayStyle = 'right';
-                var pfDisablePDF = 0;
-                var pfDisableEmail = 1;
-                var pfDisablePrint = 0;
-                var pfCustomCSS = './CSS/style.css';
-                var pfBtVersion = '2';
-                (function () {
-                    var js, pf;
-                    pf = document.createElement('script');
-                    pf.type = 'text/javascript';
-                    pf.src = '//cdn.printfriendly.com/printfriendly.js';
-                    document.getElementsByTagName('head')[0].appendChild(pf)
-                })();
-            </script>
 
             <form name ="jahrauswahl" method="post" class ="print-no">         
 
@@ -54,12 +31,7 @@ include 'db.inc.php';
                 </div>
 
                 <button class="btn" type="submit" name="show" >Anzeigen</button>          
-                <a href="https://www.printfriendly.com" style="color:#6D9F00;text-decoration:none;
-                   " class="printfriendly" onclick="window.print();
-                           return false;" title="Druck oder PDF auslösen">
-                    <img style="border:none;-webkit-box-shadow:none;box-shadow:none;
-                         " src='Images/Icon_Print_PDF.png'
-                         alt="Druck oder PDF auslösen"/></a>
+                
             </form>
 
             <?php
@@ -101,7 +73,7 @@ include 'db.inc.php';
                     <hr>
                     <section class="page-break-after">
                         <h2 class="pf-title">Nebenkosten für Haus <?php echo $table['bezeichnung'] ?> von <?php echo $beginn ?> bis <?php echo $ende ?></h2>
-
+                      
                         <?php
                         $res = mysqli_query($link, $abfrage_NK) or die("Abfrage NK-Rechnungen hat nicht geklappt");
 
