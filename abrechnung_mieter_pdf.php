@@ -1,12 +1,11 @@
-<!--Quelle PDF-Generierung: https://www.php-einfach.de/experte/php-codebeispiele/pdf-per-php-erstellen-pdf-rechnung/-->
-
 <?php
 include 'db.inc.php';
 
         $mietvertragID = $_GET['mietvertragID'];
         $perbeginn = $_GET['von'];   
-        $perende = $_GET['bis'];   
-
+        $perbeginn = date("Y-m-d", strtotime($perbeginn));
+        $perende = $_GET['bis'];  
+        $perende = date("Y-m-d", strtotime($perende));
         $offen = 0;
 
         $abfrage_mieter = "SELECT wohnung.FK_hausID, haus.bezeichnung, wohnung.wohnungsNummer, wohnung.flaeche, mieter.vorname, mieter.name,  
@@ -65,7 +64,7 @@ include 'db.inc.php';
                     $hausflaeche = $table['hausflaeche'];
                 }                
                 
-                $abfrage_kat = "SELECT kategorieID, beschreibung, abrechnung, SUM(betrag) as betrag from nkrechnungenprohaus WHERE bezeichnung = '$hausbezeichnung' AND datum BETWEEN '$perbegin' AND '$perende' GROUP BY kategorieID ORDER BY beschreibung;";                            
+                $abfrage_kat = "SELECT kategorieID, beschreibung, abrechnung, SUM(betrag) as betrag from nkrechnungenprohaus WHERE bezeichnung = '$hausbezeichnung' AND datum BETWEEN '$perbeginn' AND '$perende' GROUP BY kategorieID ORDER BY beschreibung;";                            
                 $res_kat = mysqli_query($link, $abfrage_kat) or die("Abfrage NK-Kategorien hat nicht geklappt");
                 $today = date('d.m.Y');
                 
