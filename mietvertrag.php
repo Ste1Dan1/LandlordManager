@@ -34,7 +34,7 @@ include 'loginCheck.inc.php';
         FROM `mietvertrag` 
 	LEFT JOIN `wohnung` ON `mietvertrag`.`FK_wohnungID` = `wohnung`.`wohnungID` 
 	LEFT JOIN `mieter` ON `mietvertrag`.`FK_mieterID` = `mieter`.`mieterID` 
-	LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID` ORDER BY `haus`.`bezeichnung`, `wohnung`.`wohnungID`, `mietvertrag`.`mietbeginn`;";
+	LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID` ORDER BY `haus`.`bezeichnung`, `wohnung`.`wohnungsNummer`, `mietvertrag`.`mietbeginn`;";
  
         $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
         ?>
@@ -50,8 +50,8 @@ include 'loginCheck.inc.php';
                         <th>Wohnung</th>
                         <th>Mietbeginn</th>
                         <th>Mietende</th>
-                        <th>Mietzins / Monat</th>
-                        <th>Nebenkosten / Monat</th>
+                        <th>Mietzins / Mt.</th>
+                        <th>Nebenkosten / Mt.</th>
 
                         <th colspan="2">Action</th>
                     </tr>
@@ -108,7 +108,7 @@ include 'loginCheck.inc.php';
                     <label>Mieter</label>
                     <select class="input-group" name="mieter" required>
                         <?php
-                        $sql = mysqli_query($link, "SELECT mieterID, name, vorname FROM mieter");
+                        $sql = mysqli_query($link, "SELECT mieterID, name, vorname FROM mieter ORDER BY name");
 
 
                         //Default Value anzeigen falls nichts ausgewählt
