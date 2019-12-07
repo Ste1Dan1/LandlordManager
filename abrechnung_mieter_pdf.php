@@ -142,9 +142,19 @@ $html = $vorname.' '.$name.'<br>'
                     $anteil = number_format($anteil, 2);
                     $gesamtanteil = number_format($gesamtanteil, 2);
                     $zeitanteil = number_format($zeitanteil, 2);
-
                     
-
+                     if ($offen > 0){
+                        $zubezahlen = number_format ($offen, 2);
+                        $nachzahlung = 'Nachzahlung von CHF '.$zubezahlen.' fällig bis am '.$zahlenbis.' auf unser Konto. Vielen Dank.';
+                     }
+                     
+                     if ($offen < 0){
+                         $zurück = -$offen;
+                         $zurück = number_format ($zurück, 2);
+                         $nachzahlung = 'Sie haben CHF '.$zurück.' zu viel bezahlt. Wir werden Ihnen in den nächsten Tagen CHF '.$zurück.' auf Ihr Konto überweisen.';
+                     }
+                     
+                    
                     $html .='<tr>
                         <td>'.$beschreibung.'</td>
                         <td>'.$betrag.'</td>
@@ -156,10 +166,9 @@ $html = $vorname.' '.$name.'<br>'
                     
                 }
                 
-                    $summe = number_format ((round($summe *20)/20), 2);
+                    $summe = number_format ($summe, 2);
                     $bezahlt = number_format ($bezahlt, 2);
-                    $offen = number_format ((round($offen * 20)/20), 2);
-                
+                    $offen = number_format ($offen, 2);     
                     
                 $html.= '<tr></tr>
                     <tr>
@@ -179,7 +188,7 @@ $html = $vorname.' '.$name.'<br>'
                 </tr>
                 </table> 
 
-        <p> Nachzahlung von CHF '.$offen.' fällig bis am '.$zahlenbis.' auf unser Konto. Vielen Dank.</p>';
+        <p>'.$nachzahlung.'</p>';
                 
                 
                 }
