@@ -36,8 +36,8 @@ include 'loginCheck.inc.php';
             AND mieter.mieterID = mietvertrag.FK_mieterID
             AND wohnung.wohnungID = mietvertrag.FK_wohnungID
             AND haus.hausID = wohnung.FK_hausID
-            AND (mietvertrag.mietende > '$perbeginn' OR mietvertrag.mietende is NULL)
-            AND mietvertrag.mietbeginn < '$perende'
+            AND (mietvertrag.mietende >= '$perbeginn' OR mietvertrag.mietende is NULL)
+            AND mietvertrag.mietbeginn <= '$perende'
             AND mietvertrag.mietVertragID = mietEingang.FK_mietVertragID
         GROUP BY mietEingang.FK_mietVertragID
         ORDER BY wohnung.wohnungsNummer;";

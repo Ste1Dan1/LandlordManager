@@ -17,20 +17,7 @@ include('mietzahlungDB.php');
 
     <body>
         <div class="pagecontent">
-           
 
-            <?php
-            $abfrage = "SELECT `mietEingang`.*, `mietvertrag`.*, `wohnung`.*, `haus`.*, `perioden`.*, `mieter`.*
-        FROM `mietEingang` 
-	LEFT JOIN `mietvertrag` ON `mietEingang`.`FK_mietVertragID` = `mietvertrag`.`mietVertragID` 
-	LEFT JOIN `wohnung` ON `mietvertrag`.`FK_wohnungID` = `wohnung`.`wohnungID` 
-	LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID` 
-	LEFT JOIN `perioden` ON `mietEingang`.`FK_periode` = `perioden`.`periodID` 
-	LEFT JOIN `mieter` ON `mietvertrag`.`FK_mieterID` = `mieter`.`mieterID` ORDER BY jahr, FK_periode, `haus`.`bezeichnung`, `wohnung`.`wohnungsNummer`, name;";
-
-
-            $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
-            ?>
             <h1>Mietzahlungen verwalten</h1>
 
             <?php

@@ -9,17 +9,17 @@ include 'db.inc.php';
         $offen = 0;
 
         $abfrage_mieter = "SELECT wohnung.FK_hausID, haus.bezeichnung, wohnung.wohnungsNummer, wohnung.flaeche, mieter.vorname, mieter.name,  
-            mietvertrag.mietbeginn, mietvertrag.mietende, SUM(nkBetrag) as Summe, haus.strasse_nr, haus.plz, haus.ort 
-        FROM mieter, mietvertrag, wohnung, haus, mietEingang
-        WHERE mietvertrag.mietVertragID = $mietvertragID
-            AND mieter.mieterID = mietvertrag.FK_mieterID
-            AND wohnung.wohnungID = mietvertrag.FK_wohnungID
-            AND haus.hausID = wohnung.FK_hausID
-            AND (mietvertrag.mietende > '$perbeginn' OR mietvertrag.mietende is NULL)
-            AND mietvertrag.mietbeginn < '$perende'
-            AND mietvertrag.mietVertragID = mietEingang.FK_mietVertragID
-        GROUP BY mietEingang.FK_mietVertragID
-        ORDER BY wohnung.wohnungsNummer;";
+mietvertrag.mietbeginn, mietvertrag.mietende, SUM(nkBetrag) as Summe, haus.strasse_nr, haus.plz, haus.ort 
+FROM mietvertrag
+LEFT JOIN mieter on mieter.mieterID = mietvertrag.FK_mieterID
+LEFT JOIN wohnung on wohnung.wohnungID = mietvertrag.FK_wohnungID
+LEFT JOIN mietEingang on mietEingang.FK_mietVertragID = mietvertrag.mietVertragID
+LEFT JOIN haus ON haus.hausID = wohnung.FK_hausID
+WHERE mietvertrag.mietVertragID = $mietvertragID
+AND (mietvertrag.mietende > '$perbeginn' OR mietvertrag.mietende is NULL)
+AND mietvertrag.mietbeginn < '$perende'
+GROUP BY mietEingang.FK_mietVertragID
+ORDER BY wohnung.wohnungsNummer;";
 
         $res_mieter = mysqli_query($link, $abfrage_mieter) or die("Abfrage Mieter hat nicht geklappt");
         
