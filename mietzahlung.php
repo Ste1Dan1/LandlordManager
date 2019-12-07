@@ -35,7 +35,7 @@ if (isset($_SESSION['message'])):
 	LEFT JOIN `wohnung` ON `mietvertrag`.`FK_wohnungID` = `wohnung`.`wohnungID` 
 	LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID` 
 	LEFT JOIN `perioden` ON `mietEingang`.`FK_periode` = `perioden`.`periodID` 
-	LEFT JOIN `mieter` ON `mietvertrag`.`FK_mieterID` = `mieter`.`mieterID` ORDER BY jahr, FK_periode, name;";
+	LEFT JOIN `mieter` ON `mietvertrag`.`FK_mieterID` = `mieter`.`mieterID` ORDER BY jahr, FK_periode, `haus`.`bezeichnung`, `wohnung`.`wohnungsNummer`, name;";
 
 
             $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
@@ -104,7 +104,7 @@ if (isset($_SESSION['message'])):
                         FROM `mietvertrag` 
                             LEFT JOIN `wohnung` ON `mietvertrag`.`FK_wohnungID` = `wohnung`.`wohnungID` 
                             LEFT JOIN `mieter` ON `mietvertrag`.`FK_mieterID` = `mieter`.`mieterID` 
-                            LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID` ORDER BY bezeichnung;");
+                            LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID` ORDER BY `haus`.`bezeichnung`, `wohnung`.`wohnungsNummer`;");
 
                         //Default Value anzeigen falls nichts ausgewählt
                         if ($mietvertrag == NULL) {
