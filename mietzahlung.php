@@ -3,16 +3,7 @@ include 'topbar.inc.php';
 include 'loginCheck.inc.php';
 
 include('mietzahlungDB.php');
-
-if (isset($_SESSION['message'])):
-    ?>
-    <div class="msg">
-        <?php
-        echo $_SESSION['message'];
-        unset($_SESSION['message']);
-        ?>
-    </div>
-<?php endif ?>
+?>
 
 
 <html>
@@ -26,64 +17,78 @@ if (isset($_SESSION['message'])):
 
     <body>
         <div class="pagecontent">
-           
-
-            <?php
-            $abfrage = "SELECT `mietEingang`.*, `mietvertrag`.*, `wohnung`.*, `haus`.*, `perioden`.*, `mieter`.*
-        FROM `mietEingang` 
-	LEFT JOIN `mietvertrag` ON `mietEingang`.`FK_mietVertragID` = `mietvertrag`.`mietVertragID` 
-	LEFT JOIN `wohnung` ON `mietvertrag`.`FK_wohnungID` = `wohnung`.`wohnungID` 
-	LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID` 
-	LEFT JOIN `perioden` ON `mietEingang`.`FK_periode` = `perioden`.`periodID` 
-	LEFT JOIN `mieter` ON `mietvertrag`.`FK_mieterID` = `mieter`.`mieterID` ORDER BY jahr, FK_periode, name;";
-
-
-            $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
-            ?>
             <h1>Mietzahlungen verwalten</h1>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Mieter</th>
-                        <th>Immobilie</th>
-                        <th>Wohnung</th>
-                        <th>Zahlungsdatum</th>
-                        <th>Miete-Betrag</th>
-                        <th>NK-Betrag</th>
-                        <th>Periode</th>
-                        <th>Jahr</th>
-
-                        <th colspan="2">Action</th>
-                    </tr>
-                </thead>
-
-                <?php
-                
-                while ($row = mysqli_fetch_array($res)) {
-                    $zahldatalt = strtotime($row['datum']);
-                    $zahldatum = date("d.m.Y", $zahldatalt);
-                    ?>
-                    <tr>
-                        <td><?php echo $row['vorname'] . " " . $row['name']; ?></td>
-                        <td><?php echo $row['bezeichnung']; ?></td>
-                        <td><?php echo $row['wohnungsNummer']; ?></td>
-                        <td><?php echo $zahldatum; ?></td>
-                        <td><?php echo $row['mietBetrag']; ?></td>
-                        <td><?php echo $row['nkBetrag']; ?></td>
-                        <td><?php echo $row['periodeKurz']; ?></td>
-                        <td><?php echo $row['jahr']; ?></td>
-
-                        <td>
-                            <a href="mietzahlung.php?edit= <?php echo $row['mietEingangID']; ?>" class="edit_btn" >Ändern</a>
-                        </td>
-                        <td>
-                            <a href="mietzahlungDB.php?del=<?php echo $row['mietEingangID']; ?>" class="del_btn">Löschen</a>
-                        </td>
-                    </tr>
-                    </tr>
-                <?php }
+            <?php
+            if (isset($_SESSION['message'])):
                 ?>
+                <div class="msg">
+                    <?php
+                    echo $_SESSION['message'];
+                    unset($_SESSION['message']);
+                    ?>
+                </div>
+            <?php endif ?>
+            <?php
+            $abfrageHaus = "SELECT DISTINCT hausID, bezeichnung FROM haus INNER JOIN wohnung ON `wohnung`.`FK_hausID` = `haus`.`hausID` ORDER BY bezeichnung";
+            $resHaus = mysqli_query($link, $abfrageHaus) or die("Haus error");
+            while ($rowHaus = mysqli_fetch_array($resHaus)) {
+                $hID = $rowHaus['hausID'];
+
+                $abfrage = "SELECT `mietEingang`.*, `mietvertrag`.*, `wohnung`.*, `haus`.*, `perioden`.*, `mieter`.*
+            FROM `mietEingang` 
+            LEFT JOIN `mietvertrag` ON `mietEingang`.`FK_mietVertragID` = `mietvertrag`.`mietVertragID` 
+            LEFT JOIN `wohnung` ON `mietvertrag`.`FK_wohnungID` = `wohnung`.`wohnungID` 
+            LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID` 
+            LEFT JOIN `perioden` ON `mietEingang`.`FK_periode` = `perioden`.`periodID` 
+            LEFT JOIN `mieter` ON `mietvertrag`.`FK_mieterID` = `mieter`.`mieterID` WHERE `wohnung`.`FK_hausID` = $hID ORDER BY jahr, FK_periode, name ;";
+
+
+                $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
+                ?>
+
+
+                <table>
+                    <thead>
+                        <tr> <th> <?php echo $rowHaus['bezeichnung']; ?></th> </tr>
+                        <tr>
+                            <th>Mieter</th>
+                            <th>Wohnung</th>
+                            <th>Zahlungsdatum</th>
+                            <th>Miete-Betrag</th>
+                            <th>NK-Betrag</th>
+                            <th>Periode</th>
+                            <th>Jahr</th>
+
+                            <th colspan="2">Action</th>
+                        </tr>
+                    </thead>
+
+                    <?php
+                    while ($row = mysqli_fetch_array($res)) {
+                        $zahldatalt = strtotime($row['datum']);
+                        $zahldatum = date("d.m.Y", $zahldatalt);
+                        ?>
+                        <tr>
+                            <td><?php echo $row['name'] . " " . $row['vorname']; ?></td>
+                            <td><?php echo $row['wohnungsNummer']; ?></td>
+                            <td><?php echo $zahldatum; ?></td>
+                            <td><?php echo $row['mietBetrag']; ?></td>
+                            <td><?php echo $row['nkBetrag']; ?></td>
+                            <td><?php echo $row['periodeKurz']; ?></td>
+                            <td><?php echo $row['jahr']; ?></td>
+
+                            <td>
+                                <a href="mietzahlung.php?edit= <?php echo $row['mietEingangID']; ?>" class="edit_btn" >Ändern</a>
+                            </td>
+                            <td>
+                                <a href="mietzahlungDB.php?del=<?php echo $row['mietEingangID']; ?>" class="del_btn">Löschen</a>
+                            </td>
+                        </tr>
+                        </tr>
+                    <?php } ?>
+                    <br>
+                <?php } ?>
             </table>
 
 

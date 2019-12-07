@@ -1,5 +1,4 @@
 <?php
-
 include 'topbar.inc.php';
 include 'loginCheck.inc.php';
 ?>
@@ -15,83 +14,88 @@ include 'loginCheck.inc.php';
 
     <body>
         <div class="pagecontent">
-        <?php
-        include('mietvertragDB.php');
+
+            <h1>Mietverträge verwalten</h1>
+            <?php
+            include('mietvertragDB.php');
 
 
-        if (isset($_SESSION['message'])):
-            ?>
-            <div class="msg">
-                <?php
-                echo $_SESSION['message'];
-                unset($_SESSION['message']);
+            if (isset($_SESSION['message'])):
                 ?>
-            </div>
-        <?php endif ?>
+                <div class="msg">
+                    <?php
+                    echo $_SESSION['message'];
+                    unset($_SESSION['message']);
+                    ?>
+                </div>
+            <?php endif ?>
 
-        <?php
-        $abfrage = "SELECT `mietvertrag`.`mietVertragID`, `mietvertrag`.`mietbeginn`, `mietvertrag`.`mietende`, `mietvertrag`.`mietzins_mtl`, `mietvertrag`.`nebenkosten_mtl`,  `mieter`.`name` AS `Mieter`, `haus`.`bezeichnung` AS `Immobilie`,`wohnung`.`wohnungsNummer`
+            <?php
+            $abfrageHaus = "SELECT DISTINCT hausID, bezeichnung FROM haus INNER JOIN wohnung ON `wohnung`.`FK_hausID` = `haus`.`hausID` ORDER BY bezeichnung";
+            $resHaus = mysqli_query($link, $abfrageHaus) or die("Abfrage hat nicht geklappt");
+            while ($rowHaus = mysqli_fetch_array($resHaus)) {
+                $hID = $rowHaus['hausID'];
+
+                $abfrage = "SELECT `mietvertrag`.`mietVertragID`, `mietvertrag`.`mietbeginn`, `mietvertrag`.`mietende`, `mietvertrag`.`mietzins_mtl`, `mietvertrag`.`nebenkosten_mtl`,  `mieter`.`name`,`mieter`.`vorname` , `haus`.`bezeichnung` AS `Immobilie`,`wohnung`.`wohnungsNummer`
         FROM `mietvertrag` 
 	LEFT JOIN `wohnung` ON `mietvertrag`.`FK_wohnungID` = `wohnung`.`wohnungID` 
 	LEFT JOIN `mieter` ON `mietvertrag`.`FK_mieterID` = `mieter`.`mieterID` 
-	LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID` ORDER BY `haus`.`bezeichnung`, `wohnung`.`wohnungID`, `mietvertrag`.`mietbeginn`;";
- 
-        $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
-        ?>
-        
-            <h1>Mietverträge verwalten</h1>
+	LEFT JOIN `haus` ON `wohnung`.`FK_hausID` = `haus`.`hausID`
+        WHERE `wohnung`.`FK_hausID` = $hID ORDER BY `haus`.`bezeichnung`, `wohnung`.`wohnungsNummer`, `mietvertrag`.`mietbeginn`;";
 
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Mieter</th>
-                        <th>Immobilie</th>
-                        <th>Wohnung</th>
-                        <th>Mietbeginn</th>
-                        <th>Mietende</th>
-                        <th>Mietzins / Monat</th>
-                        <th>Nebenkosten / Monat</th>
-
-                        <th colspan="2">Action</th>
-                    </tr>
-                </thead>
-
-                <?php
-                while ($row = mysqli_fetch_array($res)) {
-                    $mbalt = strtotime($row['mietbeginn']);
-                    $mbdatum = date("d.m.Y", $mbalt);
-                    $mealt = strtotime($row['mietende']);
-                    $medatum = date("d.m.Y", $mealt);
-                    if ($medatum == '01.01.1970') {
-                        $medatum = '';
-                    }
-                    ?>
-                    <tr>
-                        <td><?php echo $row['Mieter']; ?></td>
-                        <td><?php echo $row['Immobilie']; ?></td>
-                        <td><?php echo $row['wohnungsNummer']; ?></td>
-                        <td><?php echo $mbdatum; ?></td>
-                        <td><?php echo $medatum; ?></td>
-                        <td><?php echo $row['mietzins_mtl']; ?></td>
-                        <td><?php echo $row['nebenkosten_mtl']; ?></td>
-
-                        <td>
-                            <a href="mietvertrag.php?edit= <?php echo $row['mietVertragID']; ?>" class="edit_btn" >Ändern</a>
-                        </td>
-                        <td>
-                            <?php
-                            $mietvertrag_id = $row['mietVertragID'];
-                            $abfrage_mieteingang = "SELECT count(*) AS mieteingaenge FROM mietEingang WHERE FK_mietVertragID=$mietvertrag_id";
-                            $res_mieteingaenge = mysqli_query($link, $abfrage_mieteingang) or die("Abfrage hat nicht geklappt");
-                            $has_mieteingaenge = (int) current(mysqli_fetch_array($res_mieteingaenge)) > 0;
-                            ?>
-                            <a href="mietvertragDB.php?del=<?php echo $row['mietVertragID']; ?>" class="del_btn <?php if ($has_mieteingaenge) echo "disabled" ?>" >Löschen</a>
-                        </td>
-                    </tr>
-                    </tr>
-                <?php }
+                $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
                 ?>
+                <table>
+                    <thead>
+                        <tr> <th> <?php echo $rowHaus['bezeichnung']; ?></th> </tr>
+
+                        <tr>
+                            <th>Mieter</th>
+                            <th>Wohnung</th>
+                            <th>Mietbeginn</th>
+                            <th>Mietende</th>
+                            <th>Mietzins / Monat</th>
+                            <th>Nebenkosten / Monat</th>
+
+                            <th colspan="2">Action</th>
+                        </tr>
+                    </thead>
+
+                    <?php
+                    while ($row = mysqli_fetch_array($res)) {
+                        $mbalt = strtotime($row['mietbeginn']);
+                        $mbdatum = date("d.m.Y", $mbalt);
+                        $mealt = strtotime($row['mietende']);
+                        $medatum = date("d.m.Y", $mealt);
+                        if ($medatum == '01.01.1970') {
+                            $medatum = '';
+                        }
+                        ?>
+                        <tr>
+                            <td><?php echo $row['name'] . " " . $row['vorname']; ?></td>
+                            <td><?php echo $row['wohnungsNummer']; ?></td>
+                            <td><?php echo $mbdatum; ?></td>
+                            <td><?php echo $medatum; ?></td>
+                            <td><?php echo $row['mietzins_mtl']; ?></td>
+                            <td><?php echo $row['nebenkosten_mtl']; ?></td>
+
+                            <td>
+                                <a href="mietvertrag.php?edit= <?php echo $row['mietVertragID']; ?>" class="edit_btn" >Ändern</a>
+                            </td>
+                            <td>
+                                <?php
+                                $mietvertrag_id = $row['mietVertragID'];
+                                $abfrage_mieteingang = "SELECT count(*) AS mieteingaenge FROM mietEingang WHERE FK_mietVertragID=$mietvertrag_id";
+                                $res_mieteingaenge = mysqli_query($link, $abfrage_mieteingang) or die("Abfrage hat nicht geklappt");
+                                $has_mieteingaenge = (int) current(mysqli_fetch_array($res_mieteingaenge)) > 0;
+                                ?>
+                                <a href="mietvertragDB.php?del=<?php echo $row['mietVertragID']; ?>" class="del_btn <?php if ($has_mieteingaenge) echo "disabled" ?>" >Löschen</a>
+                            </td>
+                        </tr>
+                        </tr>
+                    <?php } ?>
+                    <br>
+                <?php } ?>
             </table>
 
 

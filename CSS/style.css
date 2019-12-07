@@ -31,7 +31,7 @@ h1, h2 {
     padding: 10px;
 }
 .report table{
-    margin-left: 40px;
+    margin-left: 5px;
 }
 .report h2{
     margin-left: 40px;
@@ -45,7 +45,7 @@ h1, h2 {
 }
 table{
     
-    width: auto;
+    width: 100%;
     margin: 0px auto;
     border-collapse: collapse;
     text-align: left;
@@ -94,6 +94,16 @@ form {
 .input-group select {
     height: 30px;
     width: 98%;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+.filter input {
+    float:  inside;
+    height: 20px;
+    width:  150px;
     padding: 5px 10px;
     font-size: 16px;
     border-radius: 5px;

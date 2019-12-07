@@ -25,7 +25,6 @@ include 'loginCheck.inc.php';
                 </div>
             <?php endif ?>
             <h1>Wohnungen verwalten</h1>
-
             <?php
             $abfrageHaus = "SELECT DISTINCT hausID, bezeichnung FROM haus INNER JOIN wohnung ON `wohnung`.`FK_hausID` = `haus`.`hausID` ORDER BY bezeichnung";
             $resHaus = mysqli_query($link, $abfrageHaus) or die("Abfrage hat nicht geklappt");
@@ -41,14 +40,10 @@ include 'loginCheck.inc.php';
 
                 $res = mysqli_query($link, $abfrage) or die("Abfrage hat nicht geklappt");
                 ?>
-
-
                 <table>
-
                     <thead>
                         <tr> <th> <?php echo $rowHaus['bezeichnung']; ?></th> </tr>
                         <tr>
-
                             <th>Wohnungsnummer</th>
                             <th>Zimmer</th>
                             <th>Fläche</th>
@@ -76,9 +71,9 @@ include 'loginCheck.inc.php';
                                 <a href="wohnungDB.php?del=<?php echo $row['wohnungID']; ?>" class="del_btn <?php if ($has_mietvertraege) echo "disabled" ?>" >Löschen</a>
                             </td>
                         </tr>
-                        <br>
-                    <?php } ?>
 
+                    <?php } ?>
+                    <br>
                 <?php } ?>
             </table>
 
