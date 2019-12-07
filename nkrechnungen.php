@@ -74,7 +74,7 @@ if (isset($_POST['filter'])) {
 
                     <table>
                         <thead>
-                            <tr> <th> <?php echo $rowHaus['bezeichnung']; ?></th> </tr>
+                            <tr> <th> <?php echo $rowHaus['bezeichnung']; ?> <th></th><th></th><th></th><th></th><th></th></tr>
                             <tr>
                                 <th>Rechnungsdatum</th>
                                 <th>Lieferant</th>
@@ -183,7 +183,7 @@ if (isset($_POST['filter'])) {
                     </div>
                     <div class="input-group">
                         <label>Betrag</label>
-                        <input type="number" min="0" name="betrag" required value="<?php echo $betrag; ?>">
+                        <input type="number" min="1" step="0.1" name="betrag" required value="<?php echo $betrag; ?>">
                     </div>
                     <div class="input-group">
 
