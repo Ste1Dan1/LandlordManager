@@ -52,7 +52,6 @@ include 'loginCheck.inc.php';
                             <th>Wohnungsnummer</th>
                             <th>Zimmer</th>
                             <th>Fläche</th>
-                            <th>Haus</th>
                             <th colspan="2">Aktion</th>
                         </tr>
                     </thead>
@@ -62,7 +61,6 @@ include 'loginCheck.inc.php';
                             <td><?php echo $row['wohnungsNummer']; ?></td>
                             <td><?php echo $row['zimmer']; ?></td>
                             <td><?php echo $row['flaeche']; ?></td>
-                            <td><?php echo $row['FK_hausID']; ?></td>
                             <td>
                                 <a href="wohnung.php?edit= <?php echo $row['wohnungID']; ?>" class="edit_btn" >Ändern</a>
                             </td>
@@ -76,9 +74,9 @@ include 'loginCheck.inc.php';
                                 <a href="wohnungDB.php?del=<?php echo $row['wohnungID']; ?>" class="del_btn <?php if ($has_mietvertraege) echo "disabled" ?>" >Löschen</a>
                             </td>
                         </tr>
-                        <br>
                     <?php } ?>
-
+                        
+                        <br>
                 <?php } ?>
             </table>
 
