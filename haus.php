@@ -38,7 +38,7 @@ include 'loginCheck.inc.php';
                         <th>Strasse / Nr.</th>
                         <th>PLZ</th>
                         <th>Ort</th>
-                        <th>Anzahl Wohng.</th>
+                        <th>Anz. Whg.</th>
                         <th>Baujahr</th>
                         <th colspan="2">Action</th>
                     </tr>
