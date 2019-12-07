@@ -112,7 +112,7 @@ include 'loginCheck.inc.php';
                     <label>Mieter</label>
                     <select class="input-group" name="mieter" required>
                         <?php
-                        $sql = mysqli_query($link, "SELECT mieterID, name, vorname FROM mieter");
+                        $sql = mysqli_query($link, "SELECT mieterID, name, vorname FROM mieter ORDER BY name");
 
 
                         //Default Value anzeigen falls nichts ausgewählt

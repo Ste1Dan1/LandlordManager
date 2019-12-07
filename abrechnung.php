@@ -190,7 +190,7 @@ include 'db.inc.php';
 
 
                                 <?php
-                                $abfrage_mieter = "SELECT wohnung.wohnungsNummer, wohnung.flaeche, mieter.mieterID, mieter.vorname, mieter.name,  mietvertrag.mietVertragID, mietvertrag.mietbeginn, mietvertrag.mietende, SUM(nkBetrag)
+                                $abfrage_mieter = "SELECT wohnung.wohnungsNummer, wohnung.flaeche, mieter.mieterID, mieter.vorname, mieter.name,  mietvertrag.mietVertragID, mietvertrag.mietbeginn, mietvertrag.mietende, SUM(nkBetrag) as Summe
                 FROM mietvertrag
 				LEFT JOIN mieter on mieter.mieterID = mietvertrag.FK_mieterID
 				LEFT JOIN wohnung on wohnung.wohnungID = mietvertrag.FK_wohnungID
@@ -285,7 +285,7 @@ include 'db.inc.php';
                                                 <td><?php echo $perbeginn . ' - ' . $perende; ?></td>
                                                 <td><?php echo $anzahlmte->m + 1; ?></td>
                                                 <td><?php echo number_format($anteilmieter, 2); ?></td>
-                                                <td><?php echo $bezahlt; ?></td>
+                                                <td><?php echo number_format($bezahlt,2); ?></td>
                                                 <td><?php echo number_format($offen, 2); ?></td> 
                                                 <th class = "print-no"><a href="abrechnung_mieter_pdf.php?mietvertragID=<?php echo $mietvertragID ?>&von=<?php echo $perbeginn ?>&bis=<?php echo $perende ?> "target="_blank" style="color:#6D9F00;text-decoration:none;" title="PDF anzeigen">
                                                         <img style="border:none;-webkit-box-shadow:none;box-shadow:none;

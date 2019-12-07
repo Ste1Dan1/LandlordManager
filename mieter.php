@@ -82,7 +82,6 @@ include 'loginCheck.inc.php';
                     <label>Anrede</label>
                     <input type="radio" name="anrede" id="anrede-herr" value="Herr" required <?php echo $anrede == "Herr" ? 'checked' : ""; ?>><label for="anrede-herr">Herr</label>
                     <input type="radio" name="anrede" id="anrede-frau" value="Frau" <?php echo $anrede == "Frau" ? 'checked' : ""; ?>><label for="anrede-frau">Frau</label>
-                    <input type="radio" name="anrede" id="anrede-neutral" value="Neutral" <?php echo $anrede == "Neutral" ? 'checked' : ""; ?>><label for="anrede-neutral">Neutral</label>
                 </div>
 
                 <div class="input-group">
