@@ -1,6 +1,6 @@
 <?php
-include 'topbar.inc.php';
-include 'loginCheck.inc.php';
+//include 'topbar.inc.php';
+//include 'loginCheck.inc.php';
 ?>
 <html>
     <head>
@@ -14,43 +14,14 @@ include 'loginCheck.inc.php';
 
     <body>
         <div class="report">
-            <div class ="print-no">
-
-            </div>
 
             <h1>Kontrolle der Mietzahlungen</h1>
-
-
-            <!-- Plugin für PDF-Druck, E-Mail, Druck von https://www.printfriendly.com/button-->
-            <script>var pfHeaderImgUrl = '';
-                var pfHeaderTagline = '';
-                var pfdisableClickToDel = 1;
-                var pfHideImages = 0;
-                var pfImageDisplayStyle = 'right';
-                var pfDisablePDF = 0;
-                var pfDisableEmail = 1;
-                var pfDisablePrint = 0;
-                var pfCustomCSS = './CSS/style.css';
-                var pfBtVersion = '2';
-                (function () {
-                    var js, pf;
-                    pf = document.createElement('script');
-                    pf.type = 'text/javascript';
-                    pf.src = '//cdn.printfriendly.com/printfriendly.js';
-                    document.getElementsByTagName('head')[0].appendChild(pf)
-                })();
-            </script><a href="https://www.printfriendly.com" style="color:#6D9F00;text-decoration:none;
-                        " class="printfriendly" onclick="window.print();
-                            return false;" title="Druck oder PDF auslösen">
-                <img style="border:none;-webkit-box-shadow:none;box-shadow:none;
-                     " src='Images/Icon_Print_PDF.png'
-                     alt="Druck oder PDF auslösen"/></a>
 
             <?php
             $abfrage_jahr = "SELECT DISTINCT YEAR(datum) as jahr FROM mietEingang ORDER BY jahr;";
             $res_jahr = mysqli_query($link, $abfrage_jahr) or die("Abfrage Jahr hat nicht geklappt");
             ?>
-            <form name ="jahrauswahl" method="post" class="print-no">
+            <form name ="jahrauswahl" method="post">
                 <select class="input-group" name="jahr" required>
             <?php
             $sql = mysqli_query($link, $abfrage_jahr);
@@ -107,6 +78,7 @@ if (isset($_POST['show'])) {
                     AND mietvertrag.FK_wohnungID = wohnung.wohnungID
                     AND mietVertragID NOT IN (SELECT mietEingang.mietEingangID FROM mietEingang WHERE mietEingang.FK_periode=$monatID) ORDER BY name;";
         $res_kontrolle = mysqli_query($link, $abfrage_kontrolle) or die("Abfrage Zahlungen hat nicht geklappt");
+
         ?>
 
                     <h2 class="pf-title">Fehlende Mietzahlungen für <?php echo $monatName ?></h2>
@@ -123,6 +95,14 @@ if (isset($_POST['show'])) {
                         </thead>
         <?php
         while ($table = mysqli_fetch_array($res_kontrolle)) {
+                        
+            $datalt = strtotime($table['mietbeginn']);
+            $mietbeginn = date("d.m.Y", $datalt);
+            
+            $datalt2 = strtotime($table['mietende']);
+            $mietende = date("d.m.Y", $datalt2);
+            
+            
             ?> 
 
                             <tr>
@@ -130,8 +110,8 @@ if (isset($_POST['show'])) {
                                 <td><?php echo $table['wohnungsNummer']; ?></td>
                                 <td><?php echo $table['mietzins_mtl']; ?></td>
                                 <td><?php echo $table['nebenkosten_mtl']; ?></td>
-                                <td><?php echo $table['mietbeginn']; ?></td>
-                                <td><?php echo $table['mietende']; ?></td>
+                                <td><?php echo $mietbeginn; ?></td>
+                                <td><?php echo $mietende; ?></td>
 
 
                             </tr>
