@@ -180,7 +180,7 @@ include('nkrechnungenDB.php');
                 </div>
                 <div class="input-group">
                     <label>Betrag</label>
-                    <input type="number" min="0" name="betrag" required value="<?php echo $betrag; ?>">
+                    <input type="number" min="0" step="0.1" name="betrag" required value="<?php echo $betrag; ?>">
                 </div>
                 <div class="input-group">
 
