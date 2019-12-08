@@ -71,7 +71,7 @@ include('nkrechnungenDB.php');
 
                     <table>
                         <thead>
-                            <tr> <th> <?php echo $rowHaus['bezeichnung']; ?> <th></th><th></th><th></th><th></th><th></th></tr>
+                            <tr> <th> <?php echo $rowHaus['bezeichnung']; ?> </th></tr>
                             <tr>
                                 <th>Rechnungsdatum</th>
                                 <th>Lieferant</th>
