@@ -45,18 +45,18 @@ include 'loginCheck.inc.php';
                         <tr> <th> <?php echo $rowHaus['bezeichnung']; ?></th> </tr>
                         <tr>
                             <th>Wohnungsnummer</th>
-                            <th>Zimmer</th>
-                            <th>Fläche</th>
-                            <th colspan="2">Aktion</th>
+                            <th style="text-align: right">Zimmer</th>
+                            <th style="text-align: right">Fläche</th>
+                            <th colspan="2" style="text-align: center">Aktion</th>
                         </tr>
                     </thead>
 
                     <?php while ($row = mysqli_fetch_array($res)) { ?>
                         <tr>
-                            <td><?php echo $row['wohnungsNummer']; ?></td>
-                            <td><?php echo $row['zimmer']; ?></td>
-                            <td><?php echo $row['flaeche']; ?></td>
-                            <td>
+                            <td style="text-align: right"><?php echo $row['wohnungsNummer']; ?></td>
+                            <td style="text-align: right"><?php echo $row['zimmer']; ?></td>
+                            <td style="text-align: right"><?php echo $row['flaeche']; ?></td>
+                            <td style="text-align: right">
                                 <a href="wohnung.php?edit= <?php echo $row['wohnungID']; ?>" class="edit_btn" >Ändern</a>
                             </td>
                             <td>

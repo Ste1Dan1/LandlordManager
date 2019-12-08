@@ -56,8 +56,8 @@ include('mietzahlungDB.php');
                             <th>Mieter</th>
                             <th>Wohnung</th>
                             <th>Zahlungsdatum</th>
-                            <th>Miete-Betrag</th>
-                            <th>NK-Betrag</th>
+                            <th  style="text-align: right">Miete-Betrag</th>
+                            <th  style="text-align: right">NK-Betrag</th>
                             <th>Periode</th>
                             <th>Jahr</th>
 
@@ -74,9 +74,9 @@ include('mietzahlungDB.php');
                             <td><?php echo $row['name'] . " " . $row['vorname']; ?></td>
                             <td><?php echo $row['wohnungsNummer']; ?></td>
                             <td><?php echo $zahldatum; ?></td>
-                            <td><?php echo $row['mietBetrag']; ?></td>
-                            <td><?php echo $row['nkBetrag']; ?></td>
-                            <td><?php echo $row['periodeKurz']; ?></td>
+                            <td style="text-align: right"><?php echo $row['mietBetrag']; ?></td>
+                            <td style="text-align: right"><?php echo $row['nkBetrag']; ?></td>
+                            <td style="text-align: center"><?php echo $row['periodeKurz']; ?></td>
                             <td><?php echo $row['jahr']; ?></td>
 
                             <td>

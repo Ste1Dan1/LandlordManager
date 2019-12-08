@@ -77,7 +77,7 @@ include('nkrechnungenDB.php');
                                 <th>Lieferant</th>
                                 <th>Kostenkategorie</th>
                                 <th>Beschreibung</th>
-                                <th>Betrag</th>
+                                <th style="text-align: right">Betrag</th>
                                 <th colspan="2">Action</th>
                             </tr>
                         </thead>
@@ -92,7 +92,7 @@ include('nkrechnungenDB.php');
                                 <td><?php echo $row['name']; ?></td>
                                 <td><?php echo $row['abrechnung']; ?></td>
                                 <td><?php echo $row['beschreibung']; ?></td>
-                                <td><?php echo $row['betrag']; ?></td>
+                                <td style="text-align: right"><?php echo $row['betrag']; ?></td>
                                 <td>
                                     <a href="nkrechnungen.php?edit= <?php echo $row['nkRechnungID']; ?>" class="edit_btn" >Ändern</a>
                                 </td>

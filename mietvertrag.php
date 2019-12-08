@@ -54,8 +54,8 @@ include 'loginCheck.inc.php';
                             <th>Wohnung</th>
                             <th>Mietbeginn</th>
                             <th>Mietende</th>
-                            <th>Mietzins</th>
-                            <th>Nebenkosten</th>
+                            <th style="text-align: right">Mietzins</th>
+                            <th style="text-align: right">Nebenkosten</th>
 
                             <th colspan="2">Action</th>
                         </tr>
@@ -76,8 +76,8 @@ include 'loginCheck.inc.php';
                             <td><?php echo $row['wohnungsNummer']; ?></td>
                             <td><?php echo $mbdatum; ?></td>
                             <td><?php echo $medatum; ?></td>
-                            <td><?php echo $row['mietzins_mtl']; ?></td>
-                            <td><?php echo $row['nebenkosten_mtl']; ?></td>
+                            <td style="text-align: right"><?php echo $row['mietzins_mtl']; ?></td>
+                            <td style="text-align: right"><?php echo $row['nebenkosten_mtl']; ?></td>
 
                             <td>
                                 <a href="mietvertrag.php?edit= <?php echo $row['mietVertragID']; ?>" class="edit_btn" >Ändern</a>
