@@ -54,8 +54,8 @@ include 'loginCheck.inc.php';
                             <th>Wohnung</th>
                             <th>Mietbeginn</th>
                             <th>Mietende</th>
-                            <th>Mietzins / Monat</th>
-                            <th>Nebenkosten / Monat</th>
+                            <th>Mietzins</th>
+                            <th>Nebenkosten</th>
 
                             <th colspan="2">Action</th>
                         </tr>

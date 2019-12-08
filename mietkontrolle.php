@@ -23,30 +23,30 @@ include 'loginCheck.inc.php';
             ?>
             <form name ="jahrauswahl" method="post">
                 <select class="input-group" name="jahr" required>
-            <?php
-            $sql = mysqli_query($link, $abfrage_jahr);
+                    <?php
+                    $sql = mysqli_query($link, $abfrage_jahr);
 
 
-            //Default Value anzeigen falls nichts ausgewählt
-            if ($jahr == NULL) {
-                echo '<option value="" disabled selected>Select your option</option>';
-            } else {
-                echo '<option value="" disabled>Select your option</option>';
-            }
+                    //Default Value anzeigen falls nichts ausgewählt
+                    if ($jahr == NULL) {
+                        echo '<option value="" disabled selected>Select your option</option>';
+                    } else {
+                        echo '<option value="" disabled>Select your option</option>';
+                    }
 
-            //Werte auflisten
-            while ($row = $sql->fetch_assoc()) {
+                    //Werte auflisten
+                    while ($row = $sql->fetch_assoc()) {
 
-                $select_attribute = "";
+                        $select_attribute = "";
 
-                if ($row['jahr'] == $jahr) {
-                    $select_attribute = 'selected';
-                    echo "<option value=" . $row['jahr'] . " selected = " . $select_attribute . ">" . $row['jahr'] . "</option>";
-                } else {
-                    echo "<option value=" . $row['jahr'] . ">" . $row['jahr'] . "</option>";
-                }
-            }
-            ?>
+                        if ($row['jahr'] == $jahr) {
+                            $select_attribute = 'selected';
+                            echo "<option value=" . $row['jahr'] . " selected = " . $select_attribute . ">" . $row['jahr'] . "</option>";
+                        } else {
+                            echo "<option value=" . $row['jahr'] . ">" . $row['jahr'] . "</option>";
+                        }
+                    }
+                    ?>
 
                 </select>
                 <!-- TODO: Obere Optionen noch so formulieren wie hier unten, damit ausgewähltes Jahr im Dropdown stehen bleibt -->   
@@ -57,31 +57,30 @@ include 'loginCheck.inc.php';
 
             </form>
 
-<?php
-if (isset($_POST['show'])) {
-    $jahr = $_POST['jahr'];
+            <?php
+            if (isset($_POST['show'])) {
+                $jahr = $_POST['jahr'];
 
-    $abfrage_monat = "SELECT * FROM perioden";
-    $res_monat = mysqli_query($link, $abfrage_monat) or die("Abfrage Monate hat nicht geklappt");
+                $abfrage_monat = "SELECT * FROM perioden";
+                $res_monat = mysqli_query($link, $abfrage_monat) or die("Abfrage Monate hat nicht geklappt");
 
-    while ($monatrow = mysqli_fetch_array($res_monat)) {
-        $monatID = $monatrow['periodID'];
-        $monatName = $monatrow['periodeLang'];
-        $periodenbeginn = DATE($jahr . '-' . $monatID . '-01');
-        $periodenende = DATE($jahr . '-' . $monatID . '-28');
+                while ($monatrow = mysqli_fetch_array($res_monat)) {
+                    $monatID = $monatrow['periodID'];
+                    $monatName = $monatrow['periodeLang'];
+                    $periodenbeginn = DATE($jahr . '-' . $monatID . '-01');
+                    $periodenende = DATE($jahr . '-' . $monatID . '-28');
 
-        // Abfrage funktioniert noch nicht richtig, Daten (Zeile 2, 3) werden nicht korrekt verglichen              
-        $abfrage_kontrolle = "SELECT * FROM mietvertrag, mieter, wohnung WHERE 
+                    // Abfrage funktioniert noch nicht richtig, Daten (Zeile 2, 3) werden nicht korrekt verglichen              
+                    $abfrage_kontrolle = "SELECT * FROM mietvertrag, mieter, wohnung WHERE 
                     mietbeginn <= '$periodenbeginn' 
                     AND (mietende >= '$periodenende' OR mietende IS NULL)
                     AND mietvertrag.FK_mieterID = mieter.MieterID
                     AND mietvertrag.FK_wohnungID = wohnung.wohnungID
                     AND mietVertragID NOT IN (SELECT mietEingang.mietEingangID FROM mietEingang WHERE mietEingang.FK_periode=$monatID) ORDER BY name;";
-        $res_kontrolle = mysqli_query($link, $abfrage_kontrolle) or die("Abfrage Zahlungen hat nicht geklappt");
+                    $res_kontrolle = mysqli_query($link, $abfrage_kontrolle) or die("Abfrage Zahlungen hat nicht geklappt");
+                    ?>
 
-        ?>
-
-                    <h2 class="pf-title">Fehlende Mietzahlungen für <?php echo $monatName ?></h2>
+                    <h2 class="pf-title">Fehlende Mietzahlungen für <?php echo $monatName." ".$jahr ?></h2>
                     <table>
                         <thead>
                             <tr>
@@ -93,17 +92,18 @@ if (isset($_POST['show'])) {
                                 <th>Mietende</th>                        
                             </tr>
                         </thead>
-        <?php
-        while ($table = mysqli_fetch_array($res_kontrolle)) {
-                        
-            $datalt = strtotime($table['mietbeginn']);
-            $mietbeginn = date("d.m.Y", $datalt);
-            
-            $datalt2 = strtotime($table['mietende']);
-            $mietende = date("d.m.Y", $datalt2);
-            
-            
-            ?> 
+                        <?php
+                        while ($table = mysqli_fetch_array($res_kontrolle)) {
+
+                            $datalt = strtotime($table['mietbeginn']);
+                            $mietbeginn = date("d.m.Y", $datalt);
+
+                            $datalt2 = strtotime($table['mietende']);
+                            $mietende = date("d.m.Y", $datalt2);
+                            if ($mietende == '01.01.1970') {
+                            $mietende = '';
+                        }
+                            ?> 
 
                             <tr>
                                 <td><?php echo $table['vorname'] . ' ' . $table['name']; ?></td>
@@ -131,7 +131,7 @@ if (isset($_POST['show'])) {
     </body>
 
 
-            <?php
-            include 'footer.inc.php';
-            ?>
+<?php
+include 'footer.inc.php';
+?>
 </html>
