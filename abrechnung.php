@@ -147,7 +147,7 @@ include 'db.inc.php';
                                         <th>Kostenkategorie</th>
                                         <th>Summe</th>
                                         <th>Abrechnung</th>
-                                        <th>Anteil</th>
+                                        <th>Anteil*</th>
 
 
                                         <th></th>
@@ -186,7 +186,9 @@ include 'db.inc.php';
                                     <?php }
                                     ?>
                                 </table> 
-                                <br>
+                        <p>* Anteil Wohneinheit: Pro Monat, Pro Wohnung <br>* Anteil Wohnfläche: Pro Monat, pro Quadratmeter Ihrer Wohnung </p>
+
+                        <br>
 
 
                                 <?php
