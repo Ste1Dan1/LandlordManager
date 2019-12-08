@@ -69,7 +69,8 @@ ORDER BY wohnung.wohnungsNummer;";
                 $today = date('d.m.Y');
                 
                 $fehler_kat = 'Keine Kategorien erfasst';
-
+                $von = $_GET['von'];   
+                $bis = $_GET['bis'];
         
 
 $html = $vorname.' '.$name.'<br>'
@@ -80,7 +81,7 @@ $html = $vorname.' '.$name.'<br>'
         
         <h2>Nebenkostenabrechnung</h2>
 
-        <p>Abrechnung für die Periode vom '.$perbeginn.' bis '.$perende.' ('.$anzahlmte.' Monate)<br>'.
+        <p>Abrechnung für die Periode vom '.$von.' bis '.$bis.' ('.$anzahlmte.' Monate)<br>'.
         'Wohnung '.$whgnr.', Fläche '.$flaechewhg.' m2 / Haus '.
         $hausbezeichnung.', Hausfläche '.$hausflaeche.' m2, '.$anzwhg.' Wohnungen</p>
         
@@ -98,12 +99,12 @@ $html = $vorname.' '.$name.'<br>'
                     ?>
         
                    <table><tr>
-                        <th>Kostenkategorie</th>
-                        <th>Gesamt</th>
-                        <th>Abrechnung</th>
-                        <th>Anteil</th>
-                        <th>Gesamt</th>
-                        <th>Zeitraum</th>
+                        <th><strong>Kostenkat.</strong></th>
+                        <th><strong>Gesamt</strong></th>
+                        <th><strong>Abrechnung</strong></th>
+                        <th><strong>Anteil</strong></th>
+                        <th><strong>Gesamt</strong></th>
+                        <th><strong>Zeitraum</strong></th>
                     </tr>';
                     
 

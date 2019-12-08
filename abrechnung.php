@@ -209,11 +209,11 @@ include 'db.inc.php';
                                         <tr>
                                             <th><?php echo 'Wohnung'; ?></th>
                                             <th><?php echo 'Mieter'; ?></th>
-                                            <th><?php echo 'Zahlperiode' ?></th>
-                                            <th><?php echo 'Mte.'; ?></th>
-                                            <th><?php echo 'Anteil'; ?></th>
-                                            <th><?php echo 'Bezahlt'; ?></th>                        
-                                            <th><?php echo 'Offen'; ?></th>    
+                                            <th><?php echo 'Zahlperiode / Anz. Mte.' ?></th>
+<!--                                        <th><?php //echo 'Mte.'; ?></th>
+                                            <th><?php //echo 'Anteil'; ?></th>
+                                            <th><?php //echo 'Bezahlt'; ?></th>                        
+                                            <th><?php //echo 'Offen'; ?></th>    -->
                                             <th></th>
                                         </tr>
                                         <?php
@@ -270,9 +270,9 @@ include 'db.inc.php';
                                             $anteilmieter = (($anzahlmte->m + 1) * $summeanteilwhg) + (($anzahlmte->m + 1) * $flaechewhg * $summeanteilfl);
                                             $summeanteil += $anteilmieter;
 
-                                            $bezahlt = $mietertable['Summe'];
-                                            $offen = $anteilmieter - $bezahlt;
-                                            $offenmieter += $offen;
+//                                            $bezahlt = $mietertable['Summe'];
+//                                            $offen = $anteilmieter - $bezahlt;
+//                                            $offenmieter += $offen;
 
                                             $whgnr = $mietertable['wohnungsNummer'];
                                             $mietername = $mietertable['vorname'] . ' ' . $mietertable['name'];
@@ -282,11 +282,11 @@ include 'db.inc.php';
                                             <tr>
                                                 <td><?php echo $whgnr ?></td>
                                                 <td><?php echo $mietername ?></td>
-                                                <td><?php echo $perbeginn . ' - ' . $perende; ?></td>
-                                                <td><?php echo $anzahlmte->m + 1; ?></td>
-                                                <td><?php echo number_format($anteilmieter, 2); ?></td>
-                                                <td><?php echo number_format($bezahlt,2); ?></td>
-                                                <td><?php echo number_format($offen, 2); ?></td> 
+                                                <td><?php echo $perbeginn . ' - ' . $perende.' / '.($anzahlmte->m + 1).' Monate'; ?></td>
+<!--                                                <td><?php //echo $anzahlmte->m + 1; ?></td>-->
+<!--                                                <td><?php //echo number_format($anteilmieter, 2); ?></td>
+                                                <td><?php //echo number_format($bezahlt,2); ?></td>
+                                                <td><?php //echo number_format($offen, 2); ?></td> -->
                                                 <th class = "print-no"><a href="abrechnung_mieter_pdf.php?mietvertragID=<?php echo $mietvertragID ?>&von=<?php echo $perbeginn ?>&bis=<?php echo $perende ?> "target="_blank" style="color:#6D9F00;text-decoration:none;" title="PDF anzeigen">
                                                         <img style="border:none;-webkit-box-shadow:none;box-shadow:none;
                                                              " src='Images/Icon_PDF.png' alt="PDF anzeigen"/></a></th>
@@ -295,32 +295,32 @@ include 'db.inc.php';
                                             <?php
                                         }
 
-                                        $differenz = $summerg - $summeanteil;
-                                        $gewinn = 0;
-                                        $verlust = 0;
-                                        $offenmieter = number_format($offenmieter, 2);
-
-                                        if ($differenz <= 0) {
-                                            $gewinn = number_format((-1 * (round($differenz * 20, 0) / 20)), 2);
-                                            $verlust = '';
-                                        } else {
-                                            $verlust = number_format((round($differenz * 20, 0) / 20), 2);
-                                            $gewinn = '';
-                                        }
-                                        ?>
-                                        <tr></tr><tr>
-                                            <td><strong><?php echo 'Verrechenbar'; ?></strong></td>
-                                            <td><?php echo number_format($summeanteil, 2); ?></td>
-                                            <td><strong><?php echo 'Offen: ' . $offenmieter; ?></strong></td>
+//                                        $differenz = $summerg - $summeanteil;
+//                                        $gewinn = 0;
+//                                        $verlust = 0;
+//                                        $offenmieter = number_format($offenmieter, 2);
+//
+//                                        if ($differenz <= 0) {
+//                                            $gewinn = number_format((-1 * (round($differenz * 20, 0) / 20)), 2);
+//                                            $verlust = '';
+//                                        } else {
+//                                            $verlust = number_format((round($differenz * 20, 0) / 20), 2);
+//                                            $gewinn = '';
+//                                        }
+//                                        ?>
+<!--                                        <tr></tr><tr>
+                                            <td><strong><?php //echo 'Verrechenbar'; ?></strong></td>
+                                            <td><?php //echo number_format($summeanteil, 2); ?></td>
+                                            <td><strong><?php //echo 'Offen: ' . $offenmieter; ?></strong></td>
                                             <td></td><td></td><td></td><td></td><td></td>
                                         </tr>
                                         <tr>
-                                            <td><strong><?php echo 'Verlust'; ?></strong></td>
-                                            <td><FONT COLOR='#ff4300'><?php echo $verlust; ?></td>
-                                            <td><strong><?php echo 'Gewinn'; ?></strong></td>
-                                            <td><FONT COLOR='#04f014'><?php echo $gewinn; ?></td>
+                                            <td><strong>//<?php //echo 'Verlust'; ?></strong></td>
+                                            <td><FONT COLOR='#ff4300'>//<?php //echo $verlust; ?></td>
+                                            <td><strong>//<?php //echo 'Gewinn'; ?></strong></td>
+                                            <td><FONT COLOR='#04f014'>//<?php //echo $gewinn; ?></td>
                                             <td></td><td></td><td></td><td></td>
-                                        </tr>
+                                        </tr>-->
 
                                         <?php
                                     }
@@ -328,6 +328,7 @@ include 'db.inc.php';
                             }
                             ?>
                         </table>
+                        <br>
                     </section>
                     <?php
                 }
