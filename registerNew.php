@@ -11,12 +11,13 @@ mysqli_select_db($link, $dbname) or die("DB nicht gefunden");
 // Now we check if the data was submitted, isset() function will check if the data exists.
 if (!isset($_POST['email'], $_POST['password'])) {
     // Could not get the data that should have been sent.
-    die('Please complete the registration form!');
+    $_SESSION['messageNEG'] = "Bitte Formular komplett ausfüllen";
+   
 }
 // Make sure the submitted registration values are not empty.
 if (empty($_POST['email']) || empty($_POST['password'])) {
     // One or more values are empty.
-    die('Please complete the registration form');
+    $_SESSION['messageNEG'] = "Bitte Formular komplett ausfüllen";
 }
 
 if ($stmt = $link->prepare('SELECT userID, pwd FROM users WHERE email = ?')) {
@@ -43,7 +44,7 @@ if ($stmt = $link->prepare('SELECT userID, pwd FROM users WHERE email = ?')) {
         } else {
             // Something is wrong with the sql statement, check to make sure accounts table exists with all 3 fields.
 
-            $_SESSION['messagePOS'] = "Es ist etwas schief gegangen...";
+            $_SESSION['messageNEG'] = "Es ist etwas schief gegangen...";
             header('location: register.php');
         }
     }

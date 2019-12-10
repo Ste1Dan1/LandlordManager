@@ -1,8 +1,6 @@
 <?php
-
-include 'topbar.inc.php';
-include 'db.inc.php';
-
+@session_start();
+include('db.inc.php');
 // initialize variables
 $mieter = "";
 $wohnung = "";
@@ -69,7 +67,7 @@ if (isset($_GET['del'])) {
 
     mysqli_query($link, "DELETE FROM mietvertrag WHERE mietVertragID=$id");
 
-    $_SESSION['message'] = "Mietvertrag kann nicht gelöscht werden!" . mysqli_error($link);
+    $_SESSION['message'] = "Mietvertrag gelöscht" . mysqli_error($link);
     header('location: mietvertrag.php');
 }
 

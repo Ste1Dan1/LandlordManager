@@ -1,10 +1,38 @@
-body {
+header {
+  
   font-family: Arial, Helvetica, sans-serif;
+  max-width: 1100px;
+  max-height: 1500px;
+  margin-top: 20px;
+  margin-bottom: 0px;
+  padding: 0;
+  background-color: white;
+
+
+}
+
+.navLogin{
+    padding: 0;
+    margin-top: 0;
+}
+
+.home{
+float: left;
+}
+
+.home img{
+    max-height: 41.5px;
+    background-color:  #333;
+    overflow: hidden;
+    border: #333;
+    border-style: solid;
+    padding-right: 20px;
 }
 
 .navbar {
   overflow: hidden;
   background-color: #333;
+  
 }
 
 .navbar a {
@@ -14,6 +42,10 @@ body {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+}
+
+.navbar-right {
+    float: right;
 }
 
 .dropdown {
@@ -33,7 +65,11 @@ body {
 }
 
 .navbar a:hover, .dropdown:hover .dropbtn {
-  background-color: red;
+  background-color: #3274d6;
+}
+
+.navbar-right {
+    float: right;
 }
 
 .dropdown-content {
@@ -61,3 +97,14 @@ body {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+
+.navLogin{
+  margin-top: 7px;
+  background-color: #787878;
+  font-size: 16px;
+  color: white;
+  text-align: left;
+  padding: 4px 0px 4px 10px;
+}
+

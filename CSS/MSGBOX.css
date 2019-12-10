@@ -1,6 +1,6 @@
 .msgPOS {
 
-    margin: 30px auto; 
+    margin: 0; 
     padding: 10px; 
     border-radius: 5px; 
     color: #3c763d; 
@@ -18,7 +18,7 @@
 
 .msgNEG {
 
-    margin: 30px auto; 
+    margin: 0; 
     padding: 10px; 
     border-radius: 5px; 
     color: #331919; 
@@ -36,7 +36,7 @@
 
 .msg {
 
-    margin: 30px auto; 
+    margin: 0; 
     padding: 10px; 
     border-radius: 5px; 
     color: #331919; 
